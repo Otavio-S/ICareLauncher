@@ -21,7 +21,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".HomeScreen">
+        <activity android:name=".Telas.HomeScreen"
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -32,32 +33,26 @@
         </activity>
 
         <activity
-            android:name=".TelaSOS"
+            android:name=".Telas.TelaSOS"
             android:label="TelaSOS"
-            android:parentActivityName=".HomeScreen">
+            android:parentActivityName=".Telas.HomeScreen">
             <meta-data
                 android:name="android.support.SOS_ACTIVITY"
                 android:value=".TelaSOS" />
         </activity>
 
         <activity
-            android:name=".TelaNotas"
+            android:name=".Telas.TelaNotas"
             android:label="TelaNotas"
-            android:parentActivityName=".HomeScreen">
+            android:parentActivityName=".Telas.HomeScreen">
             <meta-data
                 android:name="android.support.NOTAS_ACTIVITY"
                 android:value=".TelaNotas" />
         </activity>
 
         <activity
-            android:name=".TelaAlarmes"
-            android:label="TelaAlarmes"
-            android:parentActivityName=".HomeScreen">
-            <meta-data
-                android:name="android.support.ALARMES_ACTIVITY"
-                android:value=".TelaAlarmes" />
-        </activity>
-
+            android:name=".Telas.TelaAlarmes"
+            android:theme="@style/ThemeAlarms" />
     </application>
 
 </manifest>

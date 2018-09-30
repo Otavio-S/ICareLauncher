@@ -1,4 +1,4 @@
-package com.example.otavio.tcc;
+package com.example.otavio.tcc.Telas;
 
 import android.Manifest;
 import android.app.Activity;
@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.otavio.tcc.Model.Icone;
+import com.example.otavio.tcc.R;
 import com.example.otavio.tcc.SQLite.TabelaIcones;
 
 import java.text.SimpleDateFormat;

@@ -10,9 +10,25 @@
         <item name="android:windowShowWallpaper">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:colorPrimary">@color/primary_material_dark</item>
     </style>
-    <style name="MyActionBar" parent="android:Theme.Material">
+
+    <style name="MyActionBar" parent="android:Theme.Material.Light">
         <item name="android:background">#966950</item>
+    </style>
+
+    <style name="ThemeAlarms"  parent="android:Theme.Material">
+        <item name="android:actionBarStyle">@style/MyActionBar</item>
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">true</item>
+        <item name="colorPrimary">#966950</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">#FFFFFF</item>
+        <item name="android:windowShowWallpaper">false</item>
+        <item name="android:windowBackground">@color/backgroung_beige</item>
+        <item name="android:statusBarColor">#FF826450</item>
+        <item name="android:elevation">8dp</item>
+        <item name="android:displayOptions">homeAsUp</item>
     </style>
 
 </resources>

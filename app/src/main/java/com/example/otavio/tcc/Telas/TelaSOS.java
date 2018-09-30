@@ -1,4 +1,4 @@
-package com.example.otavio.tcc;
+package com.example.otavio.tcc.Telas;
 
 import android.Manifest;
 import android.app.Activity;
@@ -15,12 +15,14 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.otavio.tcc.R;
+
 import java.io.IOException;
+import java.util.Objects;
 
 public class TelaSOS extends Activity {
 
@@ -211,7 +213,7 @@ public class TelaSOS extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        super.getActionBar().setElevation(8);
+        Objects.requireNonNull(super.getActionBar()).setElevation(8);
         getWindow().setStatusBarColor(Color.rgb(130, 100, 80));
         getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
         setContentView(R.layout.activity_sos);

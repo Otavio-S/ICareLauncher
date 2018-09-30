@@ -3,4 +3,5 @@
     <string name="todo">TODO</string>
     <string name="sos">SOS</string>
     <string name="voltar">Voltar</string>
+    <string name="appbar_scrolling_viewbehavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
 </resources>

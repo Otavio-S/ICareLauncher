@@ -3,4 +3,10 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="primary_material_dark">#966950</color>
+    <color name="primary_dark_material_dark">#ffffff</color>
+    <color name="accent_material_dark">#826450</color>
+    <color name="background_material_dark">#1a1a1a</color>
+    <color name="stats_brown">#966950</color>
+    <color name="backgroung_beige">#ddd3bf</color>
 </resources>
