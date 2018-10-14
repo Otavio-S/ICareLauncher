@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -13,34 +14,30 @@ import com.example.otavio.tcc.R;
 
 import java.util.List;
 
-public class Alarmes_Adapter extends RecyclerView.Adapter<Alarmes_Adapter.ViewHolder> {
+public class Alarmes_Adapter extends RecyclerView.Adapter<Alarmes_Adapter.MyViewHolder> {
 
-    private List<Alarme> alarmeList;
+    Context context;
+    List<Alarme> alarmeList;
 
-    public Alarmes_Adapter(List<Alarme> alarmes) {
-        this.alarmeList = alarmes;
+    public Alarmes_Adapter(Context context, List<Alarme> alarmeList) {
+        this.context = context;
+        this.alarmeList = alarmeList;
     }
 
     @Override
-    public Alarmes_Adapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        Context context = parent.getContext();
-        LayoutInflater inflater = LayoutInflater.from(context);
-
-        View view = inflater.inflate(R.layout.alarmes_adapter, parent, false);
-
-        return new ViewHolder(view);
+    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View v;
+        v = LayoutInflater.from(context).inflate(R.layout.item_alarme, parent, false);
+        MyViewHolder myViewHolder = new MyViewHolder(v);
+        return myViewHolder;
     }
 
     @Override
-    public void onBindViewHolder(Alarmes_Adapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(MyViewHolder holder, int position) {
 
-        Alarme alarme = alarmeList.get(position);
+        holder.nome.setText(alarmeList.get(position).getNome());
+        holder.descicao.setText(alarmeList.get(position).getDescricao());
 
-        TextView txtNome = holder.txtNome;
-        txtNome.setText(alarme.getNome());
-
-        TextView txtDescricao = holder.txtDescricao;
-        txtDescricao.setText(alarme.getDescricao());
     }
 
     @Override
@@ -48,19 +45,22 @@ public class Alarmes_Adapter extends RecyclerView.Adapter<Alarmes_Adapter.ViewHo
         return alarmeList.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView txtNome;
-        TextView txtDescricao;
-        Switch aSwitch;
+        TextView nome;
+        TextView descicao;
+        Switch switchOnOff;
+        ImageButton imageButton;
 
-        ViewHolder(View itemView) {
+
+        public MyViewHolder(View itemView) {
             super(itemView);
-            txtNome = itemView.findViewById(R.id.txtNome);
-            txtDescricao = itemView.findViewById(R.id.txtDescricao);
-            aSwitch = itemView.findViewById(R.id.switchOnOff);
+
+            nome = itemView.findViewById(R.id.nome);
+            descicao = itemView.findViewById(R.id.descricao);
+            switchOnOff = itemView.findViewById(R.id.switchOnOff);
+            imageButton = itemView.findViewById(R.id.iButonDelete);
         }
     }
-
 
 }
