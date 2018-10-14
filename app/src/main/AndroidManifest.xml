@@ -53,6 +53,10 @@
         <activity
             android:name=".Telas.TelaAlarmes"
             android:theme="@style/ThemeAlarms" />
+
+        <activity
+            android:name=".Testes"
+            android:theme="@style/ThemeAlarms" />
     </application>
 
 </manifest>

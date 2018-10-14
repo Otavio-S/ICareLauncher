@@ -22,9 +22,11 @@ import android.widget.Toast;
 import com.example.otavio.tcc.Model.Icone;
 import com.example.otavio.tcc.R;
 import com.example.otavio.tcc.SQLite.TabelaIcones;
+import com.example.otavio.tcc.Testes;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;
+import java.util.Objects;
 
 public class HomeScreen extends Activity {
 
@@ -53,7 +55,7 @@ public class HomeScreen extends Activity {
     private View.OnClickListener btnNotasOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent intentN = new Intent(HomeScreen.this, TelaNotas.class);
+            Intent intentN = new Intent(HomeScreen.this, Testes.class);
             getWindow().setEnterTransition(new Fade());
             startActivity(intentN, ActivityOptions.makeSceneTransitionAnimation(activity).toBundle());
         }
@@ -209,6 +211,8 @@ public class HomeScreen extends Activity {
                     Drawable icone = (pm.getActivityIcon(intent1));
                     btn1.setImageDrawable(icone);
                     btn1.setBackground(null);
+                    btn1.setScaleX((float) 1.5);
+                    btn1.setScaleY((float) 1.5);
                 } catch (PackageManager.NameNotFoundException e) {
 
                 }
@@ -236,6 +240,8 @@ public class HomeScreen extends Activity {
                     Drawable icone = (pm.getActivityIcon(intent2));
                     btn2.setImageDrawable(icone);
                     btn2.setBackground(null);
+                    btn2.setScaleX((float) 1.5);
+                    btn2.setScaleY((float) 1.5);
                 } catch (PackageManager.NameNotFoundException e) {
 
                 }
@@ -263,6 +269,8 @@ public class HomeScreen extends Activity {
                     Drawable icone = (pm.getActivityIcon(intent3));
                     btn3.setImageDrawable(icone);
                     btn3.setBackground(null);
+                    btn3.setScaleX((float) 1.5);
+                    btn3.setScaleY((float) 1.5);
                 } catch (PackageManager.NameNotFoundException e) {
 
                 }
@@ -274,7 +282,7 @@ public class HomeScreen extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        super.getActionBar().hide();
+        Objects.requireNonNull(super.getActionBar()).hide();
         getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
         setContentView(R.layout.activity_home_screen);
 
@@ -313,6 +321,8 @@ public class HomeScreen extends Activity {
             Drawable icone1 = (pm.getActivityIcon(intent1));
             btn1.setImageDrawable(icone1);
             btn1.setBackground(null);
+            btn1.setScaleX((float) 1.5);
+            btn1.setScaleY((float) 1.5);
 
             this.Classe2 = tabelaIcones.carregaDados().get(1).getClasse();
             String Pacote2 = tabelaIcones.carregaDados().get(1).getPacote();
@@ -325,6 +335,8 @@ public class HomeScreen extends Activity {
             Drawable icone2 = (pm.getActivityIcon(intent2));
             btn2.setImageDrawable(icone2);
             btn2.setBackground(null);
+            btn2.setScaleX((float) 1.5);
+            btn2.setScaleY((float) 1.5);
 
             this.Classe3 = tabelaIcones.carregaDados().get(2).getClasse();
             String Pacote3 = tabelaIcones.carregaDados().get(2).getPacote();
@@ -337,17 +349,10 @@ public class HomeScreen extends Activity {
             Drawable icone3 = (pm.getActivityIcon(intent3));
             btn3.setImageDrawable(icone3);
             btn3.setBackground(null);
+            btn3.setScaleX((float) 1.5);
+            btn3.setScaleY((float) 1.5);
 
         } catch (Exception e) {
-        }
-
-        System.out.printf("Percorrendo o ArrayList (usando o índice)\n");
-        int n2 = tabelaIcones.carregaDados().size();
-        for (int i2 = 0; i2 < n2; i2++) {
-            System.out.println(i2);
-            System.out.printf("Posição - %s\n", tabelaIcones.carregaDados().get(i2).getId());
-            System.out.printf("Status - %s\n", tabelaIcones.carregaDados().get(i2).getClasse());
-            System.out.printf("Disciplina - %s\n", tabelaIcones.carregaDados().get(i2).getPacote());
         }
 
         ImageButton btnSOS = findViewById(R.id.btnSOS);

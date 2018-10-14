@@ -6,185 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".Telas.HomeScreen">
 
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="7dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toStartOf="@+id/date"
-        app:layout_constraintGuide_percent="0.3"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="141dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/guideline3"
-        app:layout_constraintGuide_percent="0.55" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="141dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintGuide_percent="0.77"
-        app:layout_constraintTop_toBottomOf="@+id/guideline2" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="1dp"
-        android:layout_marginStart="3dp"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toStartOf="@+id/guideline4"
-        app:layout_constraintGuide_percent="0.34895834"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintGuide_percent="0.6692708"
-        app:layout_constraintStart_toEndOf="@+id/guideline5" />
-
-    <ImageButton
-        android:id="@+id/btnAlarme"
-        style="@style/Widget.AppCompat.ImageButton"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:background="@drawable/botao"
-        android:contentDescription="@string/todo"
-        android:elevation="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/guideline4"
-        app:layout_constraintTop_toTopOf="@+id/guideline"
-        app:srcCompat="@android:drawable/ic_popup_reminder" />
-
-    <ImageButton
-        android:id="@+id/btn1"
-        style="@style/Widget.AppCompat.ImageButton"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:background="@drawable/botao"
-        android:contentDescription="@string/todo"
-        android:elevation="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/guideline3"
-        app:srcCompat="@android:drawable/ic_input_add" />
-
-    <ImageButton
-        android:id="@+id/btn2"
-        style="@style/Widget.AppCompat.ImageButton"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:background="@drawable/botao"
-        android:contentDescription="@string/todo"
-        android:elevation="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline4"
-        app:layout_constraintStart_toStartOf="@+id/guideline5"
-        app:layout_constraintTop_toBottomOf="@+id/guideline3"
-        app:srcCompat="@android:drawable/ic_input_add" />
-
-    <ImageButton
-        android:id="@+id/btn3"
-        style="@style/Widget.AppCompat.ImageButton"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:background="@drawable/botao"
-        android:contentDescription="@string/todo"
-        android:elevation="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/guideline4"
-        app:layout_constraintTop_toBottomOf="@+id/guideline3"
-        app:srcCompat="@android:drawable/ic_input_add" />
-
-    <ImageButton
-        android:id="@+id/btnGaleria"
-        style="@style/Widget.AppCompat.ImageButton"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:background="@drawable/botao"
-        android:contentDescription="@string/todo"
-        android:elevation="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline4"
-        app:layout_constraintTop_toTopOf="@+id/guideline2"
-        app:srcCompat="@android:drawable/ic_menu_gallery" />
-
-    <ImageButton
-        android:id="@+id/btnContatos"
-        style="@style/Widget.AppCompat.ImageButton"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:adjustViewBounds="true"
-        android:background="@drawable/botao"
-        android:contentDescription="@string/todo"
-        android:elevation="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline3"
-        app:layout_constraintEnd_toStartOf="@+id/guideline5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline2"
-        app:srcCompat="@android:drawable/stat_sys_phone_call" />
-
-    <ImageButton
-        android:id="@+id/btnCamera"
-        style="@style/Widget.AppCompat.ImageButton"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:background="@drawable/botao"
-        android:contentDescription="@string/todo"
-        android:elevation="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline3"
-        app:layout_constraintEnd_toStartOf="@+id/guideline4"
-        app:layout_constraintStart_toStartOf="@+id/guideline5"
-        app:layout_constraintTop_toTopOf="@+id/guideline2"
-        app:srcCompat="@android:drawable/ic_menu_camera" />
-
-    <ImageButton
-        android:id="@+id/btnNotas"
-        style="@style/Widget.AppCompat.ImageButton"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:background="@drawable/botao"
-        android:contentDescription="@string/todo"
-        android:elevation="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline2"
-        app:layout_constraintEnd_toStartOf="@+id/guideline4"
-        app:layout_constraintStart_toStartOf="@+id/guideline5"
-        app:layout_constraintTop_toTopOf="@+id/guideline"
-        app:srcCompat="@android:drawable/ic_menu_edit"
-        tools:layout_height="80dp"
-        tools:layout_width="80dp" />
-
-    <ImageButton
-        android:id="@+id/btnSOS"
-        style="@style/Widget.AppCompat.ImageButton"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:background="@drawable/botao"
-        android:contentDescription="@string/todo"
-        android:elevation="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline2"
-        app:layout_constraintEnd_toStartOf="@+id/guideline5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline"
-        app:srcCompat="@android:drawable/ic_dialog_alert"
-        tools:layout_width="80dp" />
-
     <DigitalClock
         android:id="@+id/simpleDigitalClock"
         android:layout_width="381dp"
@@ -216,5 +37,173 @@
         app:layout_constraintStart_toEndOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/btnAlarme"
+        style="@style/Widget.AppCompat.ImageButton"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
+        android:background="@drawable/alarmes"
+        android:contentDescription="@string/todo"
+        android:elevation="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.509"
+        app:layout_constraintStart_toEndOf="@+id/guideline4"
+        app:layout_constraintTop_toTopOf="@+id/guideline" />
+
+    <ImageButton
+        android:id="@+id/btnGaleria"
+        style="@style/Widget.AppCompat.ImageButton"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
+        android:background="@drawable/galeria"
+        android:contentDescription="@string/todo"
+        android:elevation="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline4"
+        app:layout_constraintTop_toTopOf="@+id/guideline2" />
+
+    <ImageButton
+        android:id="@+id/btnContatos"
+        style="@style/Widget.AppCompat.ImageButton"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/contatos"
+        android:contentDescription="@string/todo"
+        android:elevation="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline3"
+        app:layout_constraintEnd_toStartOf="@+id/guideline5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline2" />
+
+    <ImageButton
+        android:id="@+id/btnCamera"
+        style="@style/Widget.AppCompat.ImageButton"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
+        android:background="@drawable/camera"
+        android:contentDescription="@string/todo"
+        android:elevation="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline3"
+        app:layout_constraintEnd_toStartOf="@+id/guideline4"
+        app:layout_constraintStart_toStartOf="@+id/guideline5"
+        app:layout_constraintTop_toTopOf="@+id/guideline2" />
+
+    <ImageButton
+        android:id="@+id/btnNotas"
+        style="@style/Widget.AppCompat.ImageButton"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
+        android:background="@drawable/notas"
+        android:contentDescription="@string/todo"
+        android:elevation="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2"
+        app:layout_constraintEnd_toStartOf="@+id/guideline4"
+        app:layout_constraintStart_toStartOf="@+id/guideline5"
+        app:layout_constraintTop_toTopOf="@+id/guideline"
+        tools:layout_height="80dp"
+        tools:layout_width="80dp" />
+
+    <ImageButton
+        android:id="@+id/btnSOS"
+        style="@style/Widget.AppCompat.ImageButton"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
+        android:background="@drawable/sos"
+        android:contentDescription="@string/todo"
+        android:elevation="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2"
+        app:layout_constraintEnd_toStartOf="@+id/guideline5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline"
+        tools:layout_width="80dp" />
+
+    <ImageButton
+        android:id="@+id/btn1"
+        style="@style/Widget.AppCompat.ImageButton"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
+        android:background="@drawable/add"
+        android:contentDescription="@string/todo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/guideline3" />
+
+    <ImageButton
+        android:id="@+id/btn2"
+        style="@style/Widget.AppCompat.ImageButton"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
+        android:background="@drawable/add"
+        android:contentDescription="@string/todo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline4"
+        app:layout_constraintStart_toStartOf="@+id/guideline5"
+        app:layout_constraintTop_toBottomOf="@+id/guideline3" />
+
+    <ImageButton
+        android:id="@+id/btn3"
+        style="@style/Widget.AppCompat.ImageButton"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
+        android:background="@drawable/add"
+        android:contentDescription="@string/todo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/guideline4"
+        app:layout_constraintTop_toBottomOf="@+id/guideline3" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="7dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toStartOf="@+id/date"
+        app:layout_constraintGuide_percent="0.3"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="141dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/guideline3"
+        app:layout_constraintGuide_percent="0.55" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="141dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintGuide_percent="0.77"
+        app:layout_constraintTop_toBottomOf="@+id/guideline2" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintGuide_percent="0.6692708"
+        app:layout_constraintStart_toEndOf="@+id/guideline5" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="1dp"
+        android:layout_marginStart="3dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toStartOf="@+id/guideline4"
+        app:layout_constraintGuide_percent="0.34895834"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

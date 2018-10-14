@@ -84,27 +84,29 @@ public class TelaSOS extends Activity {
         }
     };
 
-    private View.OnClickListener imgView1OnClickListener = new View.OnClickListener() {
+    private View.OnLongClickListener imgView1OnLongClickListener = new View.OnLongClickListener() {
         @Override
-        public void onClick(View v) {
+        public boolean onLongClick(View v) {
             if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 20);
             }
             if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
                 showPictureDialog1();
             }
+            return false;
         }
     };
 
-    private View.OnClickListener imgView2OnClickListener = new View.OnClickListener() {
+    private View.OnLongClickListener imgView2OnLongClickListener = new View.OnLongClickListener() {
         @Override
-        public void onClick(View v) {
+        public boolean onLongClick(View v) {
             if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 20);
             }
             if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
                 showPictureDialog2();
             }
+            return false;
         }
     };
 
@@ -231,10 +233,10 @@ public class TelaSOS extends Activity {
         btnMensagem2.setOnClickListener(btnMensagem2OnClickListener);
 
         ImageView imgView1 = findViewById(R.id.image1);
-        imgView1.setOnClickListener(imgView1OnClickListener);
+        imgView1.setOnLongClickListener(imgView1OnLongClickListener);
 
         ImageView imgView2 = findViewById(R.id.image2);
-        imgView2.setOnClickListener(imgView2OnClickListener);
+        imgView2.setOnLongClickListener(imgView2OnLongClickListener);
 
 
     }
