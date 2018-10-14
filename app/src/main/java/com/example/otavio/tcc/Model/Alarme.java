@@ -9,6 +9,14 @@ public class Alarme {
     private String Tempo;
     private String Descricao;
 
+    public Alarme() {
+    }
+
+    public Alarme(String nome, String descricao) {
+        Nome = nome;
+        Descricao = descricao;
+    }
+
     public String getID() {
         return ID;
     }

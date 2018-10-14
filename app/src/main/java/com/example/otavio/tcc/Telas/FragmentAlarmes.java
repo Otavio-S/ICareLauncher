@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import com.example.otavio.tcc.Adapter.Alarmes_Adapter;
 import com.example.otavio.tcc.Model.Alarme;
 import com.example.otavio.tcc.R;
+import com.example.otavio.tcc.SQLite.TabelaAlarmes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +32,7 @@ public class FragmentAlarmes extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_alarmes, container, false);
-        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerViewAlarmes);
+        recyclerView = view.findViewById(R.id.recyclerViewAlarmes);
         Alarmes_Adapter viewAdapter = new Alarmes_Adapter(getContext(), alarmeList);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(viewAdapter);
@@ -41,8 +42,15 @@ public class FragmentAlarmes extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         alarmeList = new ArrayList<>();
-        
+        TabelaAlarmes alarmes = new TabelaAlarmes(getContext());
+        int i;
+        int quant = alarmes.carregaDados().size();
+
+        for (i = 0; i < quant; i++) {
+            alarmeList.add(new Alarme(alarmes.carregaDados().get(i).getNome(), alarmes.carregaDados().get(i).getDescricao()));
+        }
 
     }
 

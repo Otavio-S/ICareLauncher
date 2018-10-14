@@ -164,7 +164,7 @@
         android:layout_marginEnd="7dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toStartOf="@+id/date"
-        app:layout_constraintGuide_percent="0.3"
+        app:layout_constraintGuide_percent="0.25"
         app:layout_constraintStart_toStartOf="parent" />
 
     <android.support.constraint.Guideline
@@ -174,7 +174,7 @@
         android:layout_marginBottom="141dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
-        app:layout_constraintGuide_percent="0.55" />
+        app:layout_constraintGuide_percent="0.5" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline3"
@@ -183,7 +183,7 @@
         android:layout_marginBottom="141dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintGuide_percent="0.77"
+        app:layout_constraintGuide_percent="0.75"
         app:layout_constraintTop_toBottomOf="@+id/guideline2" />
 
     <android.support.constraint.Guideline
@@ -192,7 +192,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintGuide_percent="0.6692708"
+        app:layout_constraintGuide_percent="0.66909975"
         app:layout_constraintStart_toEndOf="@+id/guideline5" />
 
     <android.support.constraint.Guideline
@@ -203,7 +203,7 @@
         android:layout_marginStart="3dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toStartOf="@+id/guideline4"
-        app:layout_constraintGuide_percent="0.34895834"
+        app:layout_constraintGuide_percent="0.33"
         app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

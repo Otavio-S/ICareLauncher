@@ -37,6 +37,9 @@ public class Alarmes_Adapter extends RecyclerView.Adapter<Alarmes_Adapter.MyView
 
         holder.nome.setText(alarmeList.get(position).getNome());
         holder.descicao.setText(alarmeList.get(position).getDescricao());
+        holder.switchOnOff.setScaleX((float) 1.3);
+        holder.switchOnOff.setScaleY((float) 1.3);
+
 
     }
 
@@ -59,7 +62,7 @@ public class Alarmes_Adapter extends RecyclerView.Adapter<Alarmes_Adapter.MyView
             nome = itemView.findViewById(R.id.nome);
             descicao = itemView.findViewById(R.id.descricao);
             switchOnOff = itemView.findViewById(R.id.switchOnOff);
-            imageButton = itemView.findViewById(R.id.iButonDelete);
+            imageButton = itemView.findViewById(R.id.buttonDelete);
         }
     }
 
