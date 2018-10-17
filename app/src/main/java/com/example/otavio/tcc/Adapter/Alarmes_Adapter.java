@@ -1,44 +1,106 @@
 package com.example.otavio.tcc.Adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.database.SQLException;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.otavio.tcc.Model.Alarme;
 import com.example.otavio.tcc.R;
+import com.example.otavio.tcc.SQLite.TabelaAlarmes;
 
 import java.util.List;
 
 public class Alarmes_Adapter extends RecyclerView.Adapter<Alarmes_Adapter.MyViewHolder> {
 
-    Context context;
-    List<Alarme> alarmeList;
+    private Context context;
+    private List<Alarme> alarmeList;
+    private TabelaAlarmes tabelaAlarmes;
 
     public Alarmes_Adapter(Context context, List<Alarme> alarmeList) {
         this.context = context;
         this.alarmeList = alarmeList;
     }
 
+    @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v;
         v = LayoutInflater.from(context).inflate(R.layout.item_alarme, parent, false);
-        MyViewHolder myViewHolder = new MyViewHolder(v);
-        return myViewHolder;
+        tabelaAlarmes = new TabelaAlarmes(context);
+
+        return new MyViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
 
+        //final int position = holder.getAdapterPosition();
         holder.nome.setText(alarmeList.get(position).getNome());
-        holder.descicao.setText(alarmeList.get(position).getDescricao());
+        holder.descricao.setText(alarmeList.get(position).getDescricao());
         holder.switchOnOff.setScaleX((float) 1.3);
         holder.switchOnOff.setScaleY((float) 1.3);
+
+        String onOff = tabelaAlarmes.carregaDados().get(position).getLigado();
+
+        if (onOff.equals("1")) {
+            holder.switchOnOff.setChecked(true);
+        } else {
+            holder.switchOnOff.setChecked(false);
+        }
+
+        holder.switchOnOff.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                String ligado;
+                if (isChecked) {
+                    ligado = "1";
+                } else {
+                    ligado = "0";
+                }
+                tabelaAlarmes.alteraSituacao(alarmeList.get(position).getID(), ligado);
+            }
+        });
+
+        holder.btnDeletaAlarme.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AlertDialog.Builder(context)
+                        .setTitle("Excluir")
+                        .setMessage("Tem certeza que quer exluir o alarme?")
+                        .setPositiveButton("Excluir", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                tabelaAlarmes.deletaRegistro(alarmeList.get(position));
+                                Toast.makeText(context, "Alarme deletado com sucesso!", Toast.LENGTH_SHORT).show();
+
+                                try {
+                                    alarmeList.remove(position);
+                                    notifyItemRemoved(position);
+                                    notifyItemRangeChanged(position, getItemCount());
+                                } catch (SQLException e) {
+                                    e.printStackTrace();
+                                }
+
+                            }
+                        })
+                        .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                //não exclui, apenas fecha a mensagem
+                                dialog.dismiss();
+                            }
+                        })
+                        .show();
+            }
+        });
 
 
     }
@@ -51,19 +113,22 @@ public class Alarmes_Adapter extends RecyclerView.Adapter<Alarmes_Adapter.MyView
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView nome;
-        TextView descicao;
+        TextView descricao;
         Switch switchOnOff;
-        ImageButton imageButton;
+        ImageButton btnDeletaAlarme;
+        RecyclerView recyclerView;
 
 
         public MyViewHolder(View itemView) {
             super(itemView);
 
             nome = itemView.findViewById(R.id.nome);
-            descicao = itemView.findViewById(R.id.descricao);
+            descricao = itemView.findViewById(R.id.descricao);
             switchOnOff = itemView.findViewById(R.id.switchOnOff);
-            imageButton = itemView.findViewById(R.id.buttonDelete);
+            btnDeletaAlarme = itemView.findViewById(R.id.buttonDelete);
+            recyclerView = itemView.findViewById(R.id.recyclerViewAlarmes);
         }
+
     }
 
 }

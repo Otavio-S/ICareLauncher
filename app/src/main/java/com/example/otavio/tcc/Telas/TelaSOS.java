@@ -122,7 +122,7 @@ public class TelaSOS extends Activity {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         switch (i) {
                             case 0:
-                                choosePhotoFromGallery();
+                                choosePhotoFromGallery1();
                                 break;
                             case 1:
                                 takePhotoFromCamera1();
@@ -145,7 +145,7 @@ public class TelaSOS extends Activity {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         switch (i) {
                             case 0:
-                                choosePhotoFromGallery();
+                                choosePhotoFromGallery2();
                                 break;
                             case 1:
                                 takePhotoFromCamera2();
@@ -156,10 +156,16 @@ public class TelaSOS extends Activity {
         pictureDialog.show();
     }
 
-    public void choosePhotoFromGallery() {
+    public void choosePhotoFromGallery1() {
         Intent galleryIntent = new Intent(Intent.ACTION_PICK,
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(galleryIntent, 1);
+        startActivityForResult(galleryIntent, 100);
+    }
+
+    public void choosePhotoFromGallery2() {
+        Intent galleryIntent = new Intent(Intent.ACTION_PICK,
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(galleryIntent, 101);
     }
 
     private void takePhotoFromCamera1() {
@@ -175,13 +181,29 @@ public class TelaSOS extends Activity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1) {
+        if (requestCode == 100) {
             if (data != null) {
                 try {
                     Uri contentURI = data.getData();
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), contentURI);
                     imgView1 = findViewById(R.id.image1);
                     imgView1.setImageBitmap(bitmap);
+                    //imgView1.setScaleY((float) 0.3);
+                    //imgView1.setScaleX((float) 0.3);
+                    //imgView1.getCropToPadding();
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        } else if (requestCode == 101) {
+            if (data != null) {
+                try {
+                    Uri contentURI = data.getData();
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), contentURI);
+                    imgView2 = findViewById(R.id.image2);
+                    imgView2.setImageBitmap(bitmap);
                     //imgView1.setScaleY((float) 0.3);
                     //imgView1.setScaleX((float) 0.3);
                     //imgView1.getCropToPadding();

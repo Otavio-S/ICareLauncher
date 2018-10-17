@@ -1,8 +1,10 @@
 package com.example.otavio.tcc.Telas;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -19,9 +21,9 @@ import java.util.List;
 
 public class FragmentAlarmes extends Fragment {
 
-    View view;
-    RecyclerView recyclerView;
-    List<Alarme> alarmeList;
+    private View view;
+    private RecyclerView recyclerView;
+    private List<Alarme> alarmeList;
 
     public FragmentAlarmes() {
         // Required empty public constructor
@@ -29,13 +31,19 @@ public class FragmentAlarmes extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_alarmes, container, false);
         recyclerView = view.findViewById(R.id.recyclerViewAlarmes);
         Alarmes_Adapter viewAdapter = new Alarmes_Adapter(getContext(), alarmeList);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(viewAdapter);
+
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
+                layoutManager.getOrientation());
+        recyclerView.addItemDecoration(dividerItemDecoration);
+
         return view;
     }
 
@@ -49,7 +57,7 @@ public class FragmentAlarmes extends Fragment {
         int quant = alarmes.carregaDados().size();
 
         for (i = 0; i < quant; i++) {
-            alarmeList.add(new Alarme(alarmes.carregaDados().get(i).getNome(), alarmes.carregaDados().get(i).getDescricao()));
+            alarmeList.add(alarmes.carregaDados().get(i));
         }
 
     }

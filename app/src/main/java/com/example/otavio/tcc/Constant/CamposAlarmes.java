@@ -9,4 +9,6 @@ public class CamposAlarmes {
     public static final String COLUNA_QUANTIDADE_VEZES = "alarmes_quantidade_vezes";
     public static final String COLUNA_ESPACO_TEMPO = "alarmes_espaco_tempo";
     public static final String COLUNA_DESCRICAO = "alarmes_descricao";
+    public static final String COLUNA_ON_OFF = "alarmes_on_off";
+
 }

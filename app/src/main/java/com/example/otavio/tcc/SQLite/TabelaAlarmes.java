@@ -16,7 +16,7 @@ import java.util.List;
 public class TabelaAlarmes extends SQLiteOpenHelper {
 
     private static final String NOME_TABELA = "Alarme.db";
-    private static final int VERSAO_BANCO = 1;
+    private static final int VERSAO_BANCO = 2;
 
     public TabelaAlarmes(Context context) {
         super(context, NOME_TABELA, null, VERSAO_BANCO);
@@ -30,7 +30,8 @@ public class TabelaAlarmes extends SQLiteOpenHelper {
                 CamposAlarmes.COLUNA_HORA_INICIAL + " TEXT," +
                 CamposAlarmes.COLUNA_QUANTIDADE_VEZES + " TEXT," +
                 CamposAlarmes.COLUNA_ESPACO_TEMPO + " TEXT," +
-                CamposAlarmes.COLUNA_DESCRICAO + " TEXT" + " )";
+                CamposAlarmes.COLUNA_DESCRICAO + " TEXT," +
+                CamposAlarmes.COLUNA_ON_OFF + " TEXT" + " )";
         db.execSQL(sql);
     }
 
@@ -56,6 +57,7 @@ public class TabelaAlarmes extends SQLiteOpenHelper {
         valores.put(CamposAlarmes.COLUNA_QUANTIDADE_VEZES, alarme.getQuantidade());
         valores.put(CamposAlarmes.COLUNA_ESPACO_TEMPO, alarme.getTempo());
         valores.put(CamposAlarmes.COLUNA_DESCRICAO, alarme.getDescricao());
+        valores.put(CamposAlarmes.COLUNA_ON_OFF, alarme.getLigado());
 
         resultado = db.insert(
                 CamposAlarmes.NOME_TABELA,
@@ -84,6 +86,7 @@ public class TabelaAlarmes extends SQLiteOpenHelper {
                 alarme.setQuantidade(cursor.getString(cursor.getColumnIndex(CamposAlarmes.COLUNA_QUANTIDADE_VEZES)));
                 alarme.setTempo(cursor.getString(cursor.getColumnIndex(CamposAlarmes.COLUNA_ESPACO_TEMPO)));
                 alarme.setDescricao(cursor.getString(cursor.getColumnIndex(CamposAlarmes.COLUNA_DESCRICAO)));
+                alarme.setLigado(cursor.getString(cursor.getColumnIndex(CamposAlarmes.COLUNA_ON_OFF)));
                 alarmes.add(alarme);
             } while (cursor.moveToNext());
         }
@@ -100,9 +103,33 @@ public class TabelaAlarmes extends SQLiteOpenHelper {
         valores.put(CamposAlarmes.COLUNA_QUANTIDADE_VEZES, alarme.getQuantidade());
         valores.put(CamposAlarmes.COLUNA_ESPACO_TEMPO, alarme.getTempo());
         valores.put(CamposAlarmes.COLUNA_DESCRICAO, alarme.getDescricao());
+        valores.put(CamposAlarmes.COLUNA_ON_OFF, alarme.getLigado());
 
         String selecao = CamposAlarmes.COLUNA_ID + " LIKE ?";
         String[] selecaoArgs = {alarme.getID()};
+
+        int count = db.update(
+                CamposAlarmes.NOME_TABELA,
+                valores,
+                selecao,
+                selecaoArgs
+        );
+
+        if (count == -1)
+            return "Erro ao atualizar registro";
+        else {
+            return "Registro atualizado com sucesso";
+        }
+    }
+
+    public String alteraSituacao(String id, String ligado) {
+        SQLiteDatabase db = getWritableDatabase();
+
+        ContentValues valores = new ContentValues();
+        valores.put(CamposAlarmes.COLUNA_ON_OFF, ligado);
+
+        String selecao = CamposAlarmes.COLUNA_ID + " LIKE ?";
+        String[] selecaoArgs = {id};
 
         int count = db.update(
                 CamposAlarmes.NOME_TABELA,

@@ -1,16 +1,17 @@
 package com.example.otavio.tcc.Model;
 
-public class Alarme {
+public class Historico {
 
     private String ID;
     private String Nome;
+    private String DataInicial;
+    private String DataFinal;
     private String HoraInicial;
     private String Quantidade;
     private String Tempo;
     private String Descricao;
-    private String Ligado;
 
-    public Alarme() {
+    public Historico() {
     }
 
     public String getID() {
@@ -27,6 +28,22 @@ public class Alarme {
 
     public void setNome(String nome) {
         Nome = nome;
+    }
+
+    public String getDataInicial() {
+        return DataInicial;
+    }
+
+    public void setDataInicial(String dataInicial) {
+        DataInicial = dataInicial;
+    }
+
+    public String getDataFinal() {
+        return DataFinal;
+    }
+
+    public void setDataFinal(String dataFinal) {
+        DataFinal = dataFinal;
     }
 
     public String getHoraInicial() {
@@ -59,13 +76,5 @@ public class Alarme {
 
     public void setDescricao(String descricao) {
         Descricao = descricao;
-    }
-
-    public String getLigado() {
-        return Ligado;
-    }
-
-    public void setLigado(String ligado) {
-        Ligado = ligado;
     }
 }
