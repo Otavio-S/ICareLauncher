@@ -14,7 +14,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.transition.Fade;
 import android.view.View;
-import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -52,6 +51,8 @@ public class HomeScreen extends Activity {
         }
     };
 
+
+    //!!!
     private View.OnClickListener btnNotasOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -74,7 +75,6 @@ public class HomeScreen extends Activity {
         @Override
         public void onClick(View v) {
             Intent contactsIntent = new Intent(Intent.ACTION_VIEW).setData(Uri.parse("content://contacts/people"));
-            getWindow().setEnterTransition(new Fade());
             startActivity(contactsIntent, ActivityOptions.makeSceneTransitionAnimation(activity).toBundle());
         }
     };
@@ -88,7 +88,6 @@ public class HomeScreen extends Activity {
             }
             if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
                 Intent cameraIntent = new Intent(MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA);
-                getWindow().setEnterTransition(new Fade());
                 startActivity(cameraIntent, ActivityOptions.makeSceneTransitionAnimation(activity).toBundle());
             }
         }
@@ -99,7 +98,6 @@ public class HomeScreen extends Activity {
         public void onClick(View v) {
             Intent galleryIntent = new Intent(Intent.ACTION_VIEW);
             galleryIntent.setType("image/*");
-            getWindow().setEnterTransition(new Fade());
             startActivity(galleryIntent, ActivityOptions.makeSceneTransitionAnimation(activity).toBundle());
         }
     };
@@ -283,7 +281,7 @@ public class HomeScreen extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Objects.requireNonNull(super.getActionBar()).hide();
-        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
+        //getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
         setContentView(R.layout.activity_home_screen);
 
         Thread t = new Thread() {

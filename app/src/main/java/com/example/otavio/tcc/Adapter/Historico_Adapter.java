@@ -3,6 +3,7 @@ package com.example.otavio.tcc.Adapter;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.SQLException;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 import com.example.otavio.tcc.Model.Historico;
 import com.example.otavio.tcc.R;
 import com.example.otavio.tcc.SQLite.TabelaHistorico;
+import com.example.otavio.tcc.Telas.VisualizarHistorico;
 
 import java.util.List;
 
@@ -36,6 +38,14 @@ public class Historico_Adapter extends RecyclerView.Adapter<Historico_Adapter.My
         View v;
         v = LayoutInflater.from(context).inflate(R.layout.item_historico, parent, false);
         tabelaHistorico = new TabelaHistorico(context);
+
+        v.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, VisualizarHistorico.class);
+                context.startActivity(intent);
+            }
+        });
 
         return new MyViewHolder(v);
     }

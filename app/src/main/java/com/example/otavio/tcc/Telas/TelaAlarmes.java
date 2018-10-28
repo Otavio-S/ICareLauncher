@@ -6,7 +6,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.Window;
 
 import com.example.otavio.tcc.Adapter.Adapter_Tabs;
 import com.example.otavio.tcc.R;
@@ -16,7 +15,7 @@ public class TelaAlarmes extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
+        //getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
         setContentView(R.layout.activity_alarmes);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);

@@ -3,6 +3,7 @@ package com.example.otavio.tcc.Adapter;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.SQLException;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 import com.example.otavio.tcc.Model.Alarme;
 import com.example.otavio.tcc.R;
 import com.example.otavio.tcc.SQLite.TabelaAlarmes;
+import com.example.otavio.tcc.Telas.EditarAlarmes;
 
 import java.util.List;
 
@@ -38,8 +40,17 @@ public class Alarmes_Adapter extends RecyclerView.Adapter<Alarmes_Adapter.MyView
         View v;
         v = LayoutInflater.from(context).inflate(R.layout.item_alarme, parent, false);
         tabelaAlarmes = new TabelaAlarmes(context);
+        final MyViewHolder viewHolder = new MyViewHolder(v);
 
-        return new MyViewHolder(v);
+        v.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, EditarAlarmes.class);
+                context.startActivity(intent);
+            }
+        });
+
+        return viewHolder;
     }
 
     @Override
@@ -128,6 +139,7 @@ public class Alarmes_Adapter extends RecyclerView.Adapter<Alarmes_Adapter.MyView
             btnDeletaAlarme = itemView.findViewById(R.id.buttonDelete);
             recyclerView = itemView.findViewById(R.id.recyclerViewAlarmes);
         }
+
 
     }
 
