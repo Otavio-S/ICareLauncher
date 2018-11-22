@@ -1,6 +1,9 @@
 package com.example.otavio.tcc.Telas;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,12 +14,13 @@ import android.widget.Toast;
 
 import com.example.otavio.tcc.Model.Alarme;
 import com.example.otavio.tcc.R;
+import com.example.otavio.tcc.Receiver.AlarmReceiver;
 import com.example.otavio.tcc.SQLite.TabelaAlarmes;
 
-import java.util.List;
+import java.util.Calendar;
 import java.util.Objects;
 
-public class EditarAlarmes extends Activity {
+public class NovoAlarme extends Activity {
 
     @Override
     public void onBackPressed() {
@@ -26,11 +30,8 @@ public class EditarAlarmes extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_editar_alarmes);
-        Objects.requireNonNull(getActionBar()).setHomeButtonEnabled(true);
-
-        Intent intent = getIntent();
-        final int id = intent.getIntExtra("ID", 0);
+        setContentView(R.layout.activity_novo_alarme);
+        Objects.requireNonNull(getActionBar()).setDisplayHomeAsUpEnabled(true);
 
         final TextView edNome = findViewById(R.id.edNome);
         final TextView edDescricao = findViewById(R.id.edDescricao);
@@ -46,24 +47,10 @@ public class EditarAlarmes extends Activity {
 
         final TabelaAlarmes tabelaAlarmes = new TabelaAlarmes(getApplicationContext());
 
-        List<Alarme> alarmeList = tabelaAlarmes.carregaDadosPorID(id);
-
-        edNome.setText(alarmeList.get(0).getNome());
-        edDescricao.setText(alarmeList.get(0).getDescricao());
-        edHoraInicial.setText(alarmeList.get(0).getHoraInicial());
-        edQuantidade.setText(alarmeList.get(0).getQuantidade());
-        edTempo.setText(alarmeList.get(0).getTempo());
-        if (alarmeList.get(0).getLigado().equals("1")) {
-            aswitch.setChecked(true);
-        } else {
-            aswitch.setChecked(false);
-        }
-
         btnSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Alarme alarme = new Alarme();
-                alarme.setID(String.valueOf(id));
                 alarme.setNome(String.valueOf(edNome.getText()));
                 alarme.setDescricao(String.valueOf(edDescricao.getText()));
                 alarme.setHoraInicial(String.valueOf(edHoraInicial.getText()));
@@ -75,22 +62,22 @@ public class EditarAlarmes extends Activity {
                     alarme.setLigado("0");
                 }
 
-                String altera = tabelaAlarmes.alteraRegistro(alarme);
+                String insert = tabelaAlarmes.insereDado(alarme);
 
-                if (altera.equals("Registro atualizado com sucesso")) {
+                if (insert.equals("Registro Inserido com sucesso")) {
+                    startAlarm(1, 1, 1, 1);
                     Toast toast = Toast.makeText(
                             getApplicationContext(),
-                            "Alterações Salvas",
+                            "Alarme salvo",
                             Toast.LENGTH_SHORT);
                     toast.show();
                 } else {
                     Toast toast = Toast.makeText(
                             getApplicationContext(),
-                            "Cancelado",
+                            "Alarme não salvo",
                             Toast.LENGTH_SHORT);
                     toast.show();
                 }
-
                 finish();
             }
         });
@@ -103,10 +90,28 @@ public class EditarAlarmes extends Activity {
                         "Cancelado",
                         Toast.LENGTH_SHORT);
                 toast.show();
+                finish();
             }
         });
 
+    }
 
+    private void startAlarm(int horaInicial, int minInicial, int quantidade, int intervalo) {
+        AlarmManager alarmMgr = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
+
+        Intent intent = new Intent(NovoAlarme.this, AlarmReceiver.class);
+        PendingIntent alarmIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, 0);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, horaInicial);
+        calendar.set(Calendar.MINUTE, minInicial);
+
+        long inicio = calendar.getTimeInMillis();
+
+        intervalo = intervalo * 1000;
+
+        Objects.requireNonNull(alarmMgr).setRepeating(AlarmManager.RTC_WAKEUP, inicio, intervalo, alarmIntent);
     }
 
 }

@@ -4,7 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:tag="FragmentAlarmes"
+    android:theme="@style/Theme.AppCompat"
     tools:layout_editor_absoluteY="81dp">
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingAlarmes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="30dp"
+        android:layout_marginEnd="30dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:backgroundTint="@color/stats_brown"
+        app:srcCompat="@drawable/add" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerViewAlarmes"

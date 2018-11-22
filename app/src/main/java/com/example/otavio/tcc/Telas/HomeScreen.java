@@ -10,6 +10,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.transition.Fade;
@@ -190,8 +191,7 @@ public class HomeScreen extends Activity {
             Icone icone1 = new Icone();
             icone1.setId("1");
             if (resultCode == RESULT_OK) {
-                String NomeAplicação = data.getComponent().flattenToString();
-                String Classe = data.getComponent().getClassName();
+                String Classe = Objects.requireNonNull(data.getComponent()).getClassName();
                 icone1.setClasse(Classe);
                 String Pacote = data.getComponent().getPackageName();
                 icone1.setPacote(Pacote);
@@ -211,7 +211,7 @@ public class HomeScreen extends Activity {
                     btn1.setBackground(null);
                     btn1.setScaleX((float) 1.5);
                     btn1.setScaleY((float) 1.5);
-                } catch (PackageManager.NameNotFoundException e) {
+                } catch (PackageManager.NameNotFoundException ignored) {
 
                 }
             }
@@ -219,8 +219,7 @@ public class HomeScreen extends Activity {
             Icone icone2 = new Icone();
             icone2.setId("2");
             if (resultCode == RESULT_OK) {
-                String NomeAplicação = data.getComponent().flattenToString();
-                String Classe = data.getComponent().getClassName();
+                String Classe = Objects.requireNonNull(data.getComponent()).getClassName();
                 icone2.setClasse(Classe);
                 String Pacote = data.getComponent().getPackageName();
                 icone2.setPacote(Pacote);
@@ -240,7 +239,7 @@ public class HomeScreen extends Activity {
                     btn2.setBackground(null);
                     btn2.setScaleX((float) 1.5);
                     btn2.setScaleY((float) 1.5);
-                } catch (PackageManager.NameNotFoundException e) {
+                } catch (PackageManager.NameNotFoundException ignored) {
 
                 }
             }
@@ -248,8 +247,7 @@ public class HomeScreen extends Activity {
             Icone icone3 = new Icone();
             icone3.setId("3");
             if (resultCode == RESULT_OK) {
-                String NomeAplicação = data.getComponent().flattenToString();
-                String Classe = data.getComponent().getClassName();
+                String Classe = Objects.requireNonNull(data.getComponent()).getClassName();
                 icone3.setClasse(Classe);
                 String Pacote = data.getComponent().getPackageName();
                 icone3.setPacote(Pacote);
@@ -269,7 +267,7 @@ public class HomeScreen extends Activity {
                     btn3.setBackground(null);
                     btn3.setScaleX((float) 1.5);
                     btn3.setScaleY((float) 1.5);
-                } catch (PackageManager.NameNotFoundException e) {
+                } catch (PackageManager.NameNotFoundException ignored) {
 
                 }
 
@@ -350,7 +348,7 @@ public class HomeScreen extends Activity {
             btn3.setScaleX((float) 1.5);
             btn3.setScaleY((float) 1.5);
 
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
 
         ImageButton btnSOS = findViewById(R.id.btnSOS);
@@ -386,7 +384,7 @@ public class HomeScreen extends Activity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == 0) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED
                     && grantResults[1] == PackageManager.PERMISSION_GRANTED) {

@@ -51,7 +51,11 @@ public class TabelaAlarmes extends SQLiteOpenHelper {
         ContentValues valores = new ContentValues();
         long resultado;
 
-        valores.put(CamposAlarmes.COLUNA_ID, alarme.getID());
+        int id = UltimoID();
+
+        id = id + 1;
+
+        valores.put(CamposAlarmes.COLUNA_ID, id);
         valores.put(CamposAlarmes.COLUNA_NOME, alarme.getNome());
         valores.put(CamposAlarmes.COLUNA_HORA_INICIAL, alarme.getHoraInicial());
         valores.put(CamposAlarmes.COLUNA_QUANTIDADE_VEZES, alarme.getQuantidade());
@@ -69,6 +73,20 @@ public class TabelaAlarmes extends SQLiteOpenHelper {
         else {
             return "Registro Inserido com sucesso";
         }
+    }
+
+    private int UltimoID() {
+        int id = 0;
+        SQLiteDatabase db = getReadableDatabase();
+        @SuppressLint("Recycle") Cursor cursor = db.rawQuery("SELECT * FROM " + CamposAlarmes.NOME_TABELA, null);
+
+        if (cursor.moveToLast()) {
+            Alarme alarme = new Alarme();
+            alarme.setID(cursor.getString(cursor.getColumnIndex(CamposAlarmes.COLUNA_ID)));
+            id = Integer.valueOf(alarme.getID());
+        }
+
+        return id;
     }
 
     public List<Alarme> carregaDados() {
@@ -89,6 +107,27 @@ public class TabelaAlarmes extends SQLiteOpenHelper {
                 alarme.setLigado(cursor.getString(cursor.getColumnIndex(CamposAlarmes.COLUNA_ON_OFF)));
                 alarmes.add(alarme);
             } while (cursor.moveToNext());
+        }
+
+        return alarmes;
+    }
+
+    public List<Alarme> carregaDadosPorID(int id) {
+
+        List<Alarme> alarmes = new ArrayList<>();
+        SQLiteDatabase db = getReadableDatabase();
+        @SuppressLint("Recycle") Cursor cursor = db.rawQuery("SELECT * FROM " + CamposAlarmes.NOME_TABELA + " WHERE " + CamposAlarmes.COLUNA_ID + " = " + String.valueOf(id), null);
+
+        if (cursor.moveToFirst()) {
+            Alarme alarme = new Alarme();
+            alarme.setID(cursor.getString(cursor.getColumnIndex(CamposAlarmes.COLUNA_ID)));
+            alarme.setNome(cursor.getString(cursor.getColumnIndex(CamposAlarmes.COLUNA_NOME)));
+            alarme.setHoraInicial(cursor.getString(cursor.getColumnIndex(CamposAlarmes.COLUNA_HORA_INICIAL)));
+            alarme.setQuantidade(cursor.getString(cursor.getColumnIndex(CamposAlarmes.COLUNA_QUANTIDADE_VEZES)));
+            alarme.setTempo(cursor.getString(cursor.getColumnIndex(CamposAlarmes.COLUNA_ESPACO_TEMPO)));
+            alarme.setDescricao(cursor.getString(cursor.getColumnIndex(CamposAlarmes.COLUNA_DESCRICAO)));
+            alarme.setLigado(cursor.getString(cursor.getColumnIndex(CamposAlarmes.COLUNA_ON_OFF)));
+            alarmes.add(alarme);
         }
 
         return alarmes;

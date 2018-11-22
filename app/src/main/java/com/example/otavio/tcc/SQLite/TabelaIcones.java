@@ -1,5 +1,6 @@
 package com.example.otavio.tcc.SQLite;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -66,7 +67,7 @@ public class TabelaIcones extends SQLiteOpenHelper {
 
         List<Icone> icones = new ArrayList<>();
         SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + CamposIcones.NOME_TABELA, null);
+        @SuppressLint("Recycle") Cursor cursor = db.rawQuery("SELECT * FROM " + CamposIcones.NOME_TABELA, null);
 
         if (cursor.moveToFirst()) {
             do {

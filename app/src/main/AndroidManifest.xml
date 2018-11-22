@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.SEND_SMS" />
 
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
@@ -21,7 +22,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".Telas.HomeScreen"
+        <activity
+            android:name=".Telas.HomeScreen"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -56,6 +58,7 @@
 
         <activity
             android:name=".Telas.EditarAlarmes"
+            android:parentActivityName=".Telas.TelaAlarmes"
             android:theme="@style/ThemeAlarms" />
 
         <activity
@@ -65,6 +68,23 @@
         <activity
             android:name=".Testes"
             android:theme="@style/ThemeAlarms" />
+
+        <activity
+            android:name=".Telas.NovoAlarme"
+            android:parentActivityName=".Telas.TelaAlarmes"
+            android:theme="@style/ThemeAlarms" />
+
+        <activity android:name=".Telas.Tabs" />
+
+        <activity
+            android:name=".Receiver.FireAlarm"
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
+
+        <receiver android:name=".Receiver.AlarmReceiver">
+            <intent-filter>
+                <action android:name="com.test.intent.action.ALARM" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

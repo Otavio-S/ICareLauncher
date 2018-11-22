@@ -28,6 +28,7 @@ public class Alarmes_Adapter extends RecyclerView.Adapter<Alarmes_Adapter.MyView
     private Context context;
     private List<Alarme> alarmeList;
     private TabelaAlarmes tabelaAlarmes;
+    private String id;
 
     public Alarmes_Adapter(Context context, List<Alarme> alarmeList) {
         this.context = context;
@@ -46,6 +47,7 @@ public class Alarmes_Adapter extends RecyclerView.Adapter<Alarmes_Adapter.MyView
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, EditarAlarmes.class);
+                intent.putExtra("ID", Integer.valueOf(id));
                 context.startActivity(intent);
             }
         });
@@ -56,13 +58,13 @@ public class Alarmes_Adapter extends RecyclerView.Adapter<Alarmes_Adapter.MyView
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
 
-        //final int position = holder.getAdapterPosition();
         holder.nome.setText(alarmeList.get(position).getNome());
         holder.descricao.setText(alarmeList.get(position).getDescricao());
         holder.switchOnOff.setScaleX((float) 1.3);
         holder.switchOnOff.setScaleY((float) 1.3);
+        id = alarmeList.get(position).getID();
 
-        String onOff = tabelaAlarmes.carregaDados().get(position).getLigado();
+        String onOff = alarmeList.get(position).getLigado();
 
         if (onOff.equals("1")) {
             holder.switchOnOff.setChecked(true);
@@ -113,7 +115,6 @@ public class Alarmes_Adapter extends RecyclerView.Adapter<Alarmes_Adapter.MyView
             }
         });
 
-
     }
 
     @Override
@@ -139,7 +140,6 @@ public class Alarmes_Adapter extends RecyclerView.Adapter<Alarmes_Adapter.MyView
             btnDeletaAlarme = itemView.findViewById(R.id.buttonDelete);
             recyclerView = itemView.findViewById(R.id.recyclerViewAlarmes);
         }
-
 
     }
 

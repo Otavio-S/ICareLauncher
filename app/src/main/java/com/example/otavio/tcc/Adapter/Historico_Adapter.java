@@ -104,7 +104,7 @@ public class Historico_Adapter extends RecyclerView.Adapter<Historico_Adapter.My
         public MyViewHolder(View itemView) {
             super(itemView);
 
-            txtNome = itemView.findViewById(R.id.txtNome);
+            txtNome = itemView.findViewById(R.id.txtEditar);
             txtDescricao = itemView.findViewById(R.id.txtDescricao);
             btnDeleteHistorico = itemView.findViewById(R.id.btnDelete);
         }

@@ -68,4 +68,5 @@ public class Alarme {
     public void setLigado(String ligado) {
         Ligado = ligado;
     }
+
 }
