@@ -99,15 +99,13 @@ public class Alarmes_Adapter extends RecyclerView.Adapter<Alarmes_Adapter.MyView
                                     alarmeList.remove(position);
                                     notifyItemRemoved(position);
                                     notifyItemRangeChanged(position, getItemCount());
-                                } catch (SQLException e) {
-                                    e.printStackTrace();
+                                } catch (SQLException ignored) {
                                 }
 
                             }
                         })
                         .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                //não exclui, apenas fecha a mensagem
                                 dialog.dismiss();
                             }
                         })

@@ -16,7 +16,7 @@ import java.util.List;
 public class TabelaAlarmes extends SQLiteOpenHelper {
 
     private static final String NOME_TABELA = "Alarme.db";
-    private static final int VERSAO_BANCO = 2;
+    private static final int VERSAO_BANCO = 5;
 
     public TabelaAlarmes(Context context) {
         super(context, NOME_TABELA, null, VERSAO_BANCO);
@@ -28,10 +28,12 @@ public class TabelaAlarmes extends SQLiteOpenHelper {
                 CamposAlarmes.COLUNA_ID + " TEXT," +
                 CamposAlarmes.COLUNA_NOME + " TEXT," +
                 CamposAlarmes.COLUNA_HORA_INICIAL + " TEXT," +
+                CamposAlarmes.COLUNA_MIN_INICIAL + " TEXT," +
                 CamposAlarmes.COLUNA_QUANTIDADE_VEZES + " TEXT," +
                 CamposAlarmes.COLUNA_ESPACO_TEMPO + " TEXT," +
                 CamposAlarmes.COLUNA_DESCRICAO + " TEXT," +
-                CamposAlarmes.COLUNA_ON_OFF + " TEXT" + " )";
+                CamposAlarmes.COLUNA_ON_OFF + " TEXT," +
+                CamposAlarmes.COLUNA_CONTADOR + " TEXT" + " )";
         db.execSQL(sql);
     }
 
@@ -58,10 +60,12 @@ public class TabelaAlarmes extends SQLiteOpenHelper {
         valores.put(CamposAlarmes.COLUNA_ID, id);
         valores.put(CamposAlarmes.COLUNA_NOME, alarme.getNome());
         valores.put(CamposAlarmes.COLUNA_HORA_INICIAL, alarme.getHoraInicial());
+        valores.put(CamposAlarmes.COLUNA_MIN_INICIAL, alarme.getMinInicial());
         valores.put(CamposAlarmes.COLUNA_QUANTIDADE_VEZES, alarme.getQuantidade());
         valores.put(CamposAlarmes.COLUNA_ESPACO_TEMPO, alarme.getTempo());
         valores.put(CamposAlarmes.COLUNA_DESCRICAO, alarme.getDescricao());
         valores.put(CamposAlarmes.COLUNA_ON_OFF, alarme.getLigado());
+        valores.put(CamposAlarmes.COLUNA_CONTADOR, alarme.getContador());
 
         resultado = db.insert(
                 CamposAlarmes.NOME_TABELA,
@@ -75,7 +79,7 @@ public class TabelaAlarmes extends SQLiteOpenHelper {
         }
     }
 
-    private int UltimoID() {
+    public int UltimoID() {
         int id = 0;
         SQLiteDatabase db = getReadableDatabase();
         @SuppressLint("Recycle") Cursor cursor = db.rawQuery("SELECT * FROM " + CamposAlarmes.NOME_TABELA, null);
@@ -100,11 +104,13 @@ public class TabelaAlarmes extends SQLiteOpenHelper {
                 Alarme alarme = new Alarme();
                 alarme.setID(cursor.getString(cursor.getColumnIndex(CamposAlarmes.COLUNA_ID)));
                 alarme.setNome(cursor.getString(cursor.getColumnIndex(CamposAlarmes.COLUNA_NOME)));
-                alarme.setHoraInicial(cursor.getString(cursor.getColumnIndex(CamposAlarmes.COLUNA_HORA_INICIAL)));
+                alarme.setHoraInicial(cursor.getInt(cursor.getColumnIndex(CamposAlarmes.COLUNA_HORA_INICIAL)));
+                alarme.setMinInicial(cursor.getInt(cursor.getColumnIndex(CamposAlarmes.COLUNA_MIN_INICIAL)));
                 alarme.setQuantidade(cursor.getString(cursor.getColumnIndex(CamposAlarmes.COLUNA_QUANTIDADE_VEZES)));
                 alarme.setTempo(cursor.getString(cursor.getColumnIndex(CamposAlarmes.COLUNA_ESPACO_TEMPO)));
                 alarme.setDescricao(cursor.getString(cursor.getColumnIndex(CamposAlarmes.COLUNA_DESCRICAO)));
                 alarme.setLigado(cursor.getString(cursor.getColumnIndex(CamposAlarmes.COLUNA_ON_OFF)));
+                alarme.setContador(cursor.getInt(cursor.getColumnIndex(CamposAlarmes.COLUNA_CONTADOR)));
                 alarmes.add(alarme);
             } while (cursor.moveToNext());
         }
@@ -122,11 +128,13 @@ public class TabelaAlarmes extends SQLiteOpenHelper {
             Alarme alarme = new Alarme();
             alarme.setID(cursor.getString(cursor.getColumnIndex(CamposAlarmes.COLUNA_ID)));
             alarme.setNome(cursor.getString(cursor.getColumnIndex(CamposAlarmes.COLUNA_NOME)));
-            alarme.setHoraInicial(cursor.getString(cursor.getColumnIndex(CamposAlarmes.COLUNA_HORA_INICIAL)));
+            alarme.setHoraInicial(cursor.getInt(cursor.getColumnIndex(CamposAlarmes.COLUNA_HORA_INICIAL)));
+            alarme.setMinInicial(cursor.getInt(cursor.getColumnIndex(CamposAlarmes.COLUNA_MIN_INICIAL)));
             alarme.setQuantidade(cursor.getString(cursor.getColumnIndex(CamposAlarmes.COLUNA_QUANTIDADE_VEZES)));
             alarme.setTempo(cursor.getString(cursor.getColumnIndex(CamposAlarmes.COLUNA_ESPACO_TEMPO)));
             alarme.setDescricao(cursor.getString(cursor.getColumnIndex(CamposAlarmes.COLUNA_DESCRICAO)));
             alarme.setLigado(cursor.getString(cursor.getColumnIndex(CamposAlarmes.COLUNA_ON_OFF)));
+            alarme.setContador(cursor.getInt(cursor.getColumnIndex(CamposAlarmes.COLUNA_CONTADOR)));
             alarmes.add(alarme);
         }
 
@@ -139,10 +147,12 @@ public class TabelaAlarmes extends SQLiteOpenHelper {
         ContentValues valores = new ContentValues();
         valores.put(CamposAlarmes.COLUNA_NOME, alarme.getNome());
         valores.put(CamposAlarmes.COLUNA_HORA_INICIAL, alarme.getHoraInicial());
+        valores.put(CamposAlarmes.COLUNA_MIN_INICIAL, alarme.getMinInicial());
         valores.put(CamposAlarmes.COLUNA_QUANTIDADE_VEZES, alarme.getQuantidade());
         valores.put(CamposAlarmes.COLUNA_ESPACO_TEMPO, alarme.getTempo());
         valores.put(CamposAlarmes.COLUNA_DESCRICAO, alarme.getDescricao());
         valores.put(CamposAlarmes.COLUNA_ON_OFF, alarme.getLigado());
+        valores.put(CamposAlarmes.COLUNA_CONTADOR, alarme.getContador());
 
         String selecao = CamposAlarmes.COLUNA_ID + " LIKE ?";
         String[] selecaoArgs = {alarme.getID()};
@@ -166,6 +176,29 @@ public class TabelaAlarmes extends SQLiteOpenHelper {
 
         ContentValues valores = new ContentValues();
         valores.put(CamposAlarmes.COLUNA_ON_OFF, ligado);
+
+        String selecao = CamposAlarmes.COLUNA_ID + " LIKE ?";
+        String[] selecaoArgs = {id};
+
+        int count = db.update(
+                CamposAlarmes.NOME_TABELA,
+                valores,
+                selecao,
+                selecaoArgs
+        );
+
+        if (count == -1)
+            return "Erro ao atualizar registro";
+        else {
+            return "Registro atualizado com sucesso";
+        }
+    }
+
+    public String atualizaContador(String id, int contador) {
+        SQLiteDatabase db = getWritableDatabase();
+
+        ContentValues valores = new ContentValues();
+        valores.put(CamposAlarmes.COLUNA_CONTADOR, contador);
 
         String selecao = CamposAlarmes.COLUNA_ID + " LIKE ?";
         String[] selecaoArgs = {id};

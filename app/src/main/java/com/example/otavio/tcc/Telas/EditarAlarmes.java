@@ -1,8 +1,9 @@
 package com.example.otavio.tcc.Telas;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Switch;
@@ -10,13 +11,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.otavio.tcc.Model.Alarme;
+import com.example.otavio.tcc.Picker.TimePicker;
 import com.example.otavio.tcc.R;
 import com.example.otavio.tcc.SQLite.TabelaAlarmes;
 
 import java.util.List;
 import java.util.Objects;
 
-public class EditarAlarmes extends Activity {
+public class EditarAlarmes extends FragmentActivity {
 
     @Override
     public void onBackPressed() {
@@ -34,15 +36,19 @@ public class EditarAlarmes extends Activity {
 
         final TextView edNome = findViewById(R.id.edNome);
         final TextView edDescricao = findViewById(R.id.edDescricao);
-        final TextView edHoraInicial = findViewById(R.id.edHoraInicial);
+        final TextView txtHora = findViewById(R.id.txtHora);
+        final TextView txtMin = findViewById(R.id.txtMin);
         final TextView edQuantidade = findViewById(R.id.edQuantidade);
         final TextView edTempo = findViewById(R.id.edTempo);
         final Switch aswitch = findViewById(R.id.switchLD);
+        Button btnHora = findViewById(R.id.btnHoraEd);
         Button btnSalvar = findViewById(R.id.btnSalvar);
         Button btnCancelar = findViewById(R.id.btnCancelar);
 
         aswitch.setScaleX((float) 1.2);
         aswitch.setScaleY((float) 1.2);
+        txtHora.setVisibility(View.GONE);
+        txtMin.setVisibility(View.GONE);
 
         final TabelaAlarmes tabelaAlarmes = new TabelaAlarmes(getApplicationContext());
 
@@ -50,7 +56,7 @@ public class EditarAlarmes extends Activity {
 
         edNome.setText(alarmeList.get(0).getNome());
         edDescricao.setText(alarmeList.get(0).getDescricao());
-        edHoraInicial.setText(alarmeList.get(0).getHoraInicial());
+
         edQuantidade.setText(alarmeList.get(0).getQuantidade());
         edTempo.setText(alarmeList.get(0).getTempo());
         if (alarmeList.get(0).getLigado().equals("1")) {
@@ -59,6 +65,14 @@ public class EditarAlarmes extends Activity {
             aswitch.setChecked(false);
         }
 
+        btnHora.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFragment newFragment = new TimePicker();
+                newFragment.show(getSupportFragmentManager(), "timePicker");
+            }
+        });
+
         btnSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,7 +80,8 @@ public class EditarAlarmes extends Activity {
                 alarme.setID(String.valueOf(id));
                 alarme.setNome(String.valueOf(edNome.getText()));
                 alarme.setDescricao(String.valueOf(edDescricao.getText()));
-                alarme.setHoraInicial(String.valueOf(edHoraInicial.getText()));
+                alarme.setHoraInicial(Integer.valueOf(String.valueOf(txtHora.getText())));
+                alarme.setMinInicial(Integer.valueOf(String.valueOf(txtMin.getText())));
                 alarme.setQuantidade(String.valueOf(edQuantidade.getText()));
                 alarme.setTempo(String.valueOf(edTempo.getText()));
                 if (aswitch.isChecked()) {

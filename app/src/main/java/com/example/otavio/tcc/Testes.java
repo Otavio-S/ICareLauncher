@@ -23,7 +23,7 @@ public class Testes extends Activity {
         alarme.setID("1");
         alarme.setNome("Alarme1");
         alarme.setDescricao("Esse é o primeiro alarme a ser criado.");
-        alarme.setHoraInicial("12");
+        alarme.setHoraInicial(12);
         alarme.setQuantidade("6");
         alarme.setTempo("12");
         alarme.setLigado("1");
@@ -33,7 +33,7 @@ public class Testes extends Activity {
         alarme.setID("2");
         alarme.setNome("Alarme2");
         alarme.setDescricao("Esse é o segundo alarme a ser criado.");
-        alarme.setHoraInicial("18");
+        alarme.setHoraInicial(18);
         alarme.setQuantidade("3");
         alarme.setTempo("8");
         alarme.setLigado("1");
@@ -43,7 +43,7 @@ public class Testes extends Activity {
         alarme.setID("3");
         alarme.setNome("Alarme3");
         alarme.setDescricao("Esse é o terceiro alarme a ser criado.");
-        alarme.setHoraInicial("8");
+        alarme.setHoraInicial(8);
         alarme.setQuantidade("4");
         alarme.setTempo("24");
         alarme.setLigado("0");

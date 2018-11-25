@@ -8,8 +8,8 @@
 
     <ScrollView
         android:id="@+id/scrollView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -96,7 +96,7 @@
                 tools:ignore="LabelFor" />
 
             <TextView
-                android:id="@+id/txtHora"
+                android:id="@+id/txtHoraInicial"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="55dp"
@@ -106,19 +106,27 @@
                 android:textColor="@android:color/black"
                 android:textSize="20sp" />
 
-            <EditText
-                android:id="@+id/edHoraInicial"
-                android:layout_width="300dp"
+            <Button
+                android:id="@+id/btnHora"
+                style="@android:style/Widget.Holo.Light.Button.Toggle"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
                 android:layout_marginEnd="55dp"
-                android:layout_marginStart="55dp"
+                android:layout_marginStart="50dp"
                 android:layout_marginTop="10dp"
-                android:ems="10"
-                android:inputType="time"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                tools:ignore="LabelFor" />
+                android:text="ESCOLHA A HORA INICIAL" />
+
+            <TextView
+                android:id="@+id/txtHora"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
+
+            <TextView
+                android:id="@+id/txtMin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
 
             <TextView
                 android:id="@+id/txtQuant"
@@ -223,13 +231,6 @@
                     app:layout_constraintStart_toEndOf="@+id/btnCancelar"
                     app:layout_constraintTop_toTopOf="parent" />
             </android.support.constraint.ConstraintLayout>
-
-            <EditText
-                android:id="@+id/editText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="time" />
 
 
         </LinearLayout>

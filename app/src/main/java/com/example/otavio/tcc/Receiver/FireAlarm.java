@@ -1,5 +1,9 @@
 package com.example.otavio.tcc.Receiver;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.RingtoneManager;
@@ -9,61 +13,82 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.otavio.tcc.Model.Alarme;
 import com.example.otavio.tcc.R;
+import com.example.otavio.tcc.SQLite.TabelaAlarmes;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Objects;
 
 public class FireAlarm extends AppCompatActivity {
 
     private MediaPlayer mediaPlayer;
     private Vibrator vibration;
+    private int id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fire_alarme);
 
+        Intent intent = getIntent();
+        String nome = intent.getStringExtra("Nome");
+        this.id = getIntent().getIntExtra("ID", 0);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
 
-        //startPlayingRing();
-        startVibrate();
+        TabelaAlarmes tabelaAlarmes = new TabelaAlarmes(getApplicationContext());
+        List<Alarme> alarmes = tabelaAlarmes.carregaDadosPorID(this.id);
+        int quantidade = Integer.parseInt(alarmes.get(0).getQuantidade());
 
-        Button btnPronto = findViewById(R.id.btnPronto);
-        btnPronto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                stopPlayRing();
-                stopVibrate();
+        if (quantidade != 0) {
+            quantidade = quantidade - 1;
+            tabelaAlarmes.atualizaContador(String.valueOf(id), quantidade);
+            //startPlayingRing();
+            startVibrate();
 
-                Toast toast = Toast.makeText(
-                        getApplicationContext(),
-                        "Que bom!",
-                        Toast.LENGTH_LONG);
-                toast.show();
+            TextView txtNome = findViewById(R.id.txtNomeAlarme);
+            txtNome.setText(nome);
 
-                finish();
-            }
-        });
+            Button btnPronto = findViewById(R.id.btnPronto);
+            btnPronto.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    stopPlayRing();
+                    stopVibrate();
 
-        Button btnNao = findViewById(R.id.btnNao);
-        btnNao.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                stopPlayRing();
-                stopVibrate();
+                    Toast toast = Toast.makeText(
+                            getApplicationContext(),
+                            "Que bom!",
+                            Toast.LENGTH_LONG);
+                    toast.show();
 
-                Toast toast = Toast.makeText(
-                        getApplicationContext(),
-                        "Tome seu remédio agora!",
-                        Toast.LENGTH_LONG);
-                toast.show();
+                    finish();
+                }
+            });
 
-                finish();
-            }
-        });
+            Button btnNao = findViewById(R.id.btnNao);
+            btnNao.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    stopPlayRing();
+                    stopVibrate();
+
+                    Toast toast = Toast.makeText(
+                            getApplicationContext(),
+                            "Tome seu remédio agora!",
+                            Toast.LENGTH_LONG);
+                    toast.show();
+
+                    finish();
+                }
+            });
+        } else {
+            this.onDestroy();
+        }
     }
 
     private void stopVibrate() {
@@ -118,6 +143,14 @@ public class FireAlarm extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent myIntent = new Intent(getApplicationContext(), AlarmReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                getApplicationContext(), this.id, myIntent, 0);
+
+        Objects.requireNonNull(alarmManager).cancel(pendingIntent);
+
         stopPlayRing();
         stopVibrate();
 

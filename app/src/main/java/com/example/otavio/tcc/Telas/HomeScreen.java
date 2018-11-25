@@ -22,7 +22,6 @@ import android.widget.Toast;
 import com.example.otavio.tcc.Model.Icone;
 import com.example.otavio.tcc.R;
 import com.example.otavio.tcc.SQLite.TabelaIcones;
-import com.example.otavio.tcc.Testes;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;
@@ -57,7 +56,7 @@ public class HomeScreen extends Activity {
     private View.OnClickListener btnNotasOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent intentN = new Intent(HomeScreen.this, Testes.class);
+            Intent intentN = new Intent(HomeScreen.this, TelaNotas.class);
             getWindow().setEnterTransition(new Fade());
             startActivity(intentN, ActivityOptions.makeSceneTransitionAnimation(activity).toBundle());
         }
