@@ -16,7 +16,7 @@ import java.util.List;
 public class TabelaHistorico extends SQLiteOpenHelper {
 
     private static final String NOME_TABELA = "Historico.db";
-    private static final int VERSAO_BANCO = 2;
+    private static final int VERSAO_BANCO = 4;
 
     public TabelaHistorico(Context context) {
         super(context, NOME_TABELA, null, VERSAO_BANCO);
@@ -32,7 +32,8 @@ public class TabelaHistorico extends SQLiteOpenHelper {
                 CamposHistorico.COLUNA_HORA_INICIAL + " TEXT," +
                 CamposHistorico.COLUNA_QUANTIDADE_VEZES + " TEXT," +
                 CamposHistorico.COLUNA_ESPACO_TEMPO + " TEXT," +
-                CamposHistorico.COLUNA_DESCRICAO + " TEXT" + " )";
+                CamposHistorico.COLUNA_DESCRICAO + " TEXT," +
+                CamposHistorico.COLUNA_HORARIO_REMEDIO + " TEXT " + ") ";
         db.execSQL(sql);
     }
 
@@ -52,7 +53,11 @@ public class TabelaHistorico extends SQLiteOpenHelper {
         ContentValues valores = new ContentValues();
         long resultado;
 
-        valores.put(CamposHistorico.COLUNA_ID, historico.getID());
+        int id = UltimoID();
+
+        id = id + 1;
+
+        valores.put(CamposHistorico.COLUNA_ID, id);
         valores.put(CamposHistorico.COLUNA_NOME, historico.getNome());
         valores.put(CamposHistorico.COLUNA_DATA_INICIAL, historico.getDataInicial());
         valores.put(CamposHistorico.COLUNA_DATA_FINAL, historico.getDataFinal());
@@ -60,6 +65,7 @@ public class TabelaHistorico extends SQLiteOpenHelper {
         valores.put(CamposHistorico.COLUNA_QUANTIDADE_VEZES, historico.getQuantidade());
         valores.put(CamposHistorico.COLUNA_ESPACO_TEMPO, historico.getTempo());
         valores.put(CamposHistorico.COLUNA_DESCRICAO, historico.getDescricao());
+        valores.put(CamposHistorico.COLUNA_HORARIO_REMEDIO, historico.getHorarioRemedio());
 
         resultado = db.insert(
                 CamposHistorico.NOME_TABELA,
@@ -71,6 +77,20 @@ public class TabelaHistorico extends SQLiteOpenHelper {
         else {
             return "Registro Inserido com sucesso";
         }
+    }
+
+    private int UltimoID() {
+        int id = 0;
+        SQLiteDatabase db = getReadableDatabase();
+        @SuppressLint("Recycle") Cursor cursor = db.rawQuery("SELECT * FROM " + CamposHistorico.NOME_TABELA, null);
+
+        if (cursor.moveToLast()) {
+            Historico historico = new Historico();
+            historico.setID(cursor.getString(cursor.getColumnIndex(CamposHistorico.COLUNA_ID)));
+            id = Integer.valueOf(historico.getID());
+        }
+
+        return id;
     }
 
     public List<Historico> carregaDados() {
@@ -90,8 +110,32 @@ public class TabelaHistorico extends SQLiteOpenHelper {
                 historico.setQuantidade(cursor.getString(cursor.getColumnIndex(CamposHistorico.COLUNA_QUANTIDADE_VEZES)));
                 historico.setTempo(cursor.getString(cursor.getColumnIndex(CamposHistorico.COLUNA_ESPACO_TEMPO)));
                 historico.setDescricao(cursor.getString(cursor.getColumnIndex(CamposHistorico.COLUNA_DESCRICAO)));
+                historico.setHorarioRemedio(cursor.getString(cursor.getColumnIndex(CamposHistorico.COLUNA_HORARIO_REMEDIO)));
                 historicos.add(historico);
             } while (cursor.moveToNext());
+        }
+
+        return historicos;
+    }
+
+    public List<Historico> carregaDadosPorID(int id) {
+
+        List<Historico> historicos = new ArrayList<>();
+        SQLiteDatabase db = getReadableDatabase();
+        @SuppressLint("Recycle") Cursor cursor = db.rawQuery("SELECT * FROM " + CamposHistorico.NOME_TABELA + " WHERE " + CamposHistorico.COLUNA_ID + " = " + String.valueOf(id), null);
+
+        if (cursor.moveToFirst()) {
+            Historico historico = new Historico();
+            historico.setID(cursor.getString(cursor.getColumnIndex(CamposHistorico.COLUNA_ID)));
+            historico.setNome(cursor.getString(cursor.getColumnIndex(CamposHistorico.COLUNA_NOME)));
+            historico.setDataInicial(cursor.getString(cursor.getColumnIndex(CamposHistorico.COLUNA_DATA_INICIAL)));
+            historico.setDataFinal(cursor.getString(cursor.getColumnIndex(CamposHistorico.COLUNA_DATA_FINAL)));
+            historico.setHoraInicial(cursor.getString(cursor.getColumnIndex(CamposHistorico.COLUNA_HORA_INICIAL)));
+            historico.setQuantidade(cursor.getString(cursor.getColumnIndex(CamposHistorico.COLUNA_QUANTIDADE_VEZES)));
+            historico.setTempo(cursor.getString(cursor.getColumnIndex(CamposHistorico.COLUNA_ESPACO_TEMPO)));
+            historico.setDescricao(cursor.getString(cursor.getColumnIndex(CamposHistorico.COLUNA_DESCRICAO)));
+            historico.setHorarioRemedio(cursor.getString(cursor.getColumnIndex(CamposHistorico.COLUNA_HORARIO_REMEDIO)));
+            historicos.add(historico);
         }
 
         return historicos;
@@ -108,6 +152,7 @@ public class TabelaHistorico extends SQLiteOpenHelper {
         valores.put(CamposHistorico.COLUNA_QUANTIDADE_VEZES, historico.getQuantidade());
         valores.put(CamposHistorico.COLUNA_ESPACO_TEMPO, historico.getTempo());
         valores.put(CamposHistorico.COLUNA_DESCRICAO, historico.getDescricao());
+        valores.put(CamposHistorico.COLUNA_HORARIO_REMEDIO, historico.getHorarioRemedio());
 
         String selecao = CamposHistorico.COLUNA_ID + " LIKE ?";
         String[] selecaoArgs = {historico.getID()};

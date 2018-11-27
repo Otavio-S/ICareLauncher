@@ -66,10 +66,6 @@
             android:theme="@style/ThemeAlarms" />
 
         <activity
-            android:name=".Testes"
-            android:theme="@style/ThemeAlarms" />
-
-        <activity
             android:name=".Telas.NovoAlarme"
             android:parentActivityName=".Telas.TelaAlarmes"
             android:theme="@style/ThemeAlarms" />

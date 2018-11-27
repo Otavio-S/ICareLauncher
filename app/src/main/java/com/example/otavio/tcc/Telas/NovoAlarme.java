@@ -41,6 +41,7 @@ public class NovoAlarme extends FragmentActivity {
         final TextView edTempo = findViewById(R.id.edTempo);
         final TextView txtHora = findViewById(R.id.txtHora);
         final TextView txtMin = findViewById(R.id.txtMin);
+        final TextView txtTempo = findViewById(R.id.txtTempo);
         final Switch aswitch = findViewById(R.id.switchLD);
         Button btnHora = findViewById(R.id.btnHora);
         Button btnSalvar = findViewById(R.id.btnSalvar);

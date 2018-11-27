@@ -22,18 +22,19 @@ public class AlarmReceiver extends BroadcastReceiver {
         int id = intent.getIntExtra("ID", 0);
 
         TabelaAlarmes tabelaAlarmes = new TabelaAlarmes(context);
-        List<Alarme> alarmeList;
+        List<Alarme> alarmeList = tabelaAlarmes.carregaDadosPorID(id);
         String ligado;
 
         try {
-            alarmeList = tabelaAlarmes.carregaDadosPorID(id);
             ligado = alarmeList.get(0).getLigado();
         } catch (Exception e) {
             ligado = "A";
         }
 
+        int quant = Integer.parseInt(alarmeList.get(0).getQuantidade());
+
         Intent bootIntent = new Intent(context, FireAlarm.class);
-        if (ligado.equals("1")) {
+        if (ligado.equals("1") & quant != 0) {
 
             bootIntent.addFlags(FLAG_ACTIVITY_NEW_TASK);
             bootIntent.putExtra("Nome", nomeRemedio);
@@ -41,6 +42,8 @@ public class AlarmReceiver extends BroadcastReceiver {
             bootIntent.putExtra(ALARM_CLOCK, intent.getSerializableExtra(ALARM_CLOCK));
             context.startActivity(bootIntent);
 
+        } else {
+            tabelaAlarmes.alteraSituacao(String.valueOf(id), "0");
         }
 
     }

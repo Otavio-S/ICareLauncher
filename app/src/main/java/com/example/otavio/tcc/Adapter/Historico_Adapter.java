@@ -26,6 +26,7 @@ public class Historico_Adapter extends RecyclerView.Adapter<Historico_Adapter.My
     private Context context;
     private List<Historico> historicoList;
     private TabelaHistorico tabelaHistorico;
+    private String id;
 
     public Historico_Adapter(Context context, List<Historico> historicoList) {
         this.context = context;
@@ -43,6 +44,7 @@ public class Historico_Adapter extends RecyclerView.Adapter<Historico_Adapter.My
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, VisualizarHistorico.class);
+                intent.putExtra("ID", Integer.valueOf(id));
                 context.startActivity(intent);
             }
         });
@@ -55,6 +57,7 @@ public class Historico_Adapter extends RecyclerView.Adapter<Historico_Adapter.My
 
         holder.txtNome.setText(historicoList.get(position).getNome());
         holder.txtDescricao.setText(historicoList.get(position).getDescricao());
+        id = historicoList.get(position).getID();
 
         holder.btnDeleteHistorico.setOnClickListener(new View.OnClickListener() {
             @Override

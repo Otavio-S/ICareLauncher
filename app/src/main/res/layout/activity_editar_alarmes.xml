@@ -90,6 +90,7 @@
                 android:layout_marginTop="10dp"
                 android:ems="10"
                 android:inputType="textPersonName"
+                android:textColor="@android:color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/edNome"
@@ -117,16 +118,28 @@
                 android:text="ESCOLHA A HORA INICIAL" />
 
             <TextView
+                android:id="@+id/txtTempo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="55dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="10dp" />
+
+            <TextView
                 android:id="@+id/txtHora"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_marginEnd="55dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="10dp" />
 
             <TextView
                 android:id="@+id/txtMin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:layout_marginEnd="55dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="10dp" />
 
             <TextView
                 android:id="@+id/txtQuant"
@@ -149,13 +162,14 @@
                 android:layout_marginTop="10dp"
                 android:ems="10"
                 android:inputType="number"
+                android:textColor="@android:color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/edHoraInicial"
                 tools:ignore="LabelFor" />
 
             <TextView
-                android:id="@+id/txtTempo"
+                android:id="@+id/txtEspacoTempo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="55dp"
@@ -175,6 +189,7 @@
                 android:layout_marginTop="10dp"
                 android:ems="10"
                 android:inputType="time"
+                android:textColor="@android:color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/edQuantidade"

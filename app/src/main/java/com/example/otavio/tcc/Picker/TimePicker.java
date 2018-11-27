@@ -30,7 +30,10 @@ public class TimePicker extends DialogFragment implements TimePickerDialog.OnTim
     public void onTimeSet(android.widget.TimePicker view, int hourOfDay, int minute) {
         TextView txtHora = Objects.requireNonNull(getActivity()).findViewById(R.id.txtHora);
         TextView txtMin = getActivity().findViewById(R.id.txtMin);
+        TextView txtTempo = getActivity().findViewById(R.id.txtTempo);
 
+        String horaEscolhida = "Hora Escolhida: ".concat(String.valueOf(hourOfDay)).concat(":").concat(String.valueOf(minute));
+        txtTempo.setText(horaEscolhida);
         txtHora.setText(String.valueOf(hourOfDay));
         txtMin.setText(String.valueOf(minute));
     }

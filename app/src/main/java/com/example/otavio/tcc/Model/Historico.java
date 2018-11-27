@@ -10,6 +10,7 @@ public class Historico {
     private String Quantidade;
     private String Tempo;
     private String Descricao;
+    private String HorarioRemedio;
 
     public Historico() {
     }
@@ -76,5 +77,13 @@ public class Historico {
 
     public void setDescricao(String descricao) {
         Descricao = descricao;
+    }
+
+    public String getHorarioRemedio() {
+        return HorarioRemedio;
+    }
+
+    public void setHorarioRemedio(String horarioRemedio) {
+        HorarioRemedio = horarioRemedio;
     }
 }

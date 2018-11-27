@@ -40,6 +40,7 @@ public class EditarAlarmes extends FragmentActivity {
         final TextView txtMin = findViewById(R.id.txtMin);
         final TextView edQuantidade = findViewById(R.id.edQuantidade);
         final TextView edTempo = findViewById(R.id.edTempo);
+        final TextView txtTempo = findViewById(R.id.txtTempo);
         final Switch aswitch = findViewById(R.id.switchLD);
         Button btnHora = findViewById(R.id.btnHoraEd);
         Button btnSalvar = findViewById(R.id.btnSalvar);
@@ -56,9 +57,10 @@ public class EditarAlarmes extends FragmentActivity {
 
         edNome.setText(alarmeList.get(0).getNome());
         edDescricao.setText(alarmeList.get(0).getDescricao());
-
         edQuantidade.setText(alarmeList.get(0).getQuantidade());
         edTempo.setText(alarmeList.get(0).getTempo());
+        String horaEscolhida = "Hora Escolhida: ".concat(String.valueOf(alarmeList.get(0).getHoraInicial())).concat(":").concat(String.valueOf(alarmeList.get(0).getMinInicial()));
+        txtTempo.setText(horaEscolhida);
         if (alarmeList.get(0).getLigado().equals("1")) {
             aswitch.setChecked(true);
         } else {
