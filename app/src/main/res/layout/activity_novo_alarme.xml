@@ -41,7 +41,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/txtNome"
+                android:id="@+id/txtNomeNotaEd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="55dp"
@@ -175,7 +175,7 @@
                 android:layout_marginEnd="55dp"
                 android:layout_marginStart="50dp"
                 android:layout_marginTop="50dp"
-                android:text="Espaço de Tempo"
+                android:text="Espaço de Tempo (Em minutos)"
                 android:textColor="@android:color/black"
                 android:textSize="20sp" />
 

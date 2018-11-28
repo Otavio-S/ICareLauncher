@@ -1,17 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#dcd2be">
+    android:tag="FragmentAlarmes"
+    android:theme="@style/Theme.AppCompat"
+    tools:layout_editor_absoluteY="81dp">
 
-    <TextView
-        android:id="@+id/textView3"
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingNotas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="144dp"
-        android:text="NOTAS"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="30dp"
+        android:layout_marginEnd="30dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:backgroundTint="@color/stats_brown"
+        app:srcCompat="@drawable/add" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerViewNotas"
+        android:layout_width="403dp"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="6dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</android.support.constraint.ConstraintLayout>
+        app:layout_constraintStart_toStartOf="parent">
+
+    </android.support.v7.widget.RecyclerView>
+
+</RelativeLayout>

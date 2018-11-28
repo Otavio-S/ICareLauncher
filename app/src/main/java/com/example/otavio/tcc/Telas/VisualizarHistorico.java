@@ -40,7 +40,6 @@ public class VisualizarHistorico extends FragmentActivity {
         txtDescricao.setText(historicoList.get(0).getDescricao());
         txtHora.setText(historicoList.get(0).getHorarioRemedio());
 
-
     }
 
 }

@@ -46,7 +46,8 @@
         <activity
             android:name=".Telas.TelaNotas"
             android:label="TelaNotas"
-            android:parentActivityName=".Telas.HomeScreen">
+            android:parentActivityName=".Telas.HomeScreen"
+            android:theme="@style/ThemeAlarms">
             <meta-data
                 android:name="android.support.NOTAS_ACTIVITY"
                 android:value=".TelaNotas" />
@@ -63,6 +64,7 @@
 
         <activity
             android:name=".Telas.VisualizarHistorico"
+            android:parentActivityName=".Telas.TelaAlarmes"
             android:theme="@style/ThemeAlarms" />
 
         <activity
@@ -75,6 +77,16 @@
         <activity
             android:name=".Receiver.FireAlarm"
             android:theme="@style/Theme.Design.Light.NoActionBar" />
+
+        <activity
+            android:name=".Telas.EditarNotas"
+            android:parentActivityName=".Telas.TelaNotas"
+            android:theme="@style/ThemeAlarms" />
+
+        <activity
+            android:name=".Telas.NovaNota"
+            android:parentActivityName=".Telas.TelaNotas"
+            android:theme="@style/ThemeAlarms" />
 
         <receiver android:name=".Receiver.AlarmReceiver">
             <intent-filter>
