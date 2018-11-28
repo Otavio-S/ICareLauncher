@@ -8,9 +8,9 @@
 
     <Button
         android:id="@+id/btnCancelarNotaEd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="13dp"
+        style="@android:style/Widget.Holo.Light.Button.Toggle"
+        android:layout_width="130dp"
+        android:layout_height="60dp"
         android:text="Cancelar"
         app:layout_constraintBaseline_toBaselineOf="@+id/btnSalvarNotaEd"
         app:layout_constraintEnd_toStartOf="@+id/btnSalvarNotaEd"
@@ -18,10 +18,10 @@
 
     <Button
         android:id="@+id/btnSalvarNotaEd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@android:style/Widget.Holo.Light.Button.Toggle"
+        android:layout_width="130dp"
+        android:layout_height="60dp"
         android:layout_marginBottom="83dp"
-        android:layout_marginEnd="13dp"
         android:text="Salvar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

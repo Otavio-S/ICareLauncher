@@ -73,10 +73,10 @@
 
     <Button
         android:id="@+id/btnSalvarNota"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@android:style/Widget.Holo.Light.Button.Toggle"
+        android:layout_width="130dp"
+        android:layout_height="60dp"
         android:layout_marginBottom="86dp"
-        android:layout_marginEnd="4dp"
         android:text="Salvar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -84,8 +84,9 @@
 
     <Button
         android:id="@+id/btnCancelarNota"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@android:style/Widget.Holo.Light.Button.Toggle"
+        android:layout_width="130dp"
+        android:layout_height="60dp"
         android:layout_marginEnd="25dp"
         android:text="Cancelar"
         app:layout_constraintBottom_toBottomOf="@+id/btnSalvarNota"
