@@ -9,7 +9,6 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -47,7 +46,7 @@ public class TelaSOS extends Activity {
         @Override
         public void onClick(View v) {
             TabelaSOS tabelaSOS = new TabelaSOS(getApplicationContext());
-            String num = tabelaSOS.carregaDadosPorID(0).get(0).getNumero();
+            String num = tabelaSOS.carregaDadosPorID(0).getNumero();
 
             if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.CALL_PHONE}, 0);
@@ -62,7 +61,7 @@ public class TelaSOS extends Activity {
         @Override
         public void onClick(View v) {
             TabelaSOS tabelaSOS = new TabelaSOS(getApplicationContext());
-            String num = tabelaSOS.carregaDadosPorID(1).get(0).getNumero();
+            String num = tabelaSOS.carregaDadosPorID(1).getNumero();
 
             if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.CALL_PHONE}, 0);
@@ -77,12 +76,18 @@ public class TelaSOS extends Activity {
         @Override
         public void onClick(View v) {
             TabelaSOS tabelaSOS = new TabelaSOS(getApplicationContext());
-            String num = tabelaSOS.carregaDadosPorID(0).get(0).getNumero();
+            String num = "";
+            try {
+                num = tabelaSOS.carregaDadosPorID(0).getNumero();
+            } catch (Exception e){
+                Toast.makeText(getApplicationContext(), "Defina um número primeiro!", Toast.LENGTH_SHORT).show();
+            }
 
             String message = "";
             try {
-                message = tabelaSOS.carregaDados().get(2).getMensagem();
-
+                System.out.println("AQUI!!1111111111111111111111111111111111111111111111111111111111111111111111111111111");
+                message = tabelaSOS.carregaDadosPorID(2).getMensagem();
+                System.out.println("AQUI!2222222222222222222222222222222222222222222222222222222222222222222222222222222222222");
                 if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
                     ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.SEND_SMS}, 1);
                 }
@@ -103,10 +108,16 @@ public class TelaSOS extends Activity {
         @Override
         public void onClick(View v) {
             TabelaSOS tabelaSOS = new TabelaSOS(getApplicationContext());
-            String num = tabelaSOS.carregaDadosPorID(1).get(0).getNumero();
+            String num = "";
+            try {
+                num = tabelaSOS.carregaDadosPorID(1).getNumero();
+            } catch (Exception e){
+                Toast.makeText(getApplicationContext(), "Defina um número primeiro!", Toast.LENGTH_SHORT).show();
+            }
+
             String message = "";
             try {
-                message = tabelaSOS.carregaDados().get(2).getMensagem();
+                message = tabelaSOS.carregaDadosPorID(2).getMensagem();
 
                 if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
                     ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.SEND_SMS}, 1);
@@ -179,7 +190,7 @@ public class TelaSOS extends Activity {
                     TabelaSOS tabelaSOS = new TabelaSOS(getApplicationContext());
                     String id = null;
                     try {
-                        id = tabelaSOS.carregaDadosPorID(0).get(0).getNumero();
+                        id = tabelaSOS.carregaDadosPorID(0).getNumero();
                     } catch (Exception ignored) {
                     }
 
@@ -215,7 +226,7 @@ public class TelaSOS extends Activity {
                     TabelaSOS tabelaSOS = new TabelaSOS(getApplicationContext());
                     String id = null;
                     try {
-                        id = tabelaSOS.carregaDadosPorID(1).get(0).getNumero();
+                        id = tabelaSOS.carregaDadosPorID(1).getNumero();
                     } catch (Exception ignored) {
                     }
 
@@ -251,7 +262,7 @@ public class TelaSOS extends Activity {
                 if (data != null) {
                     try {
                         Bundle extras = data.getExtras();
-                        Bitmap bitmap = (Bitmap) extras.get("data");
+                        Bitmap bitmap = (Bitmap) Objects.requireNonNull(extras).get("data");
 
                         Resources res = getResources();
                         RoundedBitmapDrawable dr =

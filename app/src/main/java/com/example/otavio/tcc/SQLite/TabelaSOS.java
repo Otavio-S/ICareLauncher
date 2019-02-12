@@ -9,7 +9,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.otavio.tcc.Constant.CamposIcones;
 import com.example.otavio.tcc.Constant.CamposSOS;
-import com.example.otavio.tcc.Model.Icone;
 import com.example.otavio.tcc.Model.SOS;
 
 import java.util.ArrayList;
@@ -83,19 +82,15 @@ public class TabelaSOS extends SQLiteOpenHelper {
         return sos;
     }
 
-    public List<SOS> carregaDadosPorID(int id) {
+    public SOS carregaDadosPorID(int id) {
 
-        List<SOS> sos = new ArrayList<>();
+        SOS sos = new SOS();
         SQLiteDatabase db = getReadableDatabase();
         @SuppressLint("Recycle") Cursor cursor = db.rawQuery("SELECT * FROM " + CamposSOS.NOME_TABELA + " WHERE " + CamposSOS.COLUNA_ID + " = " + String.valueOf(id), null);
 
         if (cursor.moveToFirst()) {
-            do {
-                SOS sos1 = new SOS();
-                sos1.setNumero(cursor.getString(cursor.getColumnIndex(CamposSOS.COLUNA_NUMERO)));
-                sos1.setMensagem(cursor.getString(cursor.getColumnIndex(CamposSOS.COLUNA_MENSAGEM)));
-                sos.add(sos1);
-            } while (cursor.moveToNext());
+            sos.setNumero(cursor.getString(cursor.getColumnIndex(CamposSOS.COLUNA_NUMERO)));
+            sos.setMensagem(cursor.getString(cursor.getColumnIndex(CamposSOS.COLUNA_MENSAGEM)));
         }
 
         return sos;

@@ -29,17 +29,17 @@ public class Mensagem extends Activity {
 
                 String id = null;
                 try {
-                    id = tabelaSOS.carregaDadosPorID(2).get(0).getNumero();
+                    id = tabelaSOS.carregaDadosPorID(2).getId();
 
                     SOS sos = new SOS();
-                    sos.setId("3");
+                    sos.setId("2");
                     sos.setMensagem(text);
 
                     tabelaSOS.insereDado(sos);
                     Toast.makeText(getApplicationContext(), "Mensagem salva!", Toast.LENGTH_SHORT).show();
                 } catch (Exception e) {
                     SOS sos = new SOS();
-                    sos.setId("3");
+                    sos.setId("2");
                     sos.setMensagem(text);
 
                     tabelaSOS.alteraRegistro(sos);
