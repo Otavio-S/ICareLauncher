@@ -1,4 +1,4 @@
-package com.example.otavio.tcc.Telas;
+package com.example.otavio.tcc.Telas.Alarmes;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -9,6 +9,8 @@ import android.view.View;
 
 import com.example.otavio.tcc.Adapter.Adapter_Tabs;
 import com.example.otavio.tcc.R;
+import com.example.otavio.tcc.Telas.Alarmes.FragmentAlarmes;
+import com.example.otavio.tcc.Telas.Alarmes.FragmentHistorico;
 
 public class TelaAlarmes extends AppCompatActivity {
 

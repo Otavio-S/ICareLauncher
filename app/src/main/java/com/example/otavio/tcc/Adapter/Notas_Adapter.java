@@ -15,7 +15,7 @@ import android.widget.Toast;
 import com.example.otavio.tcc.Model.Nota;
 import com.example.otavio.tcc.R;
 import com.example.otavio.tcc.SQLite.TabelaNotas;
-import com.example.otavio.tcc.Telas.EditarNotas;
+import com.example.otavio.tcc.Telas.Nota.EditarNotas;
 
 import java.util.List;
 

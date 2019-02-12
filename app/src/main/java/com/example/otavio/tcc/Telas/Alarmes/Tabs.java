@@ -1,4 +1,4 @@
-package com.example.otavio.tcc.Telas;
+package com.example.otavio.tcc.Telas.Alarmes;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -10,6 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.example.otavio.tcc.R;
+import com.example.otavio.tcc.Telas.Alarmes.FragmentAlarmes;
+import com.example.otavio.tcc.Telas.Alarmes.FragmentHistorico;
 
 import java.util.ArrayList;
 import java.util.List;

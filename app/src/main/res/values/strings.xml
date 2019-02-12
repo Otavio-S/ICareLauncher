@@ -4,4 +4,8 @@
     <string name="sos">SOS</string>
     <string name="voltar">Voltar</string>
     <string name="appbar_scrolling_viewbehavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
+    <string name="configuracoes">Configurações</string>
+    <string name="emergency">Definir mensagem de emergência</string>
+    <string name="definir_segundo_contato">Definir segundo contato</string>
+    <string name="definir_primeiro_contato">Definir primeiro contato</string>
 </resources>

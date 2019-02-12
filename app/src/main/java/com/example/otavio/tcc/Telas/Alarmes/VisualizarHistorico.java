@@ -1,4 +1,4 @@
-package com.example.otavio.tcc.Telas;
+package com.example.otavio.tcc.Telas.Alarmes;
 
 import android.content.Intent;
 import android.os.Bundle;

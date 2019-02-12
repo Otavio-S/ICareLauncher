@@ -1,4 +1,4 @@
-package com.example.otavio.tcc.Telas;
+package com.example.otavio.tcc.Telas.Home;
 
 import android.Manifest;
 import android.app.Activity;
@@ -10,7 +10,6 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.transition.Fade;
@@ -22,6 +21,9 @@ import android.widget.Toast;
 import com.example.otavio.tcc.Model.Icone;
 import com.example.otavio.tcc.R;
 import com.example.otavio.tcc.SQLite.TabelaIcones;
+import com.example.otavio.tcc.Telas.Alarmes.TelaAlarmes;
+import com.example.otavio.tcc.Telas.Nota.TelaNotas;
+import com.example.otavio.tcc.Telas.SOS.TelaSOS;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;
@@ -52,7 +54,6 @@ public class HomeScreen extends Activity {
     };
 
 
-    //!!!
     private View.OnClickListener btnNotasOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -208,10 +209,9 @@ public class HomeScreen extends Activity {
                     Drawable icone = (pm.getActivityIcon(intent1));
                     btn1.setImageDrawable(icone);
                     btn1.setBackground(null);
-                    btn1.setScaleX((float) 1.5);
-                    btn1.setScaleY((float) 1.5);
+                    btn1.setScaleX((float) 1.3);
+                    btn1.setScaleY((float) 1.3);
                 } catch (PackageManager.NameNotFoundException ignored) {
-
                 }
             }
         } else if (requestCode == 2) {
@@ -236,8 +236,8 @@ public class HomeScreen extends Activity {
                     Drawable icone = (pm.getActivityIcon(intent2));
                     btn2.setImageDrawable(icone);
                     btn2.setBackground(null);
-                    btn2.setScaleX((float) 1.5);
-                    btn2.setScaleY((float) 1.5);
+                    btn2.setScaleX((float) 1.3);
+                    btn2.setScaleY((float) 1.3);
                 } catch (PackageManager.NameNotFoundException ignored) {
 
                 }
@@ -264,8 +264,8 @@ public class HomeScreen extends Activity {
                     Drawable icone = (pm.getActivityIcon(intent3));
                     btn3.setImageDrawable(icone);
                     btn3.setBackground(null);
-                    btn3.setScaleX((float) 1.5);
-                    btn3.setScaleY((float) 1.5);
+                    btn3.setScaleX((float) 1.3);
+                    btn3.setScaleY((float) 1.3);
                 } catch (PackageManager.NameNotFoundException ignored) {
 
                 }
@@ -316,8 +316,8 @@ public class HomeScreen extends Activity {
             Drawable icone1 = (pm.getActivityIcon(intent1));
             btn1.setImageDrawable(icone1);
             btn1.setBackground(null);
-            btn1.setScaleX((float) 1.5);
-            btn1.setScaleY((float) 1.5);
+            btn1.setScaleX((float) 1.3);
+            btn1.setScaleY((float) 1.3);
 
             this.Classe2 = tabelaIcones.carregaDados().get(1).getClasse();
             String Pacote2 = tabelaIcones.carregaDados().get(1).getPacote();
@@ -330,8 +330,8 @@ public class HomeScreen extends Activity {
             Drawable icone2 = (pm.getActivityIcon(intent2));
             btn2.setImageDrawable(icone2);
             btn2.setBackground(null);
-            btn2.setScaleX((float) 1.5);
-            btn2.setScaleY((float) 1.5);
+            btn2.setScaleX((float) 1.3);
+            btn2.setScaleY((float) 1.3);
 
             this.Classe3 = tabelaIcones.carregaDados().get(2).getClasse();
             String Pacote3 = tabelaIcones.carregaDados().get(2).getPacote();
@@ -344,8 +344,8 @@ public class HomeScreen extends Activity {
             Drawable icone3 = (pm.getActivityIcon(intent3));
             btn3.setImageDrawable(icone3);
             btn3.setBackground(null);
-            btn3.setScaleX((float) 1.5);
-            btn3.setScaleY((float) 1.5);
+            btn3.setScaleX((float) 1.3);
+            btn3.setScaleY((float) 1.3);
 
         } catch (Exception ignored) {
         }
@@ -382,13 +382,5 @@ public class HomeScreen extends Activity {
 
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCode == 0) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED
-                    && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
-                btnCamera.setEnabled(true);
-            }
-        }
-    }
+
 }

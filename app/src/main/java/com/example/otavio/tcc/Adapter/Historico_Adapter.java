@@ -17,7 +17,7 @@ import android.widget.Toast;
 import com.example.otavio.tcc.Model.Historico;
 import com.example.otavio.tcc.R;
 import com.example.otavio.tcc.SQLite.TabelaHistorico;
-import com.example.otavio.tcc.Telas.VisualizarHistorico;
+import com.example.otavio.tcc.Telas.Alarmes.VisualizarHistorico;
 
 import java.util.List;
 

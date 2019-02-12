@@ -19,7 +19,7 @@ import android.widget.Toast;
 import com.example.otavio.tcc.Model.Alarme;
 import com.example.otavio.tcc.R;
 import com.example.otavio.tcc.SQLite.TabelaAlarmes;
-import com.example.otavio.tcc.Telas.EditarAlarmes;
+import com.example.otavio.tcc.Telas.Alarmes.EditarAlarmes;
 
 import java.util.List;
 
