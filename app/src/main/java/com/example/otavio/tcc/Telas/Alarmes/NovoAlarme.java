@@ -24,6 +24,73 @@ import java.util.Objects;
 
 public class NovoAlarme extends FragmentActivity {
 
+    private View.OnClickListener btnSalvarOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            TabelaAlarmes tabelaAlarmes = new TabelaAlarmes(getApplicationContext());
+
+            TextView edNome = findViewById(R.id.edNome);
+            TextView edDescricao = findViewById(R.id.edDescricao);
+            TextView edQuantidade = findViewById(R.id.edQuantidade);
+            TextView edTempo = findViewById(R.id.edTempo);
+            TextView txtHora = findViewById(R.id.txtHora);
+            TextView txtMin = findViewById(R.id.txtMin);
+            TextView txtTempo = findViewById(R.id.txtTempo);
+            Switch aswitch = findViewById(R.id.switchLD);
+
+            Alarme alarme = new Alarme();
+            alarme.setNome(String.valueOf(edNome.getText()));
+            alarme.setDescricao(String.valueOf(edDescricao.getText()));
+            alarme.setHoraInicial(Integer.valueOf(String.valueOf(txtHora.getText())));
+            alarme.setMinInicial(Integer.valueOf(String.valueOf(txtMin.getText())));
+            alarme.setQuantidade(String.valueOf(edQuantidade.getText()));
+            alarme.setTempo(String.valueOf(edTempo.getText()));
+            alarme.setContador(Integer.valueOf(String.valueOf(edQuantidade.getText())));
+            if (aswitch.isChecked()) {
+                alarme.setLigado("1");
+            } else {
+                alarme.setLigado("0");
+            }
+
+            String insert = tabelaAlarmes.insereDado(alarme);
+
+            if (insert.equals("Registro Inserido com sucesso")) {
+                int id = tabelaAlarmes.UltimoID();
+
+                startAlarm(id, alarme.getNome(), alarme.getHoraInicial(), alarme.getMinInicial(), Integer.parseInt(alarme.getTempo()));
+                Toast toast = Toast.makeText(
+                        getApplicationContext(),
+                        "Alarme salvo",
+                        Toast.LENGTH_SHORT);
+                toast.show();
+
+                Intent intent = new Intent(getApplicationContext(), FragmentAlarmes.class);
+                setResult(RESULT_OK, intent);
+                // finish method is requires if this Activity was started by startActivityForResult
+                finish();
+
+            } else {
+                Toast toast = Toast.makeText(
+                        getApplicationContext(),
+                        "Alarme não salvo",
+                        Toast.LENGTH_SHORT);
+                toast.show();
+            }
+            finish();
+        }
+    };
+    private View.OnClickListener btnCancelarOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Toast toast = Toast.makeText(
+                    getApplicationContext(),
+                    "Cancelado",
+                    Toast.LENGTH_SHORT);
+            toast.show();
+            finish();
+        }
+    };
+
     @Override
     public void onBackPressed() {
         finish();
@@ -35,25 +102,11 @@ public class NovoAlarme extends FragmentActivity {
         setContentView(R.layout.activity_novo_alarme);
         Objects.requireNonNull(getActionBar()).setDisplayHomeAsUpEnabled(true);
 
-        final TextView edNome = findViewById(R.id.edNome);
-        final TextView edDescricao = findViewById(R.id.edDescricao);
-        final TextView edQuantidade = findViewById(R.id.edQuantidade);
-        final TextView edTempo = findViewById(R.id.edTempo);
-        final TextView txtHora = findViewById(R.id.txtHora);
-        final TextView txtMin = findViewById(R.id.txtMin);
-        final TextView txtTempo = findViewById(R.id.txtTempo);
-        final Switch aswitch = findViewById(R.id.switchLD);
+        TextView txtHora = findViewById(R.id.txtHora);
+        TextView txtMin = findViewById(R.id.txtMin);
+        Switch aswitch = findViewById(R.id.switchLD);
+
         Button btnHora = findViewById(R.id.btnHora);
-        Button btnSalvar = findViewById(R.id.btnSalvar);
-        Button btnCancelar = findViewById(R.id.btnCancelar);
-
-        aswitch.setScaleX((float) 1.2);
-        aswitch.setScaleY((float) 1.2);
-        txtHora.setVisibility(View.GONE);
-        txtMin.setVisibility(View.GONE);
-
-        final TabelaAlarmes tabelaAlarmes = new TabelaAlarmes(getApplicationContext());
-
         btnHora.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,56 +115,16 @@ public class NovoAlarme extends FragmentActivity {
             }
         });
 
-        btnSalvar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Alarme alarme = new Alarme();
-                alarme.setNome(String.valueOf(edNome.getText()));
-                alarme.setDescricao(String.valueOf(edDescricao.getText()));
-                alarme.setHoraInicial(Integer.valueOf(String.valueOf(txtHora.getText())));
-                alarme.setMinInicial(Integer.valueOf(String.valueOf(txtMin.getText())));
-                alarme.setQuantidade(String.valueOf(edQuantidade.getText()));
-                alarme.setTempo(String.valueOf(edTempo.getText()));
-                alarme.setContador(Integer.valueOf(String.valueOf(edQuantidade.getText())));
-                if (aswitch.isChecked()) {
-                    alarme.setLigado("1");
-                } else {
-                    alarme.setLigado("0");
-                }
+        Button btnSalvar = findViewById(R.id.btnSalvar);
+        btnSalvar.setOnClickListener(btnSalvarOnClickListener);
 
-                String insert = tabelaAlarmes.insereDado(alarme);
+        Button btnCancelar = findViewById(R.id.btnCancelar);
+        btnCancelar.setOnClickListener(btnCancelarOnClickListener);
 
-                if (insert.equals("Registro Inserido com sucesso")) {
-                    int id = tabelaAlarmes.UltimoID();
-
-                    startAlarm(id, alarme.getNome(), alarme.getHoraInicial(), alarme.getMinInicial(), Integer.parseInt(alarme.getTempo()));
-                    Toast toast = Toast.makeText(
-                            getApplicationContext(),
-                            "Alarme salvo",
-                            Toast.LENGTH_SHORT);
-                    toast.show();
-                } else {
-                    Toast toast = Toast.makeText(
-                            getApplicationContext(),
-                            "Alarme não salvo",
-                            Toast.LENGTH_SHORT);
-                    toast.show();
-                }
-                finish();
-            }
-        });
-
-        btnCancelar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast toast = Toast.makeText(
-                        getApplicationContext(),
-                        "Cancelado",
-                        Toast.LENGTH_SHORT);
-                toast.show();
-                finish();
-            }
-        });
+        aswitch.setScaleX((float) 1.2);
+        aswitch.setScaleY((float) 1.2);
+        txtHora.setVisibility(View.GONE);
+        txtMin.setVisibility(View.GONE);
 
     }
 

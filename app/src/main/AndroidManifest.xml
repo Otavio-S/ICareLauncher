@@ -12,6 +12,8 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
     <uses-feature android:name="android.hardware.camera.autofocus" />
     <uses-feature
         android:name="android.hardware.camera"
@@ -89,7 +91,10 @@
             android:parentActivityName=".Telas.SOS.TelaSOS"
             android:theme="@style/ThemeAlarms" />
 
-        <receiver android:name=".Receiver.AlarmReceiver">
+        <receiver
+            android:name=".Receiver.AlarmReceiver"
+            android:permission="">
+
             <intent-filter>
                 <action android:name="com.test.intent.action.ALARM" />
             </intent-filter>

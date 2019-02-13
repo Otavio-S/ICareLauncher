@@ -117,7 +117,11 @@ public class Alarmes_Adapter extends RecyclerView.Adapter<Alarmes_Adapter.MyView
 
     @Override
     public int getItemCount() {
-        return alarmeList.size();
+        return this.alarmeList.size();
+    }
+
+    public void add(Alarme alarm) {
+        this.alarmeList.add(alarm);
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {

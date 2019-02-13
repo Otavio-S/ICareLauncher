@@ -21,11 +21,13 @@ import com.example.otavio.tcc.SQLite.TabelaAlarmes;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.app.Activity.RESULT_OK;
+
 public class FragmentAlarmes extends Fragment {
 
-    private View view;
-    private RecyclerView recyclerView;
     private List<Alarme> alarmeList;
+    private Alarmes_Adapter viewAdapter;
+    private RecyclerView recyclerView;
 
     public FragmentAlarmes() {
         // Required empty public constructor
@@ -35,11 +37,12 @@ public class FragmentAlarmes extends Fragment {
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.fragment_alarmes, container, false);
+        View view = inflater.inflate(R.layout.fragment_alarmes, container, false);
         recyclerView = view.findViewById(R.id.recyclerViewAlarmes);
-        Alarmes_Adapter viewAdapter = new Alarmes_Adapter(getContext(), alarmeList);
+        viewAdapter = new Alarmes_Adapter(getContext(), alarmeList);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
+
         recyclerView.setAdapter(viewAdapter);
 
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
@@ -51,11 +54,33 @@ public class FragmentAlarmes extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), NovoAlarme.class);
-                startActivity(intent);
+                startActivityForResult(intent, 1);
             }
         });
 
         return view;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+
+                alarmeList = new ArrayList<>();
+                TabelaAlarmes alarmes = new TabelaAlarmes(getContext());
+                int i;
+                int quant = alarmes.carregaDados().size();
+
+                for (i = quant; i >= 0; i--) {
+                    alarmeList.add(alarmes.carregaDados().get(i));
+                }
+
+                viewAdapter = new Alarmes_Adapter(getContext(), alarmeList);
+                viewAdapter.notifyDataSetChanged();
+                recyclerView.setAdapter(viewAdapter);
+            }
+        }
     }
 
     @Override
@@ -65,9 +90,9 @@ public class FragmentAlarmes extends Fragment {
         alarmeList = new ArrayList<>();
         TabelaAlarmes alarmes = new TabelaAlarmes(getContext());
         int i;
-        int quant = alarmes.carregaDados().size();
+        int quant = alarmes.carregaDados().size() - 1;
 
-        for (i = 0; i < quant; i++) {
+        for (i = quant; i >= 0; i--) {
             alarmeList.add(alarmes.carregaDados().get(i));
         }
 

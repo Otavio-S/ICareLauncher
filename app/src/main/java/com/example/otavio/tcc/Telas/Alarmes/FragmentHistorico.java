@@ -55,9 +55,9 @@ public class FragmentHistorico extends Fragment {
         historicoList = new ArrayList<>();
         TabelaHistorico historico = new TabelaHistorico(getContext());
         int i;
-        int quant = historico.carregaDados().size();
+        int quant = historico.carregaDados().size() - 1;
 
-        for (i = 0; i < quant; i++) {
+        for (i = quant; i >= 0; i--) {
             historicoList.add(historico.carregaDados().get(i));
         }
     }
