@@ -85,16 +85,6 @@
             android:theme="@style/Theme.Design.Light.NoActionBar" />
 
         <activity
-            android:name=".Telas.Nota.EditarNotas"
-            android:parentActivityName=".Telas.Nota.TelaNotas"
-            android:theme="@style/ThemeAlarms" />
-
-        <activity
-            android:name=".Telas.Nota.NovaNota"
-            android:parentActivityName=".Telas.Nota.TelaNotas"
-            android:theme="@style/ThemeAlarms" />
-
-        <activity
             android:name=".Telas.SOS.Mensagem"
             android:parentActivityName=".Telas.SOS.TelaSOS"
             android:theme="@style/ThemeAlarms" />

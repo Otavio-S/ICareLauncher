@@ -16,7 +16,7 @@ import java.util.List;
 public class TabelaNotas extends SQLiteOpenHelper {
 
     private static final String NOME_TABELA = "Notas.db";
-    private static final int VERSAO_BANCO = 1;
+    private static final int VERSAO_BANCO = 2;
 
     public TabelaNotas(Context context) {
         super(context, NOME_TABELA, null, VERSAO_BANCO);
@@ -100,21 +100,19 @@ public class TabelaNotas extends SQLiteOpenHelper {
         return notas;
     }
 
-    public List<Nota> carregaDadosPorID(int id) {
+    public Nota carregaDadosPorID(int id) {
 
-        List<Nota> notas = new ArrayList<>();
+        Nota nota = new Nota();
         SQLiteDatabase db = getReadableDatabase();
         @SuppressLint("Recycle") Cursor cursor = db.rawQuery("SELECT * FROM " + CamposNotas.NOME_TABELA + " WHERE " + CamposNotas.COLUNA_ID + " = " + id, null);
 
         if (cursor.moveToFirst()) {
-            Nota nota = new Nota();
             nota.setID(cursor.getString(cursor.getColumnIndex(CamposNotas.COLUNA_ID)));
             nota.setNome(cursor.getString(cursor.getColumnIndex(CamposNotas.COLUNA_NOME)));
             nota.setDescricao(cursor.getString(cursor.getColumnIndex(CamposNotas.COLUNA_DESCRICAO)));
-            notas.add(nota);
         }
 
-        return notas;
+        return nota;
     }
 
     public String alteraRegistro(Nota nota) {

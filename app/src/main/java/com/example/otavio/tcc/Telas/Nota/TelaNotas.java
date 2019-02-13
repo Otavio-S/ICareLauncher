@@ -1,57 +1,66 @@
 package com.example.otavio.tcc.Telas.Nota;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
-import com.example.otavio.tcc.Adapter.Notas_Adapter;
 import com.example.otavio.tcc.Model.Nota;
 import com.example.otavio.tcc.R;
 import com.example.otavio.tcc.SQLite.TabelaNotas;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-
 public class TelaNotas extends FragmentActivity {
+
+    @Override
+    public void onBackPressed() {
+        Toast.makeText(getApplicationContext(), "Alterações descartadas!", Toast.LENGTH_SHORT).show();
+        finish();
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notas);
-        Objects.requireNonNull(getActionBar()).setHomeButtonEnabled(true);
 
-        List<Nota> notaList = new ArrayList<>();
-        TabelaNotas notas = new TabelaNotas(getApplicationContext());
-        int i;
-        int quant = notas.carregaDados().size();
+        final EditText txtNota = findViewById(R.id.edNota);
+        Button btnSalvar = findViewById(R.id.btnSalvarNota);
+        final TabelaNotas tabelaNotas = new TabelaNotas(getApplicationContext());
 
-        for (i = 0; i < quant; i++) {
-            notaList.add(notas.carregaDados().get(i));
+        try {
+            String dados = tabelaNotas.carregaDadosPorID(1).getDescricao();
+            txtNota.setText(dados);
+            txtNota.setSelection(txtNota.getText().length());
+        } catch (Exception ignored) {
         }
 
-        RecyclerView recyclerView = findViewById(R.id.recyclerViewNotas);
-        Notas_Adapter viewAdapter = new Notas_Adapter(getApplicationContext(), notaList);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(viewAdapter);
-
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
-                layoutManager.getOrientation());
-
-        recyclerView.addItemDecoration(dividerItemDecoration);
-
-        FloatingActionButton floatingActionButton = findViewById(R.id.floatingNotas);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+        btnSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(TelaNotas.this, NovaNota.class);
-                startActivity(intent);
+                String dados = null;
+                try {
+                    dados = tabelaNotas.carregaDadosPorID(1).getID();
+                } catch (Exception ignored) {
+                }
+
+                String texto = String.valueOf(txtNota.getText());
+                if (dados == null) {
+                    Nota nota = new Nota();
+                    nota.setID("1");
+                    nota.setNome("NotaUnica");
+                    nota.setDescricao(texto);
+                    tabelaNotas.insereDado(nota);
+                } else {
+                    Nota nota = new Nota();
+                    nota.setID("1");
+                    nota.setNome("NotaUnica");
+                    nota.setDescricao(texto);
+                    tabelaNotas.alteraRegistro(nota);
+                }
+                Toast.makeText(getApplicationContext(), "Nota salva!", Toast.LENGTH_SHORT).show();
+                finish();
+
             }
         });
 
