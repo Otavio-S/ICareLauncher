@@ -7,8 +7,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,32 +34,41 @@ public class NovoAlarme extends FragmentActivity {
             TextView edNome = findViewById(R.id.edNome);
             TextView edDescricao = findViewById(R.id.edDescricao);
             TextView edQuantidade = findViewById(R.id.edQuantidade);
-            TextView edTempo = findViewById(R.id.edTempo);
+            EditText edTempo = findViewById(R.id.edTempo);
             TextView txtHora = findViewById(R.id.txtHora);
             TextView txtMin = findViewById(R.id.txtMin);
             TextView txtTempo = findViewById(R.id.txtTempo);
             Switch aswitch = findViewById(R.id.switchLD);
 
             Alarme alarme = new Alarme();
-            alarme.setNome(String.valueOf(edNome.getText()));
-            alarme.setDescricao(String.valueOf(edDescricao.getText()));
-            alarme.setHoraInicial(Integer.valueOf(String.valueOf(txtHora.getText())));
-            alarme.setMinInicial(Integer.valueOf(String.valueOf(txtMin.getText())));
-            alarme.setQuantidade(String.valueOf(edQuantidade.getText()));
-            alarme.setTempo(String.valueOf(edTempo.getText()));
-            alarme.setContador(Integer.valueOf(String.valueOf(edQuantidade.getText())));
-            if (aswitch.isChecked()) {
-                alarme.setLigado("1");
-            } else {
-                alarme.setLigado("0");
-            }
+            String insert = "";
+            try {
+                alarme.setNome(String.valueOf(edNome.getText()));
+                alarme.setDescricao(String.valueOf(edDescricao.getText()));
+                alarme.setHoraInicial(Integer.valueOf(String.valueOf(txtHora.getText())));
+                alarme.setMinInicial(Integer.valueOf(String.valueOf(txtMin.getText())));
+                alarme.setQuantidade(String.valueOf(edQuantidade.getText()));
+                alarme.setTempo(String.valueOf(edTempo.getText()));
+                alarme.setContador(Integer.valueOf(String.valueOf(edQuantidade.getText())));
+                if (aswitch.isChecked()) {
+                    alarme.setLigado("1");
+                } else {
+                    alarme.setLigado("0");
+                }
+                insert = tabelaAlarmes.insereDado(alarme);
 
-            String insert = tabelaAlarmes.insereDado(alarme);
+            } catch (Exception e) {
+                Toast toast = Toast.makeText(
+                        getApplicationContext(),
+                        "Preencha todos os campos!",
+                        Toast.LENGTH_SHORT);
+                toast.show();
+            }
 
             if (insert.equals("Registro Inserido com sucesso")) {
                 int id = tabelaAlarmes.UltimoID();
 
-                startAlarm(id, alarme.getNome(), alarme.getHoraInicial(), alarme.getMinInicial(), Integer.parseInt(alarme.getTempo()));
+                startAlarm(id, alarme.getHoraInicial(), alarme.getMinInicial());
                 Toast toast = Toast.makeText(
                         getApplicationContext(),
                         "Alarme salvo",
@@ -66,17 +77,9 @@ public class NovoAlarme extends FragmentActivity {
 
                 Intent intent = new Intent(getApplicationContext(), FragmentAlarmes.class);
                 setResult(RESULT_OK, intent);
-                // finish method is requires if this Activity was started by startActivityForResult
                 finish();
 
-            } else {
-                Toast toast = Toast.makeText(
-                        getApplicationContext(),
-                        "Alarme não salvo",
-                        Toast.LENGTH_SHORT);
-                toast.show();
             }
-            finish();
         }
     };
     private View.OnClickListener btnCancelarOnClickListener = new View.OnClickListener() {
@@ -100,7 +103,6 @@ public class NovoAlarme extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_novo_alarme);
-        Objects.requireNonNull(getActionBar()).setDisplayHomeAsUpEnabled(true);
 
         TextView txtHora = findViewById(R.id.txtHora);
         TextView txtMin = findViewById(R.id.txtMin);
@@ -126,13 +128,15 @@ public class NovoAlarme extends FragmentActivity {
         txtHora.setVisibility(View.GONE);
         txtMin.setVisibility(View.GONE);
 
+        EditText edTempo = findViewById(R.id.edTempo);
+        edTempo.setInputType(InputType.TYPE_DATETIME_VARIATION_TIME);
+
     }
 
-    private void startAlarm(int id, String remedio, int horaInicial, int minInicial, int intervalo) {
+    private void startAlarm(int id, int horaInicial, int minInicial) {
         AlarmManager alarmMgr = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
 
-        Intent intent = new Intent(NovoAlarme.this, AlarmReceiver.class);
-        intent.putExtra("Nome", remedio);
+        Intent intent = new Intent(getApplicationContext(), AlarmReceiver.class);
         intent.putExtra("ID", id);
         PendingIntent alarmIntent = PendingIntent.getBroadcast(getApplicationContext(), id, intent, 0);
 
@@ -143,9 +147,8 @@ public class NovoAlarme extends FragmentActivity {
 
         long inicio = calendar.getTimeInMillis();
 
-        intervalo = intervalo * 60 * 1000;
+        Objects.requireNonNull(alarmMgr).setExact(AlarmManager.RTC_WAKEUP, inicio, alarmIntent);
 
-        Objects.requireNonNull(alarmMgr).setRepeating(AlarmManager.RTC_WAKEUP, inicio, intervalo, alarmIntent);
     }
 
 }

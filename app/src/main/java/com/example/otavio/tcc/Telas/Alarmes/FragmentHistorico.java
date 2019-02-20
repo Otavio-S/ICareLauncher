@@ -36,6 +36,7 @@ public class FragmentHistorico extends Fragment {
         view = inflater.inflate(R.layout.fragment_historico, container, false);
         recyclerView = view.findViewById(R.id.recyclerViewHistorico);
         Historico_Adapter viewAdapter = new Historico_Adapter(getContext(), historicoList);
+        viewAdapter.notifyDataSetChanged();
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(viewAdapter);

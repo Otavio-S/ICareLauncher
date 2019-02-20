@@ -40,15 +40,6 @@ public class Historico_Adapter extends RecyclerView.Adapter<Historico_Adapter.My
         v = LayoutInflater.from(context).inflate(R.layout.item_historico, parent, false);
         tabelaHistorico = new TabelaHistorico(context);
 
-        v.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, VisualizarHistorico.class);
-                intent.putExtra("ID", Integer.valueOf(id));
-                context.startActivity(intent);
-            }
-        });
-
         return new MyViewHolder(v);
     }
 
@@ -57,7 +48,17 @@ public class Historico_Adapter extends RecyclerView.Adapter<Historico_Adapter.My
 
         holder.txtNome.setText(historicoList.get(position).getNome());
         holder.txtDescricao.setText(historicoList.get(position).getDescricao());
-        id = historicoList.get(position).getID();
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, VisualizarHistorico.class);
+                Historico historico = historicoList.get(position);
+                id = historico.getID();
+                intent.putExtra("ID", Integer.valueOf(id));
+                context.startActivity(intent);
+            }
+        });
 
         holder.btnDeleteHistorico.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,7 +111,9 @@ public class Historico_Adapter extends RecyclerView.Adapter<Historico_Adapter.My
             txtNome = itemView.findViewById(R.id.txtEditar);
             txtDescricao = itemView.findViewById(R.id.txtDescricao);
             btnDeleteHistorico = itemView.findViewById(R.id.btnDelete);
+
         }
     }
+
 }
 

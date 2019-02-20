@@ -4,9 +4,6 @@ public class Historico {
 
     private String ID;
     private String Nome;
-    private String DataInicial;
-    private String DataFinal;
-    private String HoraInicial;
     private String Quantidade;
     private String Tempo;
     private String Descricao;
@@ -29,30 +26,6 @@ public class Historico {
 
     public void setNome(String nome) {
         Nome = nome;
-    }
-
-    public String getDataInicial() {
-        return DataInicial;
-    }
-
-    public void setDataInicial(String dataInicial) {
-        DataInicial = dataInicial;
-    }
-
-    public String getDataFinal() {
-        return DataFinal;
-    }
-
-    public void setDataFinal(String dataFinal) {
-        DataFinal = dataFinal;
-    }
-
-    public String getHoraInicial() {
-        return HoraInicial;
-    }
-
-    public void setHoraInicial(String horaInicial) {
-        HoraInicial = horaInicial;
     }
 
     public String getQuantidade() {

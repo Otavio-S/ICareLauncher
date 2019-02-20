@@ -1,5 +1,8 @@
 package com.example.otavio.tcc.Receiver;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -21,88 +24,114 @@ import com.example.otavio.tcc.SQLite.TabelaAlarmes;
 import com.example.otavio.tcc.SQLite.TabelaHistorico;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.List;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Objects;
 
 public class FireAlarm extends AppCompatActivity {
 
     private MediaPlayer mediaPlayer;
     private Vibrator vibration;
+    private int id;
+    private TabelaAlarmes tabelaAlarmes;
+    private Alarme alarme;
+
+    private View.OnClickListener btnProntoOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            stopPlayRing();
+            stopVibrate();
+
+            Historico historico = new Historico();
+            historico.setNome(String.valueOf(alarme.getNome()));
+            historico.setQuantidade(String.valueOf(alarme.getQuantidade()));
+            historico.setTempo(String.valueOf(alarme.getTempo()));
+            historico.setDescricao(String.valueOf(alarme.getDescricao()));
+
+            Calendar calendar = Calendar.getInstance();
+            SimpleDateFormat format = new SimpleDateFormat("HH", Locale.getDefault());
+            format.format(new Date());
+            int hour = calendar.get(Calendar.HOUR_OF_DAY);
+
+            SimpleDateFormat formate = new SimpleDateFormat("mm", Locale.getDefault());
+            formate.format(new Date());
+            int minute = calendar.get(Calendar.MINUTE);
+
+            String horario = String.valueOf(hour).concat(":").concat(String.valueOf(minute));
+            historico.setHorarioRemedio(horario);
+
+            TabelaHistorico tabelaHistorico = new TabelaHistorico(getApplicationContext());
+            String s = (tabelaHistorico.insereDado(historico));
+
+            Toast toast = Toast.makeText(
+                    getApplicationContext(),
+                    "Que bom!",
+                    Toast.LENGTH_LONG);
+            toast.show();
+
+            int quantidade = Integer.parseInt(alarme.getQuantidade());
+            quantidade -= 1;
+            alarme.setQuantidade(String.valueOf(quantidade));
+            tabelaAlarmes.alteraRegistro(alarme);
+
+            if (quantidade == 0) {
+                alarme.setLigado("0");
+                tabelaAlarmes.alteraRegistro(alarme);
+
+                Intent contentIntent = new Intent(getApplicationContext(), AlarmReceiver.class);
+                PendingIntent pendingIntent = PendingIntent.getActivity
+                        (getApplicationContext(), id, contentIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                pendingIntent.cancel();
+            }
+
+            startAlarmS();
+
+            finish();
+        }
+    };
+    private View.OnClickListener btnNaoOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            stopPlayRing();
+            stopVibrate();
+
+            Toast toast = Toast.makeText(
+                    getApplicationContext(),
+                    "Tome seu remédio agora!",
+                    Toast.LENGTH_LONG);
+            toast.show();
+
+            startAlarmN();
+
+            finish();
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fire_alarme);
 
-        Intent intent = getIntent();
-        final String nome = intent.getStringExtra("Nome");
-        int id = getIntent().getIntExtra("ID", 0);
+        id = getIntent().getIntExtra("ID", 0);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
 
-        final TabelaAlarmes tabelaAlarmes = new TabelaAlarmes(getApplicationContext());
-        final List<Alarme> alarmes = tabelaAlarmes.carregaDadosPorID(id);
-        int quantidade = Integer.parseInt(alarmes.get(0).getQuantidade());
+        tabelaAlarmes = new TabelaAlarmes(getApplicationContext());
+        alarme = tabelaAlarmes.carregaDadosPorID(id);
 
-        quantidade = quantidade - 1;
-        tabelaAlarmes.atualizaContador(String.valueOf(id), quantidade);
         startPlayingRing();
         startVibrate();
 
+        String nome = alarme.getNome();
         TextView txtNome = findViewById(R.id.txtNomeAlarme);
         txtNome.setText(nome);
 
         Button btnPronto = findViewById(R.id.btnPronto);
-        btnPronto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                stopPlayRing();
-                stopVibrate();
-
-                Historico historico = new Historico();
-                historico.setNome(String.valueOf(alarmes.get(0).getNome()));
-                historico.setDataInicial("1");
-                historico.setDataFinal("1");
-                historico.setHoraInicial(String.valueOf(alarmes.get(0).getHoraInicial()));
-                historico.setQuantidade(String.valueOf(alarmes.get(0).getQuantidade()));
-                historico.setTempo(String.valueOf(alarmes.get(0).getTempo()));
-                historico.setDescricao(String.valueOf(alarmes.get(0).getDescricao()));
-
-                final Calendar c = Calendar.getInstance();
-                int hour = c.get(Calendar.HOUR_OF_DAY);
-                int minute = c.get(Calendar.MINUTE);
-                String tempo = String.valueOf(hour).concat(":").concat(String.valueOf(minute));
-                historico.setHorarioRemedio(String.valueOf(tempo));
-
-                TabelaHistorico tabelaHistorico = new TabelaHistorico(getApplicationContext());
-                String s = (tabelaHistorico.insereDado(historico));
-
-                Toast toast = Toast.makeText(
-                        getApplicationContext(),
-                        "Que bom! " + s,
-                        Toast.LENGTH_LONG);
-                toast.show();
-
-                finish();
-            }
-        });
+        btnPronto.setOnClickListener(btnProntoOnClickListener);
 
         Button btnNao = findViewById(R.id.btnNao);
-        btnNao.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                stopPlayRing();
-                stopVibrate();
-
-                Toast toast = Toast.makeText(
-                        getApplicationContext(),
-                        "Tome seu remédio agora!",
-                        Toast.LENGTH_LONG);
-                toast.show();
-
-                finish();
-            }
-        });
+        btnNao.setOnClickListener(btnNaoOnClickListener);
 
     }
 
@@ -144,23 +173,85 @@ public class FireAlarm extends AppCompatActivity {
     }
 
     @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-        if (hasFocus) {
-            View decorView = getWindow().getDecorView();
-            decorView.setSystemUiVisibility(
-                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                            | View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
-        }
-    }
-
-    @Override
     protected void onDestroy() {
         super.onDestroy();
-
         stopPlayRing();
         stopVibrate();
+    }
+
+    private void startAlarmS() {
+        AlarmManager alarmMgr = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
+        Calendar calendar = Calendar.getInstance();
+
+        Intent intent = new Intent(getApplicationContext(), AlarmReceiver.class);
+        intent.putExtra("ID", this.id);
+        int i = (int) calendar.getTimeInMillis();
+        PendingIntent alarmIntent = PendingIntent.getBroadcast(getApplicationContext(), i, intent, 0);
+
+        int hourOfDay = alarme.getHoraInicial();
+        int minOfDay = alarme.getMinInicial();
+
+        Alarme alarme = tabelaAlarmes.carregaDadosPorID(id);
+        int t = Integer.parseInt(alarme.getTempo());
+
+        minOfDay += t;
+
+        if (minOfDay >= 60) {
+            hourOfDay += 1;
+            minOfDay = minOfDay - 60;
+        }
+
+        if (hourOfDay == 24) {
+            hourOfDay = 0;
+        }
+
+        alarme.setHoraInicial(hourOfDay);
+        alarme.setMinInicial(minOfDay);
+        tabelaAlarmes.alteraRegistro(alarme);
+
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+        calendar.set(Calendar.MINUTE, minOfDay);
+
+        long hora = calendar.getTimeInMillis();
+
+        Objects.requireNonNull(alarmMgr).setExact(AlarmManager.RTC_WAKEUP, hora, alarmIntent);
+    }
+
+    private void startAlarmN() {
+        AlarmManager alarmMgr = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
+        Calendar calendar = Calendar.getInstance();
+
+        Intent intent = new Intent(getApplicationContext(), AlarmReceiver.class);
+        intent.putExtra("ID", this.id);
+        PendingIntent alarmIntent = PendingIntent.getBroadcast(getApplicationContext(), this.id, intent, 0);
+
+        SimpleDateFormat format = new SimpleDateFormat("HH", Locale.getDefault());
+        format.format(new Date());
+        int hourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
+
+        SimpleDateFormat formate = new SimpleDateFormat("ss", Locale.getDefault());
+        formate.format(new Date());
+        int minOfDay = calendar.get(Calendar.MINUTE);
+
+        minOfDay += 2;
+
+        if (minOfDay >= 60) {
+            hourOfDay += 1;
+            minOfDay = minOfDay - 60;
+        }
+
+        if (hourOfDay == 24) {
+            hourOfDay = 0;
+        }
+
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+        calendar.set(Calendar.MINUTE, minOfDay);
+
+        long hora = calendar.getTimeInMillis();
+
+        Objects.requireNonNull(alarmMgr).setExact(AlarmManager.RTC_WAKEUP, hora, alarmIntent);
 
     }
 

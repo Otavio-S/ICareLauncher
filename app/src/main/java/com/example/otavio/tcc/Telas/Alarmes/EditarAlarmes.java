@@ -15,7 +15,6 @@ import com.example.otavio.tcc.Picker.TimePicker;
 import com.example.otavio.tcc.R;
 import com.example.otavio.tcc.SQLite.TabelaAlarmes;
 
-import java.util.List;
 import java.util.Objects;
 
 public class EditarAlarmes extends FragmentActivity {
@@ -53,15 +52,15 @@ public class EditarAlarmes extends FragmentActivity {
 
         final TabelaAlarmes tabelaAlarmes = new TabelaAlarmes(getApplicationContext());
 
-        List<Alarme> alarmeList = tabelaAlarmes.carregaDadosPorID(id);
+        Alarme alarme = tabelaAlarmes.carregaDadosPorID(id);
 
-        edNome.setText(alarmeList.get(0).getNome());
-        edDescricao.setText(alarmeList.get(0).getDescricao());
-        edQuantidade.setText(alarmeList.get(0).getQuantidade());
-        edTempo.setText(alarmeList.get(0).getTempo());
-        String horaEscolhida = "Hora Escolhida: ".concat(String.valueOf(alarmeList.get(0).getHoraInicial())).concat(":").concat(String.valueOf(alarmeList.get(0).getMinInicial()));
+        edNome.setText(alarme.getNome());
+        edDescricao.setText(alarme.getDescricao());
+        edQuantidade.setText(alarme.getQuantidade());
+        edTempo.setText(alarme.getTempo());
+        String horaEscolhida = "Hora Escolhida: ".concat(String.valueOf(alarme.getHoraInicial())).concat(":").concat(String.valueOf(alarme.getMinInicial()));
         txtTempo.setText(horaEscolhida);
-        if (alarmeList.get(0).getLigado().equals("1")) {
+        if (alarme.getLigado().equals("1")) {
             aswitch.setChecked(true);
         } else {
             aswitch.setChecked(false);

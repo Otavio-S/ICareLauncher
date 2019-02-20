@@ -40,6 +40,7 @@ public class FragmentAlarmes extends Fragment {
         View view = inflater.inflate(R.layout.fragment_alarmes, container, false);
         recyclerView = view.findViewById(R.id.recyclerViewAlarmes);
         viewAdapter = new Alarmes_Adapter(getContext(), alarmeList);
+        viewAdapter.notifyDataSetChanged();
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
@@ -70,7 +71,7 @@ public class FragmentAlarmes extends Fragment {
                 alarmeList = new ArrayList<>();
                 TabelaAlarmes alarmes = new TabelaAlarmes(getContext());
                 int i;
-                int quant = alarmes.carregaDados().size();
+                int quant = alarmes.carregaDados().size() - 1;
 
                 for (i = quant; i >= 0; i--) {
                     alarmeList.add(alarmes.carregaDados().get(i));

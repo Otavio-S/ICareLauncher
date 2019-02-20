@@ -92,8 +92,7 @@
             android:theme="@style/ThemeAlarms" />
 
         <receiver
-            android:name=".Receiver.AlarmReceiver"
-            android:permission="">
+            android:name=".Receiver.AlarmReceiver">
 
             <intent-filter>
                 <action android:name="com.test.intent.action.ALARM" />

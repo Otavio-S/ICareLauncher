@@ -118,14 +118,13 @@ public class TabelaAlarmes extends SQLiteOpenHelper {
         return alarmes;
     }
 
-    public List<Alarme> carregaDadosPorID(int id) {
+    public Alarme carregaDadosPorID(int id) {
 
-        List<Alarme> alarmes = new ArrayList<>();
+        Alarme alarme = new Alarme();
         SQLiteDatabase db = getReadableDatabase();
         @SuppressLint("Recycle") Cursor cursor = db.rawQuery("SELECT * FROM " + CamposAlarmes.NOME_TABELA + " WHERE " + CamposAlarmes.COLUNA_ID + " = " + String.valueOf(id), null);
 
         if (cursor.moveToFirst()) {
-            Alarme alarme = new Alarme();
             alarme.setID(cursor.getString(cursor.getColumnIndex(CamposAlarmes.COLUNA_ID)));
             alarme.setNome(cursor.getString(cursor.getColumnIndex(CamposAlarmes.COLUNA_NOME)));
             alarme.setHoraInicial(cursor.getInt(cursor.getColumnIndex(CamposAlarmes.COLUNA_HORA_INICIAL)));
@@ -135,10 +134,9 @@ public class TabelaAlarmes extends SQLiteOpenHelper {
             alarme.setDescricao(cursor.getString(cursor.getColumnIndex(CamposAlarmes.COLUNA_DESCRICAO)));
             alarme.setLigado(cursor.getString(cursor.getColumnIndex(CamposAlarmes.COLUNA_ON_OFF)));
             alarme.setContador(cursor.getInt(cursor.getColumnIndex(CamposAlarmes.COLUNA_CONTADOR)));
-            alarmes.add(alarme);
         }
 
-        return alarmes;
+        return alarme;
     }
 
     public String alteraRegistro(Alarme alarme) {
