@@ -10,8 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.example.otavio.tcc.R;
-import com.example.otavio.tcc.Telas.Alarmes.FragmentAlarmes;
-import com.example.otavio.tcc.Telas.Alarmes.FragmentHistorico;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,16 +31,16 @@ public class Tabs extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarmes);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        viewPager = findViewById(R.id.viewpager);
         setupViewPager(viewPager);
 
-        tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(viewPager);
-        setupTabIcons();
+        //tabLayout = findViewById(R.id.tabs);
+        //tabLayout.setupWithViewPager(viewPager);
+        //setupTabIcons();
     }
 
     private void setupTabIcons() {

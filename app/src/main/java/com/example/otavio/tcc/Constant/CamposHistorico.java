@@ -5,8 +5,6 @@ public class CamposHistorico {
     public static final String NOME_TABELA = "historico";
     public static final String COLUNA_ID = "historico_id";
     public static final String COLUNA_NOME = "historico_nome";
-    public static final String COLUNA_QUANTIDADE_VEZES = "historico_quantidade_vezes";
-    public static final String COLUNA_ESPACO_TEMPO = "historico_espaco_tempo";
     public static final String COLUNA_DESCRICAO = "historico_descricao";
     public static final String COLUNA_HORARIO_REMEDIO = "historico_horario_remedio";
 

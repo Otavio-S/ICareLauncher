@@ -45,11 +45,6 @@ public class AlarmReceiver extends BroadcastReceiver {
             context.startActivity(bootIntent);
         }
 
-        //Intent contentIntent = new Intent(context, NovoAlarme.class);
-        //PendingIntent pendingIntent = PendingIntent.getActivity
-        //        (context, id, contentIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        //pendingIntent.cancel();
-
     }
 
 }

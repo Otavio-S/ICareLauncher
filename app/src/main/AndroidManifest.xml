@@ -91,9 +91,7 @@
             android:parentActivityName=".Telas.SOS.TelaSOS"
             android:theme="@style/ThemeAlarms" />
 
-        <receiver
-            android:name=".Receiver.AlarmReceiver">
-
+        <receiver android:name=".Receiver.AlarmReceiver">
             <intent-filter>
                 <action android:name="com.test.intent.action.ALARM" />
             </intent-filter>

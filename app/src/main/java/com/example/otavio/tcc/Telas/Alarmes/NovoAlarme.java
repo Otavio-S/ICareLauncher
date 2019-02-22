@@ -7,15 +7,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
-import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Switch;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.otavio.tcc.Masks.MaskTime;
 import com.example.otavio.tcc.Model.Alarme;
+import com.example.otavio.tcc.Picker.DatePicker;
 import com.example.otavio.tcc.Picker.TimePicker;
 import com.example.otavio.tcc.R;
 import com.example.otavio.tcc.Receiver.AlarmReceiver;
@@ -31,25 +31,31 @@ public class NovoAlarme extends FragmentActivity {
         public void onClick(View v) {
             TabelaAlarmes tabelaAlarmes = new TabelaAlarmes(getApplicationContext());
 
-            TextView edNome = findViewById(R.id.edNome);
-            TextView edDescricao = findViewById(R.id.edDescricao);
-            TextView edQuantidade = findViewById(R.id.edQuantidade);
-            EditText edTempo = findViewById(R.id.edTempo);
-            TextView txtHora = findViewById(R.id.txtHora);
-            TextView txtMin = findViewById(R.id.txtMin);
-            TextView txtTempo = findViewById(R.id.txtTempo);
+            EditText edNome = findViewById(R.id.edNomeAlarme);
+            EditText edDescricao = findViewById(R.id.edDescricaoAlarme);
+            EditText edData = findViewById(R.id.edDataAlarme);
+            EditText edHora = findViewById(R.id.edHoraAlarme);
+            EditText edRepetir = findViewById(R.id.edRepetirAlarme);
+            EditText edTempo = findViewById(R.id.edTempoAlarme);
             Switch aswitch = findViewById(R.id.switchLD);
 
             Alarme alarme = new Alarme();
             String insert = "";
+            String tempo = "";
             try {
+                String horario = String.valueOf(edHora.getText());
+                String hora = horario.substring(0, 2);
+                String minuto = horario.substring(3, 5);
+                tempo = String.valueOf(edTempo.getText());
+
                 alarme.setNome(String.valueOf(edNome.getText()));
                 alarme.setDescricao(String.valueOf(edDescricao.getText()));
-                alarme.setHoraInicial(Integer.valueOf(String.valueOf(txtHora.getText())));
-                alarme.setMinInicial(Integer.valueOf(String.valueOf(txtMin.getText())));
-                alarme.setQuantidade(String.valueOf(edQuantidade.getText()));
-                alarme.setTempo(String.valueOf(edTempo.getText()));
-                alarme.setContador(Integer.valueOf(String.valueOf(edQuantidade.getText())));
+                alarme.setDataInicial(String.valueOf(edData.getText()));
+                alarme.setHoraInicial(hora);
+                alarme.setMinInicial(minuto);
+                alarme.setQuantidade(String.valueOf(edRepetir.getText()));
+                alarme.setTempo(tempo);
+
                 if (aswitch.isChecked()) {
                     alarme.setLigado("1");
                 } else {
@@ -68,13 +74,30 @@ public class NovoAlarme extends FragmentActivity {
             if (insert.equals("Registro Inserido com sucesso")) {
                 int id = tabelaAlarmes.UltimoID();
 
-                startAlarm(id, alarme.getHoraInicial(), alarme.getMinInicial());
-                Toast toast = Toast.makeText(
-                        getApplicationContext(),
-                        "Alarme salvo",
-                        Toast.LENGTH_SHORT);
-                toast.show();
+                startAlarm(id);
 
+                int h = Integer.valueOf(tempo.substring(0, 2));
+                int m = Integer.valueOf(tempo.substring(3, 5));
+
+                if (m == 0) {
+                    Toast toast = Toast.makeText(
+                            getApplicationContext(),
+                            "O alarme irá tocar de " + h + "\nem " + h + " horas.",
+                            Toast.LENGTH_LONG);
+                    toast.show();
+                } else if (h == 0) {
+                    Toast toast = Toast.makeText(
+                            getApplicationContext(),
+                            "O alarme irá tocar de " + m + "\nem " + m + " minutos.",
+                            Toast.LENGTH_LONG);
+                    toast.show();
+                } else {
+                    Toast toast = Toast.makeText(
+                            getApplicationContext(),
+                            "O alarme irá tocar a cada " + h + " horas e\n" + m + " minutos.",
+                            Toast.LENGTH_SHORT);
+                    toast.show();
+                }
                 Intent intent = new Intent(getApplicationContext(), FragmentAlarmes.class);
                 setResult(RESULT_OK, intent);
                 finish();
@@ -104,12 +127,19 @@ public class NovoAlarme extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_novo_alarme);
 
-        TextView txtHora = findViewById(R.id.txtHora);
-        TextView txtMin = findViewById(R.id.txtMin);
-        Switch aswitch = findViewById(R.id.switchLD);
+        EditText edDataAlarme = findViewById(R.id.edDataAlarme);
+        EditText edHoraAlarme = findViewById(R.id.edHoraAlarme);
+        EditText edTempoAlarme = findViewById(R.id.edTempoAlarme);
 
-        Button btnHora = findViewById(R.id.btnHora);
-        btnHora.setOnClickListener(new View.OnClickListener() {
+        edDataAlarme.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFragment newFragment = new DatePicker();
+                newFragment.show(getSupportFragmentManager(), "datePicker");
+            }
+        });
+
+        edHoraAlarme.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DialogFragment newFragment = new TimePicker();
@@ -117,33 +147,41 @@ public class NovoAlarme extends FragmentActivity {
             }
         });
 
+        edTempoAlarme.addTextChangedListener(new MaskTime("##:##"));
+
         Button btnSalvar = findViewById(R.id.btnSalvar);
         btnSalvar.setOnClickListener(btnSalvarOnClickListener);
 
         Button btnCancelar = findViewById(R.id.btnCancelar);
         btnCancelar.setOnClickListener(btnCancelarOnClickListener);
 
-        aswitch.setScaleX((float) 1.2);
-        aswitch.setScaleY((float) 1.2);
-        txtHora.setVisibility(View.GONE);
-        txtMin.setVisibility(View.GONE);
-
-        EditText edTempo = findViewById(R.id.edTempo);
-        edTempo.setInputType(InputType.TYPE_DATETIME_VARIATION_TIME);
-
     }
 
-    private void startAlarm(int id, int horaInicial, int minInicial) {
+    private void startAlarm(int id) {
         AlarmManager alarmMgr = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
 
         Intent intent = new Intent(getApplicationContext(), AlarmReceiver.class);
         intent.putExtra("ID", id);
         PendingIntent alarmIntent = PendingIntent.getBroadcast(getApplicationContext(), id, intent, 0);
 
+        TabelaAlarmes tabelaAlarmes = new TabelaAlarmes(getApplicationContext());
+        Alarme alarme = tabelaAlarmes.carregaDadosPorID(id);
+
+        String data = alarme.getDataInicial();
+        String ano = data.substring(6, 10);
+        String mes = data.substring(3, 5);
+        String dia = data.substring(0, 2);
+
+        String horaInicial = String.valueOf(alarme.getHoraInicial());
+        String minInicial = String.valueOf(alarme.getMinInicial());
+
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, horaInicial);
-        calendar.set(Calendar.MINUTE, minInicial);
+        calendar.set(Calendar.YEAR, Integer.parseInt(ano));
+        calendar.set(Calendar.MONTH, Integer.parseInt(mes) - 1);
+        calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(dia));
+        calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(horaInicial));
+        calendar.set(Calendar.MINUTE, Integer.parseInt(minInicial));
 
         long inicio = calendar.getTimeInMillis();
 

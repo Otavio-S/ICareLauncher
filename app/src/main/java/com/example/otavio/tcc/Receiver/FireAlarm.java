@@ -44,13 +44,8 @@ public class FireAlarm extends AppCompatActivity {
             stopPlayRing();
             stopVibrate();
 
-            Historico historico = new Historico();
-            historico.setNome(String.valueOf(alarme.getNome()));
-            historico.setQuantidade(String.valueOf(alarme.getQuantidade()));
-            historico.setTempo(String.valueOf(alarme.getTempo()));
-            historico.setDescricao(String.valueOf(alarme.getDescricao()));
-
             Calendar calendar = Calendar.getInstance();
+
             SimpleDateFormat format = new SimpleDateFormat("HH", Locale.getDefault());
             format.format(new Date());
             int hour = calendar.get(Calendar.HOUR_OF_DAY);
@@ -59,11 +54,13 @@ public class FireAlarm extends AppCompatActivity {
             formate.format(new Date());
             int minute = calendar.get(Calendar.MINUTE);
 
-            String horario = String.valueOf(hour).concat(":").concat(String.valueOf(minute));
-            historico.setHorarioRemedio(horario);
+            Historico historico = new Historico();
+            historico.setNome(String.valueOf(alarme.getNome()));
+            historico.setHorarioRemedio(String.valueOf(hour).concat(":").concat(String.valueOf(minute)));
+            historico.setDescricao(String.valueOf(alarme.getDescricao()));
 
             TabelaHistorico tabelaHistorico = new TabelaHistorico(getApplicationContext());
-            String s = (tabelaHistorico.insereDado(historico));
+            tabelaHistorico.insereDado(historico);
 
             Toast toast = Toast.makeText(
                     getApplicationContext(),
@@ -188,34 +185,45 @@ public class FireAlarm extends AppCompatActivity {
         int i = (int) calendar.getTimeInMillis();
         PendingIntent alarmIntent = PendingIntent.getBroadcast(getApplicationContext(), i, intent, 0);
 
-        int hourOfDay = alarme.getHoraInicial();
-        int minOfDay = alarme.getMinInicial();
+        int hourOfDay = Integer.valueOf(alarme.getHoraInicial());
+        int minOfDay = Integer.valueOf(alarme.getMinInicial());
 
-        Alarme alarme = tabelaAlarmes.carregaDadosPorID(id);
-        int t = Integer.parseInt(alarme.getTempo());
+        String tempo = alarme.getTempo();
+        int hora = Integer.parseInt(tempo.substring(0, 2));
+        int min = Integer.parseInt(tempo.substring(3, 5));
 
-        minOfDay += t;
+        hourOfDay += hora;
+        minOfDay += min;
 
         if (minOfDay >= 60) {
             hourOfDay += 1;
             minOfDay = minOfDay - 60;
         }
 
-        if (hourOfDay == 24) {
-            hourOfDay = 0;
+        if (hourOfDay >= 24) {
+            hourOfDay = hourOfDay - 24;
         }
 
-        alarme.setHoraInicial(hourOfDay);
-        alarme.setMinInicial(minOfDay);
+        String m = String.valueOf(minOfDay);
+        if (minOfDay <= 9) {
+            m = "0".concat(String.valueOf(minOfDay));
+        }
+        String h = String.valueOf(hourOfDay);
+        if (hourOfDay <= 9) {
+            h = "0".concat(String.valueOf(hourOfDay));
+        }
+
+        alarme.setHoraInicial(h);
+        alarme.setMinInicial(m);
         tabelaAlarmes.alteraRegistro(alarme);
 
         calendar.setTimeInMillis(System.currentTimeMillis());
         calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
         calendar.set(Calendar.MINUTE, minOfDay);
 
-        long hora = calendar.getTimeInMillis();
+        long horario = calendar.getTimeInMillis();
 
-        Objects.requireNonNull(alarmMgr).setExact(AlarmManager.RTC_WAKEUP, hora, alarmIntent);
+        Objects.requireNonNull(alarmMgr).setExact(AlarmManager.RTC_WAKEUP, horario, alarmIntent);
     }
 
     private void startAlarmN() {
@@ -230,7 +238,7 @@ public class FireAlarm extends AppCompatActivity {
         format.format(new Date());
         int hourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
 
-        SimpleDateFormat formate = new SimpleDateFormat("ss", Locale.getDefault());
+        SimpleDateFormat formate = new SimpleDateFormat("mm", Locale.getDefault());
         formate.format(new Date());
         int minOfDay = calendar.get(Calendar.MINUTE);
 

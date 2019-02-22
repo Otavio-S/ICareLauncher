@@ -47,7 +47,7 @@ public class Historico_Adapter extends RecyclerView.Adapter<Historico_Adapter.My
     public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
 
         holder.txtNome.setText(historicoList.get(position).getNome());
-        holder.txtDescricao.setText(historicoList.get(position).getDescricao());
+        holder.txtHora.setText(historicoList.get(position).getHorarioRemedio());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,7 +101,7 @@ public class Historico_Adapter extends RecyclerView.Adapter<Historico_Adapter.My
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView txtNome;
-        TextView txtDescricao;
+        TextView txtHora;
         ImageButton btnDeleteHistorico;
 
 
@@ -109,7 +109,7 @@ public class Historico_Adapter extends RecyclerView.Adapter<Historico_Adapter.My
             super(itemView);
 
             txtNome = itemView.findViewById(R.id.txtEditar);
-            txtDescricao = itemView.findViewById(R.id.txtDescricao);
+            txtHora = itemView.findViewById(R.id.txtHora);
             btnDeleteHistorico = itemView.findViewById(R.id.btnDelete);
 
         }

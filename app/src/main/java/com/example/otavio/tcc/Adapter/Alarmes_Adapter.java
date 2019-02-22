@@ -3,6 +3,7 @@ package com.example.otavio.tcc.Adapter;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.SQLException;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 import com.example.otavio.tcc.Model.Alarme;
 import com.example.otavio.tcc.R;
 import com.example.otavio.tcc.SQLite.TabelaAlarmes;
+import com.example.otavio.tcc.Telas.Alarmes.EditarAlarmes;
 
 import java.util.List;
 
@@ -40,15 +42,6 @@ public class Alarmes_Adapter extends RecyclerView.Adapter<Alarmes_Adapter.MyView
         v = LayoutInflater.from(context).inflate(R.layout.item_alarme, parent, false);
         tabelaAlarmes = new TabelaAlarmes(context);
 
-        /*v.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, EditarAlarmes.class);
-                intent.putExtra("ID", Integer.valueOf(id));
-                context.startActivity(intent);
-            }
-        });*/
-
         return new MyViewHolder(v);
     }
 
@@ -68,6 +61,18 @@ public class Alarmes_Adapter extends RecyclerView.Adapter<Alarmes_Adapter.MyView
         } else {
             holder.switchOnOff.setChecked(false);
         }
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, EditarAlarmes.class);
+                Alarme alarme = alarmeList.get(position);
+                id = alarme.getID();
+                intent.putExtra("ID", Integer.valueOf(id));
+                context.startActivity(intent);
+                notifyItemChanged(position);
+            }
+        });
 
         holder.switchOnOff.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

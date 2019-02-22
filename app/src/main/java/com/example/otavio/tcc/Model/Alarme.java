@@ -4,13 +4,13 @@ public class Alarme {
 
     private String ID;
     private String Nome;
-    private int HoraInicial;
-    private int MinInicial;
+    private String DataInicial;
+    private String HoraInicial;
+    private String MinInicial;
     private String Quantidade;
     private String Tempo;
     private String Descricao;
     private String Ligado;
-    private int Contador;
 
     public Alarme() {
     }
@@ -31,11 +31,19 @@ public class Alarme {
         Nome = nome;
     }
 
-    public int getHoraInicial() {
+    public String getDataInicial() {
+        return DataInicial;
+    }
+
+    public void setDataInicial(String dataInicial) {
+        DataInicial = dataInicial;
+    }
+
+    public String getHoraInicial() {
         return HoraInicial;
     }
 
-    public void setHoraInicial(int horaInicial) {
+    public void setHoraInicial(String horaInicial) {
         HoraInicial = horaInicial;
     }
 
@@ -71,19 +79,12 @@ public class Alarme {
         Ligado = ligado;
     }
 
-    public int getMinInicial() {
+    public String getMinInicial() {
         return MinInicial;
     }
 
-    public void setMinInicial(int minInicial) {
+    public void setMinInicial(String minInicial) {
         MinInicial = minInicial;
     }
 
-    public int getContador() {
-        return Contador;
-    }
-
-    public void setContador(int contador) {
-        Contador = contador;
-    }
 }

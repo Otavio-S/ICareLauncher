@@ -8,8 +8,12 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.otavio.tcc.Adapter.Historico_Adapter;
 import com.example.otavio.tcc.Model.Historico;
@@ -33,6 +37,8 @@ public class FragmentHistorico extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
+        setHasOptionsMenu(true);
+
         view = inflater.inflate(R.layout.fragment_historico, container, false);
         recyclerView = view.findViewById(R.id.recyclerViewHistorico);
         Historico_Adapter viewAdapter = new Historico_Adapter(getContext(), historicoList);
@@ -53,6 +59,8 @@ public class FragmentHistorico extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        setHasOptionsMenu(true);
+
         historicoList = new ArrayList<>();
         TabelaHistorico historico = new TabelaHistorico(getContext());
         int i;
@@ -61,6 +69,28 @@ public class FragmentHistorico extends Fragment {
         for (i = quant; i >= 0; i--) {
             historicoList.add(historico.carregaDados().get(i));
         }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_historico, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.item1Historico:
+                Toast.makeText(getContext(), "OK", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.item2H:
+                Toast.makeText(getContext(), "OK2", Toast.LENGTH_SHORT).show();
+                return true;
+            default:
+                return false;
+
+        }
+
     }
 
 }

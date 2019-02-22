@@ -8,4 +8,5 @@
     <string name="emergency">Definir mensagem de emergência</string>
     <string name="definir_segundo_contato">Definir segundo contato</string>
     <string name="definir_primeiro_contato">Definir primeiro contato</string>
+    <string name="apagar_todos">Apagar todos</string>
 </resources>

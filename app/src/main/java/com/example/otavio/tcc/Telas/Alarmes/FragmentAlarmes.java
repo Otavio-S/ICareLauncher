@@ -96,7 +96,6 @@ public class FragmentAlarmes extends Fragment {
         for (i = quant; i >= 0; i--) {
             alarmeList.add(alarmes.carregaDados().get(i));
         }
-
     }
 
 }
