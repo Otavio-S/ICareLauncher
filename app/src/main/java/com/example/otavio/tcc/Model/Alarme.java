@@ -11,6 +11,7 @@ public class Alarme {
     private String Tempo;
     private String Descricao;
     private String Ligado;
+    private int Contador;
 
     public Alarme() {
     }
@@ -87,4 +88,11 @@ public class Alarme {
         MinInicial = minInicial;
     }
 
+    public int getContador() {
+        return Contador;
+    }
+
+    public void setContador(int contador) {
+        Contador = contador;
+    }
 }

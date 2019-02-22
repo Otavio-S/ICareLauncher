@@ -16,7 +16,7 @@ import java.util.List;
 public class TabelaAlarmes extends SQLiteOpenHelper {
 
     private static final String NOME_TABELA = "Alarme.db";
-    private static final int VERSAO_BANCO = 6;
+    private static final int VERSAO_BANCO = 7;
 
     public TabelaAlarmes(Context context) {
         super(context, NOME_TABELA, null, VERSAO_BANCO);
@@ -33,7 +33,8 @@ public class TabelaAlarmes extends SQLiteOpenHelper {
                 CamposAlarmes.COLUNA_QUANTIDADE_VEZES + " TEXT," +
                 CamposAlarmes.COLUNA_ESPACO_TEMPO + " TEXT," +
                 CamposAlarmes.COLUNA_DESCRICAO + " TEXT," +
-                CamposAlarmes.COLUNA_ON_OFF + " TEXT )";
+                CamposAlarmes.COLUNA_ON_OFF + " TEXT," +
+                CamposAlarmes.COLUNA_CONTADOR + " TEXT )";
         db.execSQL(sql);
     }
 
@@ -66,6 +67,7 @@ public class TabelaAlarmes extends SQLiteOpenHelper {
         valores.put(CamposAlarmes.COLUNA_ESPACO_TEMPO, alarme.getTempo());
         valores.put(CamposAlarmes.COLUNA_DESCRICAO, alarme.getDescricao());
         valores.put(CamposAlarmes.COLUNA_ON_OFF, alarme.getLigado());
+        valores.put(CamposAlarmes.COLUNA_CONTADOR, alarme.getContador());
 
         resultado = db.insert(
                 CamposAlarmes.NOME_TABELA,
@@ -111,6 +113,7 @@ public class TabelaAlarmes extends SQLiteOpenHelper {
                 alarme.setTempo(cursor.getString(cursor.getColumnIndex(CamposAlarmes.COLUNA_ESPACO_TEMPO)));
                 alarme.setDescricao(cursor.getString(cursor.getColumnIndex(CamposAlarmes.COLUNA_DESCRICAO)));
                 alarme.setLigado(cursor.getString(cursor.getColumnIndex(CamposAlarmes.COLUNA_ON_OFF)));
+                alarme.setContador(cursor.getInt(cursor.getColumnIndex(CamposAlarmes.COLUNA_CONTADOR)));
                 alarmes.add(alarme);
             } while (cursor.moveToNext());
         }
@@ -134,6 +137,7 @@ public class TabelaAlarmes extends SQLiteOpenHelper {
             alarme.setTempo(cursor.getString(cursor.getColumnIndex(CamposAlarmes.COLUNA_ESPACO_TEMPO)));
             alarme.setDescricao(cursor.getString(cursor.getColumnIndex(CamposAlarmes.COLUNA_DESCRICAO)));
             alarme.setLigado(cursor.getString(cursor.getColumnIndex(CamposAlarmes.COLUNA_ON_OFF)));
+            alarme.setContador(cursor.getInt(cursor.getColumnIndex(CamposAlarmes.COLUNA_CONTADOR)));
         }
 
         return alarme;
@@ -151,6 +155,7 @@ public class TabelaAlarmes extends SQLiteOpenHelper {
         valores.put(CamposAlarmes.COLUNA_ESPACO_TEMPO, alarme.getTempo());
         valores.put(CamposAlarmes.COLUNA_DESCRICAO, alarme.getDescricao());
         valores.put(CamposAlarmes.COLUNA_ON_OFF, alarme.getLigado());
+        valores.put(CamposAlarmes.COLUNA_CONTADOR, alarme.getContador());
 
         String selecao = CamposAlarmes.COLUNA_ID + " LIKE ?";
         String[] selecaoArgs = {alarme.getID()};

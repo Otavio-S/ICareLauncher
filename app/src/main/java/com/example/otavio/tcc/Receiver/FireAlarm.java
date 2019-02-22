@@ -71,6 +71,7 @@ public class FireAlarm extends AppCompatActivity {
             int quantidade = Integer.parseInt(alarme.getQuantidade());
             quantidade -= 1;
             alarme.setQuantidade(String.valueOf(quantidade));
+            alarme.setContador(0);
             tabelaAlarmes.alteraRegistro(alarme);
 
             if (quantidade == 0) {
@@ -93,6 +94,25 @@ public class FireAlarm extends AppCompatActivity {
         public void onClick(View v) {
             stopPlayRing();
             stopVibrate();
+
+            TabelaAlarmes tabelaAlarmes = new TabelaAlarmes(getApplicationContext());
+            Alarme alarme = tabelaAlarmes.carregaDadosPorID(id);
+            int c = alarme.getContador();
+            c += 1;
+
+            if (c<=5){
+                alarme.setContador(c);
+            } else {
+                alarme.setContador(0);
+                alarme.setLigado("0");
+
+                Intent contentIntent = new Intent(getApplicationContext(), AlarmReceiver.class);
+                PendingIntent pendingIntent = PendingIntent.getActivity
+                        (getApplicationContext(), id, contentIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                pendingIntent.cancel();
+            }
+
+            tabelaAlarmes.alteraRegistro(alarme);
 
             Toast toast = Toast.makeText(
                     getApplicationContext(),
@@ -123,6 +143,15 @@ public class FireAlarm extends AppCompatActivity {
         String nome = alarme.getNome();
         TextView txtNome = findViewById(R.id.txtNomeAlarme);
         txtNome.setText(nome);
+        TextView txtDescricao = findViewById(R.id.txtDescricaoFire);
+        txtDescricao.setText(alarme.getDescricao());
+        TextView txtContador = findViewById(R.id.txtContador);
+        int c = alarme.getContador();
+        if (c == 0) {
+            txtContador.setText("Primeiro toque deste alarme.");
+        } else {
+            txtContador.setText("Este alarme já\n tocou " + c + " vezes.");
+        }
 
         Button btnPronto = findViewById(R.id.btnPronto);
         btnPronto.setOnClickListener(btnProntoOnClickListener);

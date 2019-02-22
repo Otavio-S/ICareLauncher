@@ -20,6 +20,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         String lig = "0";
         String count = "0";
+        int rep = 0;
 
         TabelaAlarmes tabelaAlarmes = new TabelaAlarmes(context);
         Alarme alarme = tabelaAlarmes.carregaDadosPorID(id);
@@ -27,10 +28,11 @@ public class AlarmReceiver extends BroadcastReceiver {
         try {
             lig = alarme.getLigado();
             count = alarme.getQuantidade();
+            rep = alarme.getContador();
         } catch (Exception ignored) {
         }
 
-        if (lig.equals("0") || count.equals("0")) {
+        if (lig.equals("0") || count.equals("0") || rep > 5) {
             alarme.setLigado("0");
             tabelaAlarmes.alteraRegistro(alarme);
 
