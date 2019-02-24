@@ -5,8 +5,5 @@
         android:id="@+id/item1Historico"
         android:title="@string/apagar_todos"
         app:showAsAction="never" />
-    <item android:id="@+id/item2H"
-        android:title="Second item"
-        app:showAsAction="never"/>
 
 </menu>

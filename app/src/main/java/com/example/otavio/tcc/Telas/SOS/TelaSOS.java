@@ -14,10 +14,12 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -36,23 +38,27 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Objects;
 
-public class TelaSOS extends Activity {
+public class TelaSOS extends AppCompatActivity {
 
     private static final String[] phoneProjection = new String[]{ContactsContract.CommonDataKinds.Phone.DATA};
     private final Activity activity = this;
+    String message = "";
     private Uri picUri;
-
+    private String num = "";
     private View.OnClickListener btnContato1OnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             TabelaSOS tabelaSOS = new TabelaSOS(getApplicationContext());
-            String num = tabelaSOS.carregaDadosPorID(0).getNumero();
+            num = tabelaSOS.carregaDadosPorID(0).getNumero();
 
-            if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.CALL_PHONE}, 0);
-            }
-            if (ActivityCompat.checkSelfPermission(getBaseContext(), Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
-                startActivity(new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + num)));
+            if (num != null && !num.equals("")) {
+                if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.CALL_PHONE}, 0);
+                } else {
+                    startActivity(new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + num)));
+                }
+            } else {
+                Toast.makeText(getApplicationContext(), "Defina um contato primeiro!", Toast.LENGTH_SHORT).show();
             }
         }
     };
@@ -61,13 +67,16 @@ public class TelaSOS extends Activity {
         @Override
         public void onClick(View v) {
             TabelaSOS tabelaSOS = new TabelaSOS(getApplicationContext());
-            String num = tabelaSOS.carregaDadosPorID(1).getNumero();
+            num = tabelaSOS.carregaDadosPorID(1).getNumero();
 
-            if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.CALL_PHONE}, 0);
-            }
-            if (ActivityCompat.checkSelfPermission(getBaseContext(), Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
-                startActivity(new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + num)));
+            if (num != null && !num.equals("")) {
+                if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.CALL_PHONE}, 0);
+                } else {
+                    startActivity(new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + num)));
+                }
+            } else {
+                Toast.makeText(getApplicationContext(), "Defina um contato primeiro!", Toast.LENGTH_SHORT).show();
             }
         }
     };
@@ -76,29 +85,28 @@ public class TelaSOS extends Activity {
         @Override
         public void onClick(View v) {
             TabelaSOS tabelaSOS = new TabelaSOS(getApplicationContext());
-            String num = "";
-            try {
-                num = tabelaSOS.carregaDadosPorID(0).getNumero();
-            } catch (Exception e){
-                Toast.makeText(getApplicationContext(), "Defina um número primeiro!", Toast.LENGTH_SHORT).show();
-            }
+            num = tabelaSOS.carregaDadosPorID(0).getNumero();
 
-            String message = "";
-            try {
-                System.out.println("AQUI!!1111111111111111111111111111111111111111111111111111111111111111111111111111111");
-                message = tabelaSOS.carregaDadosPorID(2).getMensagem();
-                System.out.println("AQUI!2222222222222222222222222222222222222222222222222222222222222222222222222222222222222");
-                if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.SEND_SMS}, 1);
+            if (num != null && !num.equals("")) {
+                try {
+                    message = tabelaSOS.carregaDadosPorID(2).getMensagem();
+                } catch (Exception ignored) {
                 }
-                if (ActivityCompat.checkSelfPermission(getBaseContext(), Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED) {
-                    Uri uri = Uri.parse("smsto: " + num);
-                    Intent it = new Intent(Intent.ACTION_SENDTO, uri);
-                    it.putExtra("sms_body", message);
-                    startActivity(it);
+                if (message != null && !message.equals("")) {
+                    if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.SEND_SMS}, 1);
+                    } else {
+                        Uri uri = Uri.parse("smsto: " + num);
+                        Intent it = new Intent(Intent.ACTION_SENDTO, uri);
+                        it.putExtra("sms_body", message);
+                        startActivity(it);
+                    }
+                } else {
+                    Toast.makeText(getApplicationContext(), "Defina uma mensagem primeiro!", Toast.LENGTH_SHORT).show();
                 }
-            } catch (Exception e) {
-                Toast.makeText(getApplicationContext(), "Defina uma mensagem primeiro!", Toast.LENGTH_SHORT).show();
+
+            } else {
+                Toast.makeText(getApplicationContext(), "Defina um contato primeiro!", Toast.LENGTH_SHORT).show();
             }
 
         }
@@ -108,28 +116,28 @@ public class TelaSOS extends Activity {
         @Override
         public void onClick(View v) {
             TabelaSOS tabelaSOS = new TabelaSOS(getApplicationContext());
-            String num = "";
-            try {
-                num = tabelaSOS.carregaDadosPorID(1).getNumero();
-            } catch (Exception e){
-                Toast.makeText(getApplicationContext(), "Defina um número primeiro!", Toast.LENGTH_SHORT).show();
-            }
+            num = tabelaSOS.carregaDadosPorID(1).getNumero();
 
-            String message = "";
-            try {
-                message = tabelaSOS.carregaDadosPorID(2).getMensagem();
+            if (num != null && !num.equals("")) {
+                try {
+                    message = tabelaSOS.carregaDadosPorID(2).getMensagem();
+                } catch (Exception ignored) {
+                }
+                if (message != null && !message.equals("")) {
+                    if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.SEND_SMS}, 1);
+                    } else {
+                        Uri uri = Uri.parse("smsto: " + num);
+                        Intent it = new Intent(Intent.ACTION_SENDTO, uri);
+                        it.putExtra("sms_body", message);
+                        startActivity(it);
+                    }
+                } else {
+                    Toast.makeText(getApplicationContext(), "Defina uma mensagem primeiro!", Toast.LENGTH_SHORT).show();
+                }
 
-                if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.SEND_SMS}, 1);
-                }
-                if (ActivityCompat.checkSelfPermission(getBaseContext(), Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED) {
-                    Uri uri = Uri.parse("smsto: " + num);
-                    Intent it = new Intent(Intent.ACTION_SENDTO, uri);
-                    it.putExtra("sms_body", message);
-                    startActivity(it);
-                }
-            } catch (Exception e) {
-                Toast.makeText(getApplicationContext(), "Defina uma mensagem primeiro!", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getApplicationContext(), "Defina um contato primeiro!", Toast.LENGTH_SHORT).show();
             }
         }
     };
@@ -138,9 +146,8 @@ public class TelaSOS extends Activity {
         @Override
         public boolean onLongClick(View v) {
             if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 20);
-            }
-            if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 201);
+            } else {
                 Intent pickPhoto = new Intent(Intent.ACTION_PICK,
                         android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(pickPhoto, 101);
@@ -153,9 +160,8 @@ public class TelaSOS extends Activity {
         @Override
         public boolean onLongClick(View v) {
             if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 20);
-            }
-            if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 202);
+            } else {
                 Intent pickPhoto = new Intent(Intent.ACTION_PICK,
                         android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(pickPhoto, 102);
@@ -163,6 +169,36 @@ public class TelaSOS extends Activity {
             return false;
         }
     };
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case 0:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                        return;
+                    }
+                    startActivity(new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + num)));
+                }
+                break;
+            case 1:
+                Uri uri = Uri.parse("smsto: " + num);
+                Intent it = new Intent(Intent.ACTION_SENDTO, uri);
+                it.putExtra("sms_body", message);
+                startActivity(it);
+                break;
+            case 201:
+                Intent pickPhoto1 = new Intent(Intent.ACTION_PICK,
+                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(pickPhoto1, 101);
+                break;
+            case 202:
+                Intent pickPhoto2 = new Intent(Intent.ACTION_PICK,
+                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(pickPhoto2, 102);
+                break;
+        }
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -407,7 +443,8 @@ public class TelaSOS extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sos);
-        Objects.requireNonNull(getActionBar()).setHomeButtonEnabled(true);
+
+        Objects.requireNonNull(getSupportActionBar()).setTitle("");
 
         ImageButton btnContato1 = findViewById(R.id.btnContato1);
         btnContato1.setOnClickListener(btnContato1OnClickListener);

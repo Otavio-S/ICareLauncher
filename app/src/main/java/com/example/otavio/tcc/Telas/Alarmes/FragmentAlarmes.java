@@ -50,7 +50,7 @@ public class FragmentAlarmes extends Fragment {
                 layoutManager.getOrientation());
         recyclerView.addItemDecoration(dividerItemDecoration);
 
-        FloatingActionButton floatingActionButton = view.findViewById(R.id.floatingAlarmes);
+        final FloatingActionButton floatingActionButton = view.findViewById(R.id.floatingAlarmes);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

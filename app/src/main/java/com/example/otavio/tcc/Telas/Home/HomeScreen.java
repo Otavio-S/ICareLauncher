@@ -2,19 +2,20 @@ package com.example.otavio.tcc.Telas.Home;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.ActivityOptions;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.transition.Fade;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextClock;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,13 +44,14 @@ public class HomeScreen extends Activity {
     private String Classe2;
     private String Classe3;
     private TabelaIcones tabelaIcones = new TabelaIcones(this);
+    private TextView tdate;
+    private TextClock textClock;
 
     private View.OnClickListener btnSOSOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             Intent intentS = new Intent(HomeScreen.this, TelaSOS.class);
-            getWindow().setEnterTransition(new Fade());
-            startActivity(intentS, ActivityOptions.makeSceneTransitionAnimation(activity).toBundle());
+            startActivity(intentS);
         }
     };
 
@@ -58,8 +60,7 @@ public class HomeScreen extends Activity {
         @Override
         public void onClick(View v) {
             Intent intentN = new Intent(HomeScreen.this, TelaNotas.class);
-            getWindow().setEnterTransition(new Fade());
-            startActivity(intentN, ActivityOptions.makeSceneTransitionAnimation(activity).toBundle());
+            startActivity(intentN);
         }
     };
 
@@ -67,8 +68,7 @@ public class HomeScreen extends Activity {
         @Override
         public void onClick(View v) {
             Intent intentA = new Intent(HomeScreen.this, TelaAlarmes.class);
-            getWindow().setEnterTransition(new Fade());
-            startActivity(intentA, ActivityOptions.makeSceneTransitionAnimation(activity).toBundle());
+            startActivity(intentA);
         }
     };
 
@@ -76,7 +76,7 @@ public class HomeScreen extends Activity {
         @Override
         public void onClick(View v) {
             Intent contactsIntent = new Intent(Intent.ACTION_VIEW).setData(Uri.parse("content://contacts/people"));
-            startActivity(contactsIntent, ActivityOptions.makeSceneTransitionAnimation(activity).toBundle());
+            startActivity(contactsIntent);
         }
     };
 
@@ -86,35 +86,30 @@ public class HomeScreen extends Activity {
             if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                 btnCamera.setEnabled(false);
                 ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
-            }
-            if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+            } else {
                 Intent cameraIntent = new Intent(MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA);
-                startActivity(cameraIntent, ActivityOptions.makeSceneTransitionAnimation(activity).toBundle());
+                startActivity(cameraIntent);
             }
         }
     };
-
     private View.OnClickListener btnGaleriaOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             Intent galleryIntent = new Intent(Intent.ACTION_VIEW);
             galleryIntent.setType("image/*");
-            startActivity(galleryIntent, ActivityOptions.makeSceneTransitionAnimation(activity).toBundle());
+            startActivity(galleryIntent);
         }
     };
-
     private View.OnClickListener btn1OnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             try {
-                getWindow().setEnterTransition(new Fade());
-                startActivity(intent1, ActivityOptions.makeSceneTransitionAnimation(activity).toBundle());
+                startActivity(intent1);
             } catch (Exception e) {
                 Toast.makeText(getApplicationContext(), "Escolha um app primeiro.", Toast.LENGTH_LONG).show();
             }
         }
     };
-
     private View.OnLongClickListener btn1OnLongClickListener = new View.OnLongClickListener() {
         @Override
         public boolean onLongClick(View view) {
@@ -124,24 +119,20 @@ public class HomeScreen extends Activity {
             Intent pickIntent = new Intent(Intent.ACTION_PICK_ACTIVITY);
             pickIntent.putExtra(Intent.EXTRA_INTENT, mainIntent);
 
-            getWindow().setEnterTransition(new Fade());
-            startActivityForResult(pickIntent, 1, ActivityOptions.makeSceneTransitionAnimation(activity).toBundle());
+            startActivityForResult(pickIntent, 1);
             return true;
         }
     };
-
     private View.OnClickListener btn2OnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             try {
-                getWindow().setEnterTransition(new Fade());
-                startActivity(intent2, ActivityOptions.makeSceneTransitionAnimation(activity).toBundle());
+                startActivity(intent2);
             } catch (Exception e) {
                 Toast.makeText(getApplicationContext(), "Escolha um app primeiro.", Toast.LENGTH_LONG).show();
             }
         }
     };
-
     private View.OnLongClickListener btn2OnLongClickListener = new View.OnLongClickListener() {
         @Override
         public boolean onLongClick(View view) {
@@ -151,7 +142,6 @@ public class HomeScreen extends Activity {
             Intent pickIntent = new Intent(Intent.ACTION_PICK_ACTIVITY);
             pickIntent.putExtra(Intent.EXTRA_INTENT, mainIntent);
 
-            getWindow().setEnterTransition(new Fade());
             startActivityForResult(pickIntent, 2);
             return true;
         }
@@ -161,7 +151,6 @@ public class HomeScreen extends Activity {
         @Override
         public void onClick(View v) {
             try {
-                getWindow().setEnterTransition(new Fade());
                 startActivity(intent3);
             } catch (Exception e) {
                 Toast.makeText(getApplicationContext(), "Escolha um app primeiro.", Toast.LENGTH_LONG).show();
@@ -178,11 +167,96 @@ public class HomeScreen extends Activity {
             Intent pickIntent = new Intent(Intent.ACTION_PICK_ACTIVITY);
             pickIntent.putExtra(Intent.EXTRA_INTENT, mainIntent);
 
-            getWindow().setEnterTransition(new Fade());
             startActivityForResult(pickIntent, 3);
             return true;
         }
     };
+
+    private View.OnLongClickListener btnChangeColor = new View.OnLongClickListener() {
+        @Override
+        public boolean onLongClick(View v) {
+            int cor = textClock.getCurrentTextColor();
+            if (cor == Color.WHITE) {
+                textClock.setTextColor(Color.BLACK);
+                tdate.setTextColor(Color.BLACK);
+                Drawable d = btn1.getBackground();
+
+                String Classe = "";
+                try {
+                    Classe = tabelaIcones.carregaDados().get(0).getClasse();
+                } catch (Exception ignored) {
+                }
+
+                if (Classe.equals("")) {
+                    btn1.setBackgroundResource(R.drawable.add);
+                }
+
+                String Classe2 = "";
+                try {
+                    Classe2 = tabelaIcones.carregaDados().get(1).getClasse();
+                } catch (Exception ignored) {
+                }
+
+                if (Classe2.equals("")) {
+                    btn2.setBackgroundResource(R.drawable.add);
+                }
+
+                String Classe3 = "";
+                try {
+                    Classe3 = tabelaIcones.carregaDados().get(2).getClasse();
+                } catch (Exception ignored) {
+                }
+
+                if (Classe3.equals("")) {
+                    btn3.setBackgroundResource(R.drawable.add);
+                }
+            } else {
+                textClock.setTextColor(Color.WHITE);
+                tdate.setTextColor(Color.WHITE);
+
+                String Classe = "";
+                try {
+                    Classe = tabelaIcones.carregaDados().get(0).getClasse();
+                } catch (Exception ignored) {
+                }
+
+                if (Classe.equals("")) {
+                    btn1.setBackgroundResource(R.drawable.add_white);
+                }
+
+                String Classe2 = "";
+                try {
+                    Classe2 = tabelaIcones.carregaDados().get(1).getClasse();
+                } catch (Exception ignored) {
+                }
+
+                if (Classe2.equals("")) {
+                    btn2.setBackgroundResource(R.drawable.add_white);
+                }
+
+                String Classe3 = "";
+                try {
+                    Classe3 = tabelaIcones.carregaDados().get(2).getClasse();
+                } catch (Exception ignored) {
+                }
+
+                if (Classe3.equals("")) {
+                    btn3.setBackgroundResource(R.drawable.add_white);
+                }
+            }
+            return false;
+        }
+    };
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case 0:
+                Intent cameraIntent = new Intent(MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA);
+                startActivity(cameraIntent);
+                break;
+        }
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -209,8 +283,6 @@ public class HomeScreen extends Activity {
                     Drawable icone = (pm.getActivityIcon(intent1));
                     btn1.setImageDrawable(icone);
                     btn1.setBackground(null);
-                    btn1.setScaleX((float) 1.3);
-                    btn1.setScaleY((float) 1.3);
                 } catch (PackageManager.NameNotFoundException ignored) {
                 }
             }
@@ -236,8 +308,6 @@ public class HomeScreen extends Activity {
                     Drawable icone = (pm.getActivityIcon(intent2));
                     btn2.setImageDrawable(icone);
                     btn2.setBackground(null);
-                    btn2.setScaleX((float) 1.3);
-                    btn2.setScaleY((float) 1.3);
                 } catch (PackageManager.NameNotFoundException ignored) {
 
                 }
@@ -264,8 +334,6 @@ public class HomeScreen extends Activity {
                     Drawable icone = (pm.getActivityIcon(intent3));
                     btn3.setImageDrawable(icone);
                     btn3.setBackground(null);
-                    btn3.setScaleX((float) 1.3);
-                    btn3.setScaleY((float) 1.3);
                 } catch (PackageManager.NameNotFoundException ignored) {
 
                 }
@@ -277,8 +345,15 @@ public class HomeScreen extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Objects.requireNonNull(super.getActionBar()).hide();
         setContentView(R.layout.activity_home_screen);
+
+        tdate = findViewById(R.id.date);
+        btn1 = findViewById(R.id.btn1);
+        btn1.setBackgroundResource(R.drawable.add);
+        btn2 = findViewById(R.id.btn2);
+        btn2.setBackgroundResource(R.drawable.add);
+        btn3 = findViewById(R.id.btn3);
+        btn3.setBackgroundResource(R.drawable.add);
 
         Thread t = new Thread() {
             @Override
@@ -289,7 +364,6 @@ public class HomeScreen extends Activity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                TextView tdate = findViewById(R.id.date);
                                 long date = System.currentTimeMillis();
                                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
                                 String dateString = sdf.format(date);
@@ -303,11 +377,15 @@ public class HomeScreen extends Activity {
         };
         t.start();
 
+        textClock = findViewById(R.id.textClock);
+        textClock.setText(textClock.getText());
+
+        textClock.setOnLongClickListener(btnChangeColor);
+
         try {
             this.Classe1 = tabelaIcones.carregaDados().get(0).getClasse();
             String Pacote1 = tabelaIcones.carregaDados().get(0).getPacote();
 
-            btn1 = findViewById(R.id.btn1);
             intent1 = new Intent();
             intent1.setComponent(new ComponentName(Pacote1, Classe1));
             PackageManager pm = this.getPackageManager();
@@ -315,13 +393,10 @@ public class HomeScreen extends Activity {
             Drawable icone1 = (pm.getActivityIcon(intent1));
             btn1.setImageDrawable(icone1);
             btn1.setBackground(null);
-            btn1.setScaleX((float) 1.3);
-            btn1.setScaleY((float) 1.3);
 
             this.Classe2 = tabelaIcones.carregaDados().get(1).getClasse();
             String Pacote2 = tabelaIcones.carregaDados().get(1).getPacote();
 
-            btn2 = findViewById(R.id.btn2);
             intent2 = new Intent();
             intent2.setComponent(new ComponentName(Pacote2, Classe2));
             pm = this.getPackageManager();
@@ -329,13 +404,10 @@ public class HomeScreen extends Activity {
             Drawable icone2 = (pm.getActivityIcon(intent2));
             btn2.setImageDrawable(icone2);
             btn2.setBackground(null);
-            btn2.setScaleX((float) 1.3);
-            btn2.setScaleY((float) 1.3);
 
             this.Classe3 = tabelaIcones.carregaDados().get(2).getClasse();
             String Pacote3 = tabelaIcones.carregaDados().get(2).getPacote();
 
-            btn3 = findViewById(R.id.btn3);
             intent3 = new Intent();
             intent3.setComponent(new ComponentName(Pacote3, Classe3));
             pm = this.getPackageManager();
@@ -343,8 +415,6 @@ public class HomeScreen extends Activity {
             Drawable icone3 = (pm.getActivityIcon(intent3));
             btn3.setImageDrawable(icone3);
             btn3.setBackground(null);
-            btn3.setScaleX((float) 1.3);
-            btn3.setScaleY((float) 1.3);
 
         } catch (Exception ignored) {
         }
@@ -380,6 +450,5 @@ public class HomeScreen extends Activity {
         btn3.setOnLongClickListener(btn3OnLongClickListener);
 
     }
-
 
 }

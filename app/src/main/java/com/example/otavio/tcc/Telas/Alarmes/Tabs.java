@@ -13,7 +13,6 @@ import com.example.otavio.tcc.R;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class Tabs extends AppCompatActivity {
 
@@ -30,10 +29,6 @@ public class Tabs extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarmes);
-
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         viewPager = findViewById(R.id.viewpager);
         setupViewPager(viewPager);

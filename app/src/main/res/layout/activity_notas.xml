@@ -32,12 +32,13 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="Escreva sua nota aqui"
-                android:inputType="textMultiLine"
+                android:inputType="textCapSentences"
                 android:minLines="5"
                 android:textSize="24sp" />
 
             <Button
                 android:id="@+id/btnSalvarNota"
+                style="@android:style/Widget.Holo.Light.Button.Toggle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="SALVAR" />

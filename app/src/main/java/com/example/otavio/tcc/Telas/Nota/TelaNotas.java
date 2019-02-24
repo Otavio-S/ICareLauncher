@@ -1,7 +1,7 @@
 package com.example.otavio.tcc.Telas.Nota;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,7 +11,9 @@ import com.example.otavio.tcc.Model.Nota;
 import com.example.otavio.tcc.R;
 import com.example.otavio.tcc.SQLite.TabelaNotas;
 
-public class TelaNotas extends FragmentActivity {
+import java.util.Objects;
+
+public class TelaNotas extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
@@ -23,6 +25,8 @@ public class TelaNotas extends FragmentActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notas);
+
+        Objects.requireNonNull(getSupportActionBar()).setTitle("");
 
         final EditText txtNota = findViewById(R.id.edNota);
         Button btnSalvar = findViewById(R.id.btnSalvarNota);

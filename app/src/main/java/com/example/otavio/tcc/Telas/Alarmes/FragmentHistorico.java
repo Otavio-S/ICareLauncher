@@ -83,9 +83,6 @@ public class FragmentHistorico extends Fragment {
             case R.id.item1Historico:
                 Toast.makeText(getContext(), "OK", Toast.LENGTH_SHORT).show();
                 return true;
-            case R.id.item2H:
-                Toast.makeText(getContext(), "OK2", Toast.LENGTH_SHORT).show();
-                return true;
             default:
                 return false;
 

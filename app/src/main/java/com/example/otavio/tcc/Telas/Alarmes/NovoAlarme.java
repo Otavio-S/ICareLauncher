@@ -6,7 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,7 +24,7 @@ import com.example.otavio.tcc.SQLite.TabelaAlarmes;
 import java.util.Calendar;
 import java.util.Objects;
 
-public class NovoAlarme extends FragmentActivity {
+public class NovoAlarme extends AppCompatActivity {
 
     private View.OnClickListener btnSalvarOnClickListener = new View.OnClickListener() {
         @Override
