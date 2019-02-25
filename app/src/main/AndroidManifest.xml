@@ -87,7 +87,8 @@
 
         <activity
             android:name=".Telas.Alarmes.Tabs"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/ThemeAlarms" />
 
         <activity
             android:name=".Receiver.FireAlarm"

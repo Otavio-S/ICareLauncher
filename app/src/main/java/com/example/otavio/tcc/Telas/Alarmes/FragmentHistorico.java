@@ -13,7 +13,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.otavio.tcc.Adapter.Historico_Adapter;
 import com.example.otavio.tcc.Model.Historico;
@@ -25,6 +24,7 @@ import java.util.List;
 
 public class FragmentHistorico extends Fragment {
 
+    Historico_Adapter viewAdapter;
     private View view;
     private RecyclerView recyclerView;
     private List<Historico> historicoList;
@@ -41,7 +41,7 @@ public class FragmentHistorico extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_historico, container, false);
         recyclerView = view.findViewById(R.id.recyclerViewHistorico);
-        Historico_Adapter viewAdapter = new Historico_Adapter(getContext(), historicoList);
+        viewAdapter = new Historico_Adapter(getContext(), historicoList);
         viewAdapter.notifyDataSetChanged();
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
@@ -81,7 +81,23 @@ public class FragmentHistorico extends Fragment {
 
         switch (item.getItemId()) {
             case R.id.item1Historico:
-                Toast.makeText(getContext(), "OK", Toast.LENGTH_SHORT).show();
+
+                historicoList = new ArrayList<>();
+                TabelaHistorico tabelaHistorico = new TabelaHistorico(getContext());
+                tabelaHistorico.deletaTudo();
+
+                int i;
+                int quant = tabelaHistorico.carregaDados().size() - 1;
+
+                historicoList.clear();
+                for (i = quant; i >= 0; i--) {
+                    historicoList.add(tabelaHistorico.carregaDados().get(i));
+                }
+
+                viewAdapter = new Historico_Adapter(getContext(), historicoList);
+                viewAdapter.notifyItemRangeRemoved(0, quant);
+                recyclerView.setAdapter(viewAdapter);
+
                 return true;
             default:
                 return false;

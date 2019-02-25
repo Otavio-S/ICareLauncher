@@ -5,13 +5,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.otavio.tcc.Model.Nota;
 import com.example.otavio.tcc.R;
 import com.example.otavio.tcc.SQLite.TabelaNotas;
-
-import java.util.Objects;
 
 public class TelaNotas extends AppCompatActivity {
 
@@ -22,20 +21,33 @@ public class TelaNotas extends AppCompatActivity {
     }
 
     @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notas);
 
-        Objects.requireNonNull(getSupportActionBar()).setTitle("");
+        TextView txtNome = findViewById(R.id.txtNomeNota);
+        txtNome.requestFocus();
 
-        final EditText txtNota = findViewById(R.id.edNota);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setTitle("");
+        }
+
+        final EditText edNota = findViewById(R.id.edNota);
         Button btnSalvar = findViewById(R.id.btnSalvarNota);
         final TabelaNotas tabelaNotas = new TabelaNotas(getApplicationContext());
 
         try {
             String dados = tabelaNotas.carregaDadosPorID(1).getDescricao();
-            txtNota.setText(dados);
-            txtNota.setSelection(txtNota.getText().length());
+            edNota.setText(dados);
+            edNota.setSelection(edNota.getText().length());
         } catch (Exception ignored) {
         }
 
@@ -48,7 +60,7 @@ public class TelaNotas extends AppCompatActivity {
                 } catch (Exception ignored) {
                 }
 
-                String texto = String.valueOf(txtNota.getText());
+                String texto = String.valueOf(edNota.getText());
                 if (dados == null) {
                     Nota nota = new Nota();
                     nota.setID("1");

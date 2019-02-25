@@ -163,4 +163,22 @@ public class TabelaHistorico extends SQLiteOpenHelper {
 
     }
 
+    public String deletaTudo() {
+        SQLiteDatabase db = getReadableDatabase();
+
+        String sql = CamposHistorico.COLUNA_ID;
+        String[] selecaoArgs = {};
+        int count = db.delete(
+                CamposHistorico.NOME_TABELA,
+                sql,
+                selecaoArgs);
+
+        if (count == -1)
+            return "Erro ao deletar registro";
+        else {
+            return "Registro deletado com sucesso";
+        }
+
+    }
+
 }

@@ -7,41 +7,53 @@
     android:theme="@style/Theme.AppCompat"
     tools:layout_editor_absoluteY="81dp">
 
-    <ScrollView
+    <LinearLayout
+        android:id="@+id/Linear1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_above="@id/Linear2"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/txtNomeNota"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:text="Nota"
+            android:textAlignment="center"
+            android:textColor="@android:color/background_dark"
+            android:textSize="50sp"
+            android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/textView9"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Nota"
-                android:textAlignment="center"
-                android:textColor="@android:color/background_dark"
-                android:textSize="50sp"
-                android:textStyle="bold" />
+        <EditText
+            android:id="@+id/edNota"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/primaryLight"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:focusedByDefault="false"
+            android:gravity="top"
+            android:inputType="textCapSentences|textMultiLine"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:scrollbars="vertical"
+            android:textColor="@android:color/black"
+            android:textCursorDrawable="@null"/>
 
-            <EditText
-                android:id="@+id/edNota"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Escreva sua nota aqui"
-                android:inputType="textCapSentences"
-                android:minLines="5"
-                android:textSize="24sp" />
+    </LinearLayout>
 
-            <Button
-                android:id="@+id/btnSalvarNota"
-                style="@android:style/Widget.Holo.Light.Button.Toggle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="SALVAR" />
-        </LinearLayout>
-    </ScrollView>
+    <LinearLayout
+        android:id="@+id/Linear2"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btnSalvarNota"
+            style="@android:style/Widget.Holo.Light.Button.Toggle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="SALVAR" />
+    </LinearLayout>
 </RelativeLayout>

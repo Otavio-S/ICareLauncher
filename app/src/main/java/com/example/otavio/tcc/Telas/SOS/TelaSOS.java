@@ -440,11 +440,21 @@ public class TelaSOS extends AppCompatActivity {
     }
 
     @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sos);
 
-        Objects.requireNonNull(getSupportActionBar()).setTitle("");
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setTitle("");
+        }
 
         ImageButton btnContato1 = findViewById(R.id.btnContato1);
         btnContato1.setOnClickListener(btnContato1OnClickListener);

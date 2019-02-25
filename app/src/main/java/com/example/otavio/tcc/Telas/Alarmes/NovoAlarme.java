@@ -26,6 +26,13 @@ import java.util.Objects;
 
 public class NovoAlarme extends AppCompatActivity {
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
+
     private View.OnClickListener btnSalvarOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -126,6 +133,12 @@ public class NovoAlarme extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_novo_alarme);
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setTitle("");
+        }
 
         EditText edDataAlarme = findViewById(R.id.edDataAlarme);
         EditText edHoraAlarme = findViewById(R.id.edHoraAlarme);
