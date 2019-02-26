@@ -50,4 +50,8 @@
     <string name="alarme_ira_tocar_h">O alarme irá tocar a cada %1$d horas</string>
     <string name="alarme_ira_tocar_m">O alarme irá tocar a cada %1$d minutos</string>
     <string name="alarme_cada">O alarme irá tocar a cada %1$d horas e %2$d minutos</string>
+    <string name="numero1_salvo">Primeiro contato definido!</string>
+    <string name="numero2_salvo">Segundo contato definido!</string>
+    <string name="numero1_atualizado">Primeiro contato atualizado!</string>
+    <string name="numero2_atualizado">Segundo contato atualizado!</string>
 </resources>

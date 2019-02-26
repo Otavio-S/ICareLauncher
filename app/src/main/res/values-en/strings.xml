@@ -50,4 +50,8 @@
     <string name="alarme_ira_tocar_m">The alam will play every %1$d minutes</string>
     <string name="alarme_cada">The alam will play every %1$d hours and %2$d minutes</string>
     <string name="alteracoes_salvas">Changes Saved</string>
+    <string name="numero1_salvo">First contact set!</string>
+    <string name="numero2_salvo">Second contact set!</string>
+    <string name="numero1_atualizado">First contact updated!</string>
+    <string name="numero2_atualizado">Second contact updated!</string>
 </resources>

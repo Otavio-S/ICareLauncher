@@ -92,6 +92,7 @@ public class TelaSOS extends AppCompatActivity {
                     message = tabelaSOS.carregaDadosPorID(2).getMensagem();
                 } catch (Exception ignored) {
                 }
+                System.out.println("MENSAGEM::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::"+message);
                 if (message != null && !message.equals("")) {
                     if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
                         ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.SEND_SMS}, 1);
@@ -235,12 +236,13 @@ public class TelaSOS extends AppCompatActivity {
                         sos.setId("0");
                         sos.setNumero(number1);
                         tabelaSOS.insereDado(sos);
-
+                        Toast.makeText(getApplicationContext(), R.string.numero1_salvo, Toast.LENGTH_SHORT).show();
                     } else {
                         SOS sos = new SOS();
                         sos.setId("0");
                         sos.setNumero(number1);
                         tabelaSOS.alteraRegistro(sos);
+                        Toast.makeText(getApplicationContext(), R.string.numero1_atualizado, Toast.LENGTH_SHORT).show();
                     }
                 }
                 break;
@@ -271,12 +273,13 @@ public class TelaSOS extends AppCompatActivity {
                         sos.setId("1");
                         sos.setNumero(number2);
                         tabelaSOS.insereDado(sos);
-
+                        Toast.makeText(getApplicationContext(), R.string.numero2_salvo, Toast.LENGTH_SHORT).show();
                     } else {
                         SOS sos = new SOS();
                         sos.setId("1");
                         sos.setNumero(number2);
                         tabelaSOS.alteraRegistro(sos);
+                        Toast.makeText(getApplicationContext(), R.string.numero2_atualizado, Toast.LENGTH_SHORT).show();
                     }
                 }
                 break;
@@ -431,7 +434,6 @@ public class TelaSOS extends AppCompatActivity {
                 return false;
 
         }
-
     }
 
     @Override

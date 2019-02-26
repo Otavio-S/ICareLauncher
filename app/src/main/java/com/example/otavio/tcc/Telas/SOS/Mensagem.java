@@ -47,13 +47,15 @@ public class Mensagem extends AppCompatActivity {
                 if (mens == null || mens.equals("")) {
                     SOS sos = new SOS();
                     sos.setId("2");
+                    sos.setNumero("0");
                     sos.setMensagem(text);
 
-                    tabelaSOS.insereDado(sos);
+                    System.out.println(tabelaSOS.insereDado(sos));
                     Toast.makeText(getApplicationContext(), R.string.mensagem_salva, Toast.LENGTH_SHORT).show();
                 } else {
                     SOS sos = new SOS();
                     sos.setId("2");
+                    sos.setNumero("0");
                     sos.setMensagem(text);
 
                     tabelaSOS.alteraRegistro(sos);

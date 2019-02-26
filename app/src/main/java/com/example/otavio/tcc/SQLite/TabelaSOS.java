@@ -17,7 +17,7 @@ import java.util.List;
 public class TabelaSOS extends SQLiteOpenHelper {
 
     private static final String NOME_TABELA = "Sos.db";
-    private static final int VERSAO_BANCO = 1;
+    private static final int VERSAO_BANCO = 2;
 
     public TabelaSOS(Context context) {
         super(context, NOME_TABELA, null, VERSAO_BANCO);
