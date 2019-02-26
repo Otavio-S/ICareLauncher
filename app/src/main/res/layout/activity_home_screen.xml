@@ -55,7 +55,8 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline4"
-        app:layout_constraintTop_toTopOf="@+id/guideline" />
+        app:layout_constraintTop_toTopOf="@+id/guideline"
+        tools:targetApi="lollipop" />
 
     <ImageButton
         android:id="@+id/btnGaleria"
@@ -72,7 +73,8 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline4"
-        app:layout_constraintTop_toTopOf="@+id/guideline2" />
+        app:layout_constraintTop_toTopOf="@+id/guideline2"
+        tools:targetApi="lollipop" />
 
     <ImageButton
         android:id="@+id/btnContatos"
@@ -90,7 +92,8 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintEnd_toStartOf="@+id/guideline5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline2" />
+        app:layout_constraintTop_toTopOf="@+id/guideline2"
+        tools:targetApi="lollipop" />
 
     <ImageButton
         android:id="@+id/btnCamera"
@@ -107,7 +110,8 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintEnd_toStartOf="@+id/guideline4"
         app:layout_constraintStart_toStartOf="@+id/guideline5"
-        app:layout_constraintTop_toTopOf="@+id/guideline2" />
+        app:layout_constraintTop_toTopOf="@+id/guideline2"
+        tools:targetApi="lollipop" />
 
     <ImageButton
         android:id="@+id/btnNotas"
@@ -126,7 +130,8 @@
         app:layout_constraintStart_toStartOf="@+id/guideline5"
         app:layout_constraintTop_toTopOf="@+id/guideline"
         tools:layout_height="80dp"
-        tools:layout_width="80dp" />
+        tools:layout_width="80dp"
+        tools:targetApi="lollipop" />
 
     <ImageButton
         android:id="@+id/btnSOS"
@@ -144,7 +149,8 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline"
-        tools:layout_width="80dp" />
+        tools:layout_width="80dp"
+        tools:targetApi="lollipop" />
 
     <ImageButton
         android:id="@+id/btn1"

@@ -19,7 +19,7 @@
             android:id="@+id/nome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Nome"
+            android:text="@string/nome"
             android:textColor="@android:color/black"
             android:textStyle="bold" />
 
@@ -27,7 +27,7 @@
             android:id="@+id/descricao"
             android:layout_width="match_parent"
             android:layout_height="34dp"
-            android:text="Descricao"
+            android:text="@string/descricao"
             android:textColor="@android:color/black"
             android:textStyle="bold" />
     </LinearLayout>

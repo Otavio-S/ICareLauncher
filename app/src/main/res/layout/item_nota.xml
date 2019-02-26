@@ -18,16 +18,16 @@
             android:id="@+id/txtEditarNota"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Nome"
-            android:textColor="#fff"
+            android:text="@string/nome"
+            android:textColor="@android:color/black"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/txtDescricaoNota"
             android:layout_width="match_parent"
             android:layout_height="32dp"
-            android:text="Descricao"
-            android:textColor="#fff"
+            android:text="@string/descricao"
+            android:textColor="@android:color/black"
             android:textStyle="bold" />
     </LinearLayout>
 

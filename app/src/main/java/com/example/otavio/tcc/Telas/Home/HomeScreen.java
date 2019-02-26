@@ -106,7 +106,7 @@ public class HomeScreen extends Activity {
             try {
                 startActivity(intent1);
             } catch (Exception e) {
-                Toast.makeText(getApplicationContext(), "Escolha um app primeiro.", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), R.string.escolha_app, Toast.LENGTH_LONG).show();
             }
         }
     };
@@ -129,7 +129,7 @@ public class HomeScreen extends Activity {
             try {
                 startActivity(intent2);
             } catch (Exception e) {
-                Toast.makeText(getApplicationContext(), "Escolha um app primeiro.", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), R.string.escolha_app, Toast.LENGTH_LONG).show();
             }
         }
     };
@@ -153,7 +153,7 @@ public class HomeScreen extends Activity {
             try {
                 startActivity(intent3);
             } catch (Exception e) {
-                Toast.makeText(getApplicationContext(), "Escolha um app primeiro.", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), R.string.escolha_app, Toast.LENGTH_LONG).show();
             }
         }
     };

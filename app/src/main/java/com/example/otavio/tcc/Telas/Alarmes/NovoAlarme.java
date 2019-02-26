@@ -26,13 +26,6 @@ import java.util.Objects;
 
 public class NovoAlarme extends AppCompatActivity {
 
-    @Override
-    public boolean onSupportNavigateUp() {
-        onBackPressed();
-        return true;
-    }
-
-
     private View.OnClickListener btnSalvarOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -73,7 +66,7 @@ public class NovoAlarme extends AppCompatActivity {
             } catch (Exception e) {
                 Toast toast = Toast.makeText(
                         getApplicationContext(),
-                        "Preencha todos os campos!",
+                        R.string.preencha,
                         Toast.LENGTH_SHORT);
                 toast.show();
             }
@@ -89,19 +82,19 @@ public class NovoAlarme extends AppCompatActivity {
                 if (m == 0) {
                     Toast toast = Toast.makeText(
                             getApplicationContext(),
-                            "O alarme irá tocar de " + h + "\nem " + h + " horas.",
+                            getResources().getString(R.string.alarme_ira_tocar_h, h),
                             Toast.LENGTH_LONG);
                     toast.show();
                 } else if (h == 0) {
                     Toast toast = Toast.makeText(
                             getApplicationContext(),
-                            "O alarme irá tocar de " + m + "\nem " + m + " minutos.",
+                            getResources().getString(R.string.alarme_ira_tocar_m, m),
                             Toast.LENGTH_LONG);
                     toast.show();
                 } else {
                     Toast toast = Toast.makeText(
                             getApplicationContext(),
-                            "O alarme irá tocar a cada " + h + " horas e\n" + m + " minutos.",
+                            getResources().getString(R.string.alarme_cada, h, m),
                             Toast.LENGTH_SHORT);
                     toast.show();
                 }
@@ -117,12 +110,18 @@ public class NovoAlarme extends AppCompatActivity {
         public void onClick(View v) {
             Toast toast = Toast.makeText(
                     getApplicationContext(),
-                    "Cancelado",
+                    R.string.cancelado,
                     Toast.LENGTH_SHORT);
             toast.show();
             finish();
         }
     };
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
 
     @Override
     public void onBackPressed() {

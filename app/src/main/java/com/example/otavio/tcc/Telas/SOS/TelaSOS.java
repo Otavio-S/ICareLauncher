@@ -58,7 +58,7 @@ public class TelaSOS extends AppCompatActivity {
                     startActivity(new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + num)));
                 }
             } else {
-                Toast.makeText(getApplicationContext(), "Defina um contato primeiro!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), R.string.defina_contato, Toast.LENGTH_SHORT).show();
             }
         }
     };
@@ -76,7 +76,7 @@ public class TelaSOS extends AppCompatActivity {
                     startActivity(new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + num)));
                 }
             } else {
-                Toast.makeText(getApplicationContext(), "Defina um contato primeiro!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), R.string.defina_contato, Toast.LENGTH_SHORT).show();
             }
         }
     };
@@ -102,11 +102,11 @@ public class TelaSOS extends AppCompatActivity {
                         startActivity(it);
                     }
                 } else {
-                    Toast.makeText(getApplicationContext(), "Defina uma mensagem primeiro!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.defina_mensagem, Toast.LENGTH_SHORT).show();
                 }
 
             } else {
-                Toast.makeText(getApplicationContext(), "Defina um contato primeiro!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), R.string.defina_contato, Toast.LENGTH_SHORT).show();
             }
 
         }
@@ -133,11 +133,11 @@ public class TelaSOS extends AppCompatActivity {
                         startActivity(it);
                     }
                 } else {
-                    Toast.makeText(getApplicationContext(), "Defina uma mensagem primeiro!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.defina_mensagem, Toast.LENGTH_SHORT).show();
                 }
 
             } else {
-                Toast.makeText(getApplicationContext(), "Defina um contato primeiro!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), R.string.defina_contato, Toast.LENGTH_SHORT).show();
             }
         }
     };
@@ -473,7 +473,7 @@ public class TelaSOS extends AppCompatActivity {
         imgView1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Escolha uma imagem!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), R.string.escolha_imagem, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -498,7 +498,7 @@ public class TelaSOS extends AppCompatActivity {
         imgView2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Escolha uma imagem!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), R.string.escolha_imagem, Toast.LENGTH_SHORT).show();
             }
         });
 

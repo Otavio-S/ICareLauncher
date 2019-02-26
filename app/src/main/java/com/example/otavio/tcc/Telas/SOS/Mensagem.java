@@ -16,7 +16,6 @@ import java.util.Objects;
 public class Mensagem extends AppCompatActivity {
 
     private EditText edMensagem;
-    private Button btnSalvar;
     private String mens;
     private TabelaSOS tabelaSOS;
 
@@ -28,7 +27,7 @@ public class Mensagem extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setTitle("");
 
         edMensagem = findViewById(R.id.edWrite);
-        btnSalvar = findViewById(R.id.btnSalvarWrite);
+        Button btnSalvar = findViewById(R.id.btnSalvarWrite);
 
         tabelaSOS = new TabelaSOS(getApplicationContext());
 
@@ -51,14 +50,14 @@ public class Mensagem extends AppCompatActivity {
                     sos.setMensagem(text);
 
                     tabelaSOS.insereDado(sos);
-                    Toast.makeText(getApplicationContext(), "Mensagem salva!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.mensagem_salva, Toast.LENGTH_SHORT).show();
                 } else {
                     SOS sos = new SOS();
                     sos.setId("2");
                     sos.setMensagem(text);
 
                     tabelaSOS.alteraRegistro(sos);
-                    Toast.makeText(getApplicationContext(), "Mensagem atualizada!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.mensagem_atualizada, Toast.LENGTH_SHORT).show();
                 }
                 finish();
             }

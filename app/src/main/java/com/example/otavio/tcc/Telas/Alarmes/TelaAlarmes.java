@@ -42,8 +42,8 @@ public class TelaAlarmes extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         Adapter_Tabs adapter = new Adapter_Tabs(getSupportFragmentManager(), false);
-        adapter.addFrag(new FragmentAlarmes(), "Alarme");
-        adapter.addFrag(new FragmentHistorico(), "Histórico");
+        adapter.addFrag(new FragmentAlarmes(), getResources().getString(R.string.alarme));
+        adapter.addFrag(new FragmentHistorico(), getResources().getString(R.string.historico));
         viewPager.setAdapter(adapter);
     }
 

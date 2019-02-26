@@ -25,7 +25,6 @@ import java.util.List;
 public class FragmentHistorico extends Fragment {
 
     Historico_Adapter viewAdapter;
-    private View view;
     private RecyclerView recyclerView;
     private List<Historico> historicoList;
 
@@ -39,7 +38,7 @@ public class FragmentHistorico extends Fragment {
 
         setHasOptionsMenu(true);
 
-        view = inflater.inflate(R.layout.fragment_historico, container, false);
+        View view = inflater.inflate(R.layout.fragment_historico, container, false);
         recyclerView = view.findViewById(R.id.recyclerViewHistorico);
         viewAdapter = new Historico_Adapter(getContext(), historicoList);
         viewAdapter.notifyDataSetChanged();

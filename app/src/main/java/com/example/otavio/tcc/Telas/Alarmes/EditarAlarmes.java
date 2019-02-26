@@ -44,7 +44,7 @@ public class EditarAlarmes extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_editar_alarmes);
+        setContentView(R.layout.activity_editar_alarme);
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -128,7 +128,7 @@ public class EditarAlarmes extends AppCompatActivity {
                 if (altera.equals("Registro atualizado com sucesso")) {
                     Toast toast = Toast.makeText(
                             getApplicationContext(),
-                            "Alterações Salvas",
+                            R.string.alteracoes_salvas,
                             Toast.LENGTH_SHORT);
                     toast.show();
 
@@ -142,7 +142,7 @@ public class EditarAlarmes extends AppCompatActivity {
                 } else {
                     Toast toast = Toast.makeText(
                             getApplicationContext(),
-                            "Cancelado",
+                            R.string.cancelado,
                             Toast.LENGTH_SHORT);
                     toast.show();
                 }
@@ -174,7 +174,7 @@ public class EditarAlarmes extends AppCompatActivity {
             public void onClick(View v) {
                 Toast toast = Toast.makeText(
                         getApplicationContext(),
-                        "Cancelado",
+                        R.string.cancelado,
                         Toast.LENGTH_SHORT);
                 toast.show();
             }

@@ -1,11 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">ICare Launcher</string>
-    <string name="todo" translatable="false">TODO</string>
-    <string name="sos" translatable="false">SOS</string>
     <string name="voltar">Voltar</string>
-    <string name="appbar_scrolling_viewbehavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
     <string name="configuracoes">Configurações</string>
-    <string name="emergency">Definir mensagem de emergência</string>
     <string name="definir_segundo_contato">Definir segundo contato</string>
     <string name="definir_primeiro_contato">Definir primeiro contato</string>
     <string name="apagar_todos">Apagar todos</string>
@@ -29,20 +26,21 @@
     <string name="digite_descricao">DIGITE AQUI A DESCRIÇÃO</string>
     <string name="data_inicial">DATA INICIAL</string>
     <string name="escolha_a_data_inicial">ESCOLHA A DATA INICIAL</string>
-    <string name="hora_inicial">HORA INICIAL</string>
-    <string name="escolha_a_hora_inicial">ESCOLHA A HORA INICIAL</string>
     <string name="repetir_n_de_vezes">REPETIR (NÚMERO DE VEZES)</string>
     <string name="quantas_vezes_o_alarme_deve_tocar">QUANTAS VEZES O ALARME DEVE TOCAR?</string>
     <string name="time_00_00">00:00</string>
-    <string name="hora_remedio_tomado">HORA QUE O REMÉDIO FOI TOMADO</string>
     <string name="mensagem">MENSAGEM</string>
     <string name="escreva_aqui_sua_mensagem">ESCREVA AQUI SUA MENSAGEM</string>
+    <string name="emergency">Definir mensagem de emergência</string>
+    <string name="hora_inicial">HORA INICIAL</string>
+    <string name="escolha_a_hora_inicial">ESCOLHA A HORA INICIAL</string>
+    <string name="hora_remedio_tomado">HORA QUE O REMÉDIO FOI TOMADO</string>
     <string name="historico">HISTÓRICO</string>
     <string name="escolha_app">Escolha um app primeiro</string>
     <string name="nota_salva">Nota salva!</string>
     <string name="alteracoes_descartadas">Alterações descartadas!</string>
-    <string name="mensagem_salva">Mensagem salva!</string>
     <string name="mensagem_atualizada">Mensagem atualizada!</string>
+    <string name="mensagem_salva">Mensagem salva!</string>
     <string name="defina_contato">Defina um contato primeiro!</string>
     <string name="defina_mensagem">Defina uma mensagem primeiro!</string>
     <string name="escolha_imagem">Escolha uma imagem!</string>

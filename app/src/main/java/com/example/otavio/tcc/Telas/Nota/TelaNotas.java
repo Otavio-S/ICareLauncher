@@ -16,7 +16,7 @@ public class TelaNotas extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Toast.makeText(getApplicationContext(), "Alterações descartadas!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), R.string.alteracoes_descartadas, Toast.LENGTH_SHORT).show();
         finish();
     }
 
@@ -74,7 +74,7 @@ public class TelaNotas extends AppCompatActivity {
                     nota.setDescricao(texto);
                     tabelaNotas.alteraRegistro(nota);
                 }
-                Toast.makeText(getApplicationContext(), "Nota salva!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), R.string.nota_salva, Toast.LENGTH_SHORT).show();
                 finish();
 
             }
