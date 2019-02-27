@@ -32,6 +32,7 @@ public class EditarAlarmes extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        Toast.makeText(getApplicationContext(), R.string.alteracoes_descartadas, Toast.LENGTH_SHORT).show();
         finish();
     }
 

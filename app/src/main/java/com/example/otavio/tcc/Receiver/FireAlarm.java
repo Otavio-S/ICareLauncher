@@ -24,6 +24,7 @@ import com.example.otavio.tcc.SQLite.TabelaAlarmes;
 import com.example.otavio.tcc.SQLite.TabelaHistorico;
 
 import java.io.IOException;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -54,17 +55,21 @@ public class FireAlarm extends AppCompatActivity {
             formate.format(new Date());
             int minute = calendar.get(Calendar.MINUTE);
 
+            String currentDate = DateFormat.getDateInstance().format(new Date());
+
             Historico historico = new Historico();
             historico.setNome(String.valueOf(alarme.getNome()));
-            historico.setHorarioRemedio(String.valueOf(hour).concat(":").concat(String.valueOf(minute)));
+            historico.setHoraRemedio(hour);
+            historico.setMinutoRemedio(minute);
             historico.setDescricao(String.valueOf(alarme.getDescricao()));
+            historico.setDataRemedio(currentDate);
 
             TabelaHistorico tabelaHistorico = new TabelaHistorico(getApplicationContext());
             tabelaHistorico.insereDado(historico);
 
             Toast toast = Toast.makeText(
                     getApplicationContext(),
-                    "Que bom!",
+                    R.string.que_bom,
                     Toast.LENGTH_LONG);
             toast.show();
 
@@ -100,7 +105,7 @@ public class FireAlarm extends AppCompatActivity {
             int c = alarme.getContador();
             c += 1;
 
-            if (c<=5){
+            if (c <= 5) {
                 alarme.setContador(c);
             } else {
                 alarme.setContador(0);
@@ -116,7 +121,7 @@ public class FireAlarm extends AppCompatActivity {
 
             Toast toast = Toast.makeText(
                     getApplicationContext(),
-                    "Tome seu remédio agora!",
+                    R.string.tome_agora,
                     Toast.LENGTH_LONG);
             toast.show();
 
@@ -148,9 +153,9 @@ public class FireAlarm extends AppCompatActivity {
         TextView txtContador = findViewById(R.id.txtContador);
         int c = alarme.getContador();
         if (c == 0) {
-            txtContador.setText("Primeiro toque deste alarme.");
+            txtContador.setText(R.string.primeiro_toque);
         } else {
-            txtContador.setText("Este alarme já\n tocou " + c + " vezes.");
+            txtContador.setText(getResources().getString(R.string.demais_toques, c));
         }
 
         Button btnPronto = findViewById(R.id.btnPronto);

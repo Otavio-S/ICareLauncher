@@ -5,7 +5,9 @@ public class Historico {
     private String ID;
     private String Nome;
     private String Descricao;
-    private String HorarioRemedio;
+    private int HoraRemedio;
+    private int MinutoRemedio;
+    private String DataRemedio;
 
     public Historico() {
     }
@@ -34,11 +36,27 @@ public class Historico {
         Descricao = descricao;
     }
 
-    public String getHorarioRemedio() {
-        return HorarioRemedio;
+    public int getHoraRemedio() {
+        return HoraRemedio;
     }
 
-    public void setHorarioRemedio(String horarioRemedio) {
-        HorarioRemedio = horarioRemedio;
+    public void setHoraRemedio(int horaRemedio) {
+        HoraRemedio = horaRemedio;
+    }
+
+    public int getMinutoRemedio() {
+        return MinutoRemedio;
+    }
+
+    public void setMinutoRemedio(int minutoRemedio) {
+        MinutoRemedio = minutoRemedio;
+    }
+
+    public String getDataRemedio() {
+        return DataRemedio;
+    }
+
+    public void setDataRemedio(String dataRemedio) {
+        DataRemedio = dataRemedio;
     }
 }

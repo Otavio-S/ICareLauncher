@@ -54,4 +54,14 @@
     <string name="numero2_salvo">Segundo contato definido!</string>
     <string name="numero1_atualizado">Primeiro contato atualizado!</string>
     <string name="numero2_atualizado">Segundo contato atualizado!</string>
+    <string name="data_remedio_tomado">DATA EM QUE O REMÉDIO FOI TOMADO</string>
+    <string name="que_bom">Que bom!</string>
+    <string name="tome_agora">Tome seu remédio agora!</string>
+    <string name="primeiro_toque">Primeiro toque deste alarme</string>
+    <string name="demais_toques">Este alarme já  tocou %1$d vezes</string>
+    <string name="excluir">Excluir</string>
+    <string name="certeza_excluir">Tem certeza que quer excluir o histórico?</string>
+    <string name="historico_deletado">Histórico deletado com sucesso!</string>
+    <string name="certeza_excluir_alarme">Tem certeza que quer exluir o alarme?</string>
+    <string name="alarme_deletado">Alarme deletado com sucesso!</string>
 </resources>

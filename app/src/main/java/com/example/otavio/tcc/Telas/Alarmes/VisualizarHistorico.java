@@ -9,6 +9,8 @@ import com.example.otavio.tcc.Model.Historico;
 import com.example.otavio.tcc.R;
 import com.example.otavio.tcc.SQLite.TabelaHistorico;
 
+import java.util.Objects;
+
 public class VisualizarHistorico extends AppCompatActivity {
 
     @Override
@@ -21,20 +23,29 @@ public class VisualizarHistorico extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_visualizar_historico);
 
+        Objects.requireNonNull(getSupportActionBar()).setTitle("");
+
         Intent intent = getIntent();
         final int id = intent.getIntExtra("ID", 0);
 
         TextView txtNome = findViewById(R.id.txtNomeAlarm);
         TextView txtDescricao = findViewById(R.id.txtDes);
         TextView txtHora = findViewById(R.id.txtHoraR);
+        TextView txtData = findViewById(R.id.txtDataR);
 
         final TabelaHistorico tabelaHistorico = new TabelaHistorico(getApplicationContext());
 
         Historico historico = tabelaHistorico.carregaDadosPorID(id);
 
+        int hora = historico.getHoraRemedio();
+        int min = historico.getMinutoRemedio();
+        System.out.println("HORAAAAAAAAAAAA:::::::::::::::::::::::" + hora);
+        System.out.println("MINUTOOOOOOOOOO:::::::::::::::::::::::" + min);
+
         txtNome.setText(historico.getNome());
         txtDescricao.setText(historico.getDescricao());
-        txtHora.setText(historico.getHorarioRemedio());
+        txtHora.setText(String.valueOf(hora).concat(":").concat(String.valueOf(min)));
+        txtData.setText(historico.getDataRemedio());
 
     }
 

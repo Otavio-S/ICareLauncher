@@ -90,12 +90,12 @@ public class Alarmes_Adapter extends RecyclerView.Adapter<Alarmes_Adapter.MyView
             @Override
             public void onClick(View v) {
                 new AlertDialog.Builder(context)
-                        .setTitle("Excluir")
-                        .setMessage("Tem certeza que quer exluir o alarme?")
-                        .setPositiveButton("Excluir", new DialogInterface.OnClickListener() {
+                        .setTitle(R.string.excluir)
+                        .setMessage(R.string.certeza_excluir_alarme)
+                        .setPositiveButton(R.string.excluir, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 tabelaAlarmes.deletaRegistro(alarmeList.get(position));
-                                Toast.makeText(context, "Alarme deletado com sucesso!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, R.string.alarme_deletado, Toast.LENGTH_SHORT).show();
 
                                 try {
                                     alarmeList.remove(position);
@@ -106,7 +106,7 @@ public class Alarmes_Adapter extends RecyclerView.Adapter<Alarmes_Adapter.MyView
 
                             }
                         })
-                        .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                        .setNegativeButton(R.string.cancelar, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.dismiss();
                             }
@@ -126,7 +126,7 @@ public class Alarmes_Adapter extends RecyclerView.Adapter<Alarmes_Adapter.MyView
         this.alarmeList.add(alarm);
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder {
+    static class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView nome;
         TextView descricao;
@@ -135,7 +135,7 @@ public class Alarmes_Adapter extends RecyclerView.Adapter<Alarmes_Adapter.MyView
         RecyclerView recyclerView;
 
 
-        public MyViewHolder(View itemView) {
+        MyViewHolder(View itemView) {
             super(itemView);
 
             nome = itemView.findViewById(R.id.nome);

@@ -47,7 +47,7 @@ public class Historico_Adapter extends RecyclerView.Adapter<Historico_Adapter.My
     public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
 
         holder.txtNome.setText(historicoList.get(position).getNome());
-        holder.txtHora.setText(historicoList.get(position).getHorarioRemedio());
+        holder.txtHora.setText(historicoList.get(position).getDataRemedio());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,12 +64,12 @@ public class Historico_Adapter extends RecyclerView.Adapter<Historico_Adapter.My
             @Override
             public void onClick(View v) {
                 new AlertDialog.Builder(context)
-                        .setTitle("Excluir")
-                        .setMessage("Tem certeza que quer exluir o histórico?")
-                        .setPositiveButton("Excluir", new DialogInterface.OnClickListener() {
+                        .setTitle(R.string.excluir)
+                        .setMessage(R.string.certeza_excluir)
+                        .setPositiveButton(R.string.excluir, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 tabelaHistorico.deletaRegistro(historicoList.get(position));
-                                Toast.makeText(context, "Histórico deletado com sucesso!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, R.string.historico_deletado, Toast.LENGTH_SHORT).show();
 
                                 try {
                                     historicoList.remove(position);
@@ -81,7 +81,7 @@ public class Historico_Adapter extends RecyclerView.Adapter<Historico_Adapter.My
 
                             }
                         })
-                        .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                        .setNegativeButton(R.string.cancelar, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 //não exclui, apenas fecha a mensagem
                                 dialog.dismiss();
@@ -98,14 +98,14 @@ public class Historico_Adapter extends RecyclerView.Adapter<Historico_Adapter.My
         return historicoList.size();
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder {
+    static class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView txtNome;
         TextView txtHora;
         ImageButton btnDeleteHistorico;
 
 
-        public MyViewHolder(View itemView) {
+        MyViewHolder(View itemView) {
             super(itemView);
 
             txtNome = itemView.findViewById(R.id.txtEditar);
