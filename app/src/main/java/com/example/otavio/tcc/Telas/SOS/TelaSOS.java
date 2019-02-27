@@ -14,6 +14,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -92,7 +93,7 @@ public class TelaSOS extends AppCompatActivity {
                     message = tabelaSOS.carregaDadosPorID(2).getMensagem();
                 } catch (Exception ignored) {
                 }
-                System.out.println("MENSAGEM::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::"+message);
+                System.out.println("MENSAGEM::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::" + message);
                 if (message != null && !message.equals("")) {
                     if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
                         ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.SEND_SMS}, 1);
@@ -323,8 +324,7 @@ public class TelaSOS extends AppCompatActivity {
                         stream.flush();
                         stream.close();
 
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                    } catch (Exception ignored) {
                     }
                 }
                 break;

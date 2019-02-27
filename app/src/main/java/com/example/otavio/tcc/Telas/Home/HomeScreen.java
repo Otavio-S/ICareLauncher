@@ -46,6 +46,7 @@ public class HomeScreen extends Activity {
     private TabelaIcones tabelaIcones = new TabelaIcones(this);
     private TextView tdate;
     private TextClock textClock;
+    private int w, h;
 
     private View.OnClickListener btnSOSOnClickListener = new View.OnClickListener() {
         @Override
@@ -281,8 +282,11 @@ public class HomeScreen extends Activity {
                 PackageManager pm = this.getPackageManager();
                 try {
                     Drawable icone = (pm.getActivityIcon(intent1));
-                    btn1.setImageDrawable(icone);
-                    btn1.setBackground(null);
+                    btn1.setMaxHeight(h);
+                    btn1.setMinimumHeight(h);
+                    btn1.setMaxWidth(h);
+                    btn1.setMinimumWidth(h);
+                    btn1.setBackground(icone);
                 } catch (PackageManager.NameNotFoundException ignored) {
                 }
             }
@@ -306,8 +310,11 @@ public class HomeScreen extends Activity {
                 PackageManager pm = this.getPackageManager();
                 try {
                     Drawable icone = (pm.getActivityIcon(intent2));
-                    btn2.setImageDrawable(icone);
-                    btn2.setBackground(null);
+                    btn2.setMaxHeight(h);
+                    btn2.setMinimumHeight(h);
+                    btn2.setMaxWidth(h);
+                    btn2.setMinimumWidth(h);
+                    btn2.setBackground(icone);
                 } catch (PackageManager.NameNotFoundException ignored) {
 
                 }
@@ -332,8 +339,11 @@ public class HomeScreen extends Activity {
                 PackageManager pm = this.getPackageManager();
                 try {
                     Drawable icone = (pm.getActivityIcon(intent3));
-                    btn3.setImageDrawable(icone);
-                    btn3.setBackground(null);
+                    btn3.setMaxHeight(h);
+                    btn3.setMinimumHeight(h);
+                    btn3.setMinimumWidth(w);
+                    btn3.setMaxWidth(w);
+                    btn3.setBackground(icone);
                 } catch (PackageManager.NameNotFoundException ignored) {
 
                 }
@@ -354,6 +364,11 @@ public class HomeScreen extends Activity {
         btn2.setBackgroundResource(R.drawable.add);
         btn3 = findViewById(R.id.btn3);
         btn3.setBackgroundResource(R.drawable.add);
+
+
+        ImageButton btnGaleria = findViewById(R.id.btnGaleria);
+        w = btnGaleria.getWidth();
+        h = btnGaleria.getHeight();
 
         Thread t = new Thread() {
             @Override
@@ -391,8 +406,11 @@ public class HomeScreen extends Activity {
             PackageManager pm = this.getPackageManager();
 
             Drawable icone1 = (pm.getActivityIcon(intent1));
-            btn1.setImageDrawable(icone1);
-            btn1.setBackground(null);
+            btn1.setMaxHeight(h);
+            btn1.setMinimumHeight(h);
+            btn1.setMaxWidth(w);
+            btn1.setMinimumWidth(w);
+            btn1.setBackground(icone1);
 
             this.Classe2 = tabelaIcones.carregaDados().get(1).getClasse();
             String Pacote2 = tabelaIcones.carregaDados().get(1).getPacote();
@@ -402,8 +420,11 @@ public class HomeScreen extends Activity {
             pm = this.getPackageManager();
 
             Drawable icone2 = (pm.getActivityIcon(intent2));
-            btn2.setImageDrawable(icone2);
-            btn2.setBackground(null);
+            btn2.setMaxHeight(h);
+            btn2.setMinimumHeight(h);
+            btn2.setMaxWidth(w);
+            btn2.setMinimumWidth(w);
+            btn2.setBackground(icone2);
 
             this.Classe3 = tabelaIcones.carregaDados().get(2).getClasse();
             String Pacote3 = tabelaIcones.carregaDados().get(2).getPacote();
@@ -413,8 +434,11 @@ public class HomeScreen extends Activity {
             pm = this.getPackageManager();
 
             Drawable icone3 = (pm.getActivityIcon(intent3));
-            btn3.setImageDrawable(icone3);
-            btn3.setBackground(null);
+            btn3.setMaxHeight(h);
+            btn3.setMinimumHeight(h);
+            btn3.setMinimumWidth(w);
+            btn3.setMaxWidth(w);
+            btn3.setBackground(icone3);
 
         } catch (Exception ignored) {
         }
@@ -434,18 +458,14 @@ public class HomeScreen extends Activity {
         btnCamera = findViewById(R.id.btnCamera);
         btnCamera.setOnClickListener(btnCameraOnClickListener);
 
-        ImageButton btnGaleria = findViewById(R.id.btnGaleria);
         btnGaleria.setOnClickListener(btnGaleriaOnClickListener);
 
-        btn1 = findViewById(R.id.btn1);
         btn1.setOnClickListener(btn1OnClickListener);
         btn1.setOnLongClickListener(btn1OnLongClickListener);
 
-        ImageButton btn2 = findViewById(R.id.btn2);
         btn2.setOnClickListener(btn2OnClickListener);
         btn2.setOnLongClickListener(btn2OnLongClickListener);
 
-        ImageButton btn3 = findViewById(R.id.btn3);
         btn3.setOnClickListener(btn3OnClickListener);
         btn3.setOnLongClickListener(btn3OnLongClickListener);
 
