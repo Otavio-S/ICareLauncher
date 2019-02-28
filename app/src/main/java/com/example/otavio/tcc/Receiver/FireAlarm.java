@@ -39,7 +39,7 @@ public class FireAlarm extends AppCompatActivity {
     private TabelaAlarmes tabelaAlarmes;
     private Alarme alarme;
 
-    private View.OnClickListener btnProntoOnClickListener = new View.OnClickListener() {
+    private final View.OnClickListener btnProntoOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             stopPlayRing();
@@ -94,7 +94,7 @@ public class FireAlarm extends AppCompatActivity {
             finish();
         }
     };
-    private View.OnClickListener btnNaoOnClickListener = new View.OnClickListener() {
+    private final View.OnClickListener btnNaoOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             stopPlayRing();

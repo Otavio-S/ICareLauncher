@@ -1,5 +1,6 @@
 package com.example.otavio.tcc.Adapter;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -26,8 +27,8 @@ import java.util.List;
 
 public class Alarmes_Adapter extends RecyclerView.Adapter<Alarmes_Adapter.MyViewHolder> {
 
-    private Context context;
-    private List<Alarme> alarmeList;
+    private final Context context;
+    private final List<Alarme> alarmeList;
     private TabelaAlarmes tabelaAlarmes;
     private String id;
 
@@ -47,7 +48,7 @@ public class Alarmes_Adapter extends RecyclerView.Adapter<Alarmes_Adapter.MyView
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final MyViewHolder holder, @SuppressLint("RecyclerView") final int position) {
 
         holder.nome.setText(alarmeList.get(position).getNome());
         holder.descricao.setText(alarmeList.get(position).getDescricao());
@@ -77,13 +78,12 @@ public class Alarmes_Adapter extends RecyclerView.Adapter<Alarmes_Adapter.MyView
 
         holder.switchOnOff.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                String ligado;
-                if (isChecked) {
-                    ligado = "1";
-                } else {
-                    ligado = "0";
-                }
-                tabelaAlarmes.alteraSituacao(alarmeList.get(position).getID(), ligado);
+                Intent intent = new Intent(context, EditarAlarmes.class);
+                Alarme alarme = alarmeList.get(position);
+                id = alarme.getID();
+                intent.putExtra("ID", Integer.valueOf(id));
+                context.startActivity(intent);
+                notifyItemChanged(position);
             }
         });
 
@@ -129,11 +129,10 @@ public class Alarmes_Adapter extends RecyclerView.Adapter<Alarmes_Adapter.MyView
 
     static class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView nome;
-        TextView descricao;
-        Switch switchOnOff;
-        ImageButton btnDeletaAlarme;
-        RecyclerView recyclerView;
+        final TextView nome;
+        final TextView descricao;
+        final Switch switchOnOff;
+        final ImageButton btnDeletaAlarme;
 
 
         MyViewHolder(View itemView) {
@@ -143,7 +142,6 @@ public class Alarmes_Adapter extends RecyclerView.Adapter<Alarmes_Adapter.MyView
             descricao = itemView.findViewById(R.id.descricao);
             switchOnOff = itemView.findViewById(R.id.switchOnOff);
             btnDeletaAlarme = itemView.findViewById(R.id.buttonDelete);
-            recyclerView = itemView.findViewById(R.id.recyclerViewAlarmes);
         }
 
     }

@@ -32,7 +32,7 @@ import java.util.Objects;
 
 public class HomeScreen extends Activity {
 
-    private Activity activity = this;
+    private final Activity activity = this;
     private ImageButton btnCamera;
     private ImageButton btn1;
     private ImageButton btn2;
@@ -43,12 +43,12 @@ public class HomeScreen extends Activity {
     private String Classe1;
     private String Classe2;
     private String Classe3;
-    private TabelaIcones tabelaIcones = new TabelaIcones(this);
+    private final TabelaIcones tabelaIcones = new TabelaIcones(this);
     private TextView tdate;
     private TextClock textClock;
     private int w, h;
 
-    private View.OnClickListener btnSOSOnClickListener = new View.OnClickListener() {
+    private final View.OnClickListener btnSOSOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             Intent intentS = new Intent(HomeScreen.this, TelaSOS.class);
@@ -57,7 +57,7 @@ public class HomeScreen extends Activity {
     };
 
 
-    private View.OnClickListener btnNotasOnClickListener = new View.OnClickListener() {
+    private final View.OnClickListener btnNotasOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             Intent intentN = new Intent(HomeScreen.this, TelaNotas.class);
@@ -65,7 +65,7 @@ public class HomeScreen extends Activity {
         }
     };
 
-    private View.OnClickListener btnAlarmeOnClickListener = new View.OnClickListener() {
+    private final View.OnClickListener btnAlarmeOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             Intent intentA = new Intent(HomeScreen.this, TelaAlarmes.class);
@@ -73,7 +73,7 @@ public class HomeScreen extends Activity {
         }
     };
 
-    private View.OnClickListener btnContatosOnClickListener = new View.OnClickListener() {
+    private final View.OnClickListener btnContatosOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             Intent contactsIntent = new Intent(Intent.ACTION_VIEW).setData(Uri.parse("content://contacts/people"));
@@ -81,7 +81,7 @@ public class HomeScreen extends Activity {
         }
     };
 
-    private View.OnClickListener btnCameraOnClickListener = new View.OnClickListener() {
+    private final View.OnClickListener btnCameraOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
@@ -93,7 +93,7 @@ public class HomeScreen extends Activity {
             }
         }
     };
-    private View.OnClickListener btnGaleriaOnClickListener = new View.OnClickListener() {
+    private final View.OnClickListener btnGaleriaOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             Intent galleryIntent = new Intent(Intent.ACTION_VIEW);
@@ -101,7 +101,7 @@ public class HomeScreen extends Activity {
             startActivity(galleryIntent);
         }
     };
-    private View.OnClickListener btn1OnClickListener = new View.OnClickListener() {
+    private final View.OnClickListener btn1OnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             try {
@@ -111,7 +111,7 @@ public class HomeScreen extends Activity {
             }
         }
     };
-    private View.OnLongClickListener btn1OnLongClickListener = new View.OnLongClickListener() {
+    private final View.OnLongClickListener btn1OnLongClickListener = new View.OnLongClickListener() {
         @Override
         public boolean onLongClick(View view) {
             Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
@@ -124,7 +124,7 @@ public class HomeScreen extends Activity {
             return true;
         }
     };
-    private View.OnClickListener btn2OnClickListener = new View.OnClickListener() {
+    private final View.OnClickListener btn2OnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             try {
@@ -134,7 +134,7 @@ public class HomeScreen extends Activity {
             }
         }
     };
-    private View.OnLongClickListener btn2OnLongClickListener = new View.OnLongClickListener() {
+    private final View.OnLongClickListener btn2OnLongClickListener = new View.OnLongClickListener() {
         @Override
         public boolean onLongClick(View view) {
             Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
@@ -148,7 +148,7 @@ public class HomeScreen extends Activity {
         }
     };
 
-    private View.OnClickListener btn3OnClickListener = new View.OnClickListener() {
+    private final View.OnClickListener btn3OnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             try {
@@ -159,7 +159,7 @@ public class HomeScreen extends Activity {
         }
     };
 
-    private View.OnLongClickListener btn3OnLongClickListener = new View.OnLongClickListener() {
+    private final View.OnLongClickListener btn3OnLongClickListener = new View.OnLongClickListener() {
         @Override
         public boolean onLongClick(View view) {
             Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
@@ -173,14 +173,13 @@ public class HomeScreen extends Activity {
         }
     };
 
-    private View.OnLongClickListener btnChangeColor = new View.OnLongClickListener() {
+    private final View.OnLongClickListener btnChangeColor = new View.OnLongClickListener() {
         @Override
         public boolean onLongClick(View v) {
             int cor = textClock.getCurrentTextColor();
             if (cor == Color.WHITE) {
                 textClock.setTextColor(Color.BLACK);
                 tdate.setTextColor(Color.BLACK);
-                Drawable d = btn1.getBackground();
 
                 String Classe = "";
                 try {

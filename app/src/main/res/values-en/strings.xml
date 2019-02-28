@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="PluralsCandidate">
     <string name="app_name">ICare Launcher</string>
-    <string name="voltar">Back</string>
-    <string name="configuracoes">Configurations</string>
     <string name="definir_segundo_contato">Select second number</string>
     <string name="definir_primeiro_contato">Select first number</string>
     <string name="apagar_todos">Delete all</string>
@@ -14,7 +12,7 @@
     <string name="repetir_vezes_restantes">REPEAT (REMAINING)</string>
     <string name="espaco_de_tempo">TIME BETWEEN ALARMS</string>
     <string name="ligar_desligar">ON/OFF</string>
-    <string name="cancelar">CANCEL</string>
+    <string name="cancelar" tools:ignore="ButtonCase">CANCEL</string>
     <string name="sim">YES</string>
     <string name="ainda_nao">NOT YET</string>
     <string name="remedio">DID YOU TAKE YOUR MEDICINE?</string>

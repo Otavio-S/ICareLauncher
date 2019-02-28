@@ -1,5 +1,6 @@
 package com.example.otavio.tcc.Adapter;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -24,8 +25,8 @@ import java.util.List;
 
 public class Historico_Adapter extends RecyclerView.Adapter<Historico_Adapter.MyViewHolder> {
 
-    private Context context;
-    private List<Historico> historicoList;
+    private final Context context;
+    private final List<Historico> historicoList;
     private TabelaHistorico tabelaHistorico;
     private String id;
 
@@ -45,7 +46,7 @@ public class Historico_Adapter extends RecyclerView.Adapter<Historico_Adapter.My
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull MyViewHolder holder, @SuppressLint("RecyclerView") final int position) {
 
         holder.txtNome.setText(historicoList.get(position).getNome());
         holder.txtHora.setText(historicoList.get(position).getDataRemedio());
@@ -101,9 +102,9 @@ public class Historico_Adapter extends RecyclerView.Adapter<Historico_Adapter.My
 
     static class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView txtNome;
-        TextView txtHora;
-        ImageButton btnDeleteHistorico;
+        final TextView txtNome;
+        final TextView txtHora;
+        final ImageButton btnDeleteHistorico;
 
 
         MyViewHolder(View itemView) {

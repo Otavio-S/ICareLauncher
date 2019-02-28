@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">ICare Launcher</string>
-    <string name="voltar">Voltar</string>
-    <string name="configuracoes">Configurações</string>
     <string name="definir_segundo_contato">Definir segundo contato</string>
     <string name="definir_primeiro_contato">Definir primeiro contato</string>
     <string name="apagar_todos">Apagar todos</string>

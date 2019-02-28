@@ -103,6 +103,7 @@
 
         <receiver
             android:name=".Receiver.AlarmReceiver"
+            android:permission="true"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="com.test.intent.action.ALARM" />

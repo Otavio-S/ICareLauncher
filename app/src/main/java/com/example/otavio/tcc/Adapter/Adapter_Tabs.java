@@ -11,7 +11,7 @@ public class Adapter_Tabs extends FragmentPagerAdapter {
     private final List<Fragment> mFragmentList = new ArrayList<>();
     private final List<String> mFragmentTitleList = new ArrayList<>();
 
-    private boolean onlyIcons;
+    private final boolean onlyIcons;
 
     public Adapter_Tabs(FragmentManager manager, boolean onlyIcons) {
         super(manager);

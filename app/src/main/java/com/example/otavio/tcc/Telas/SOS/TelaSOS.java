@@ -47,7 +47,7 @@ public class TelaSOS extends AppCompatActivity {
     private Uri picUri;
     private String num = "", message = "";
 
-    private View.OnClickListener btnContato1OnClickListener = new View.OnClickListener() {
+    private final View.OnClickListener btnContato1OnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             TabelaSOS tabelaSOS = new TabelaSOS(getApplicationContext());
@@ -65,7 +65,7 @@ public class TelaSOS extends AppCompatActivity {
         }
     };
 
-    private View.OnClickListener btnContato2OnClickListener = new View.OnClickListener() {
+    private final View.OnClickListener btnContato2OnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             TabelaSOS tabelaSOS = new TabelaSOS(getApplicationContext());
@@ -83,7 +83,7 @@ public class TelaSOS extends AppCompatActivity {
         }
     };
 
-    private View.OnClickListener btnMensagem1OnClickListener = new View.OnClickListener() {
+    private final View.OnClickListener btnMensagem1OnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             TabelaSOS tabelaSOS = new TabelaSOS(getApplicationContext());
@@ -115,7 +115,7 @@ public class TelaSOS extends AppCompatActivity {
         }
     };
 
-    private View.OnClickListener btnMensagem2OnClickListener = new View.OnClickListener() {
+    private final View.OnClickListener btnMensagem2OnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             TabelaSOS tabelaSOS = new TabelaSOS(getApplicationContext());
@@ -145,7 +145,7 @@ public class TelaSOS extends AppCompatActivity {
         }
     };
 
-    private View.OnLongClickListener imgView1OnLongClickListener = new View.OnLongClickListener() {
+    private final View.OnLongClickListener imgView1OnLongClickListener = new View.OnLongClickListener() {
         @Override
         public boolean onLongClick(View v) {
             if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
@@ -159,7 +159,7 @@ public class TelaSOS extends AppCompatActivity {
         }
     };
 
-    private View.OnLongClickListener imgView2OnLongClickListener = new View.OnLongClickListener() {
+    private final View.OnLongClickListener imgView2OnLongClickListener = new View.OnLongClickListener() {
         @Override
         public boolean onLongClick(View v) {
             if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {

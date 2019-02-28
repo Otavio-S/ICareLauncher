@@ -44,11 +44,10 @@ public class TabelaHistorico extends SQLiteOpenHelper {
         onUpgrade(db, oldVersion, newVersion);
     }
 
-    public String insereDado(Historico historico) {
+    public void insereDado(Historico historico) {
         SQLiteDatabase db = getWritableDatabase();
 
         ContentValues valores = new ContentValues();
-        long resultado;
 
         int id = UltimoID();
 
@@ -61,16 +60,11 @@ public class TabelaHistorico extends SQLiteOpenHelper {
         valores.put(CamposHistorico.COLUNA_MINUTO_REMEDIO, historico.getMinutoRemedio());
         valores.put(CamposHistorico.COLUNA_DATA_REMEDIO, historico.getDataRemedio());
 
-        resultado = db.insert(
+        db.insert(
                 CamposHistorico.NOME_TABELA,
                 null,
                 valores);
 
-        if (resultado == -1)
-            return "Erro ao inserir registro";
-        else {
-            return "Registro Inserido com sucesso";
-        }
     }
 
     private int UltimoID() {
@@ -154,22 +148,15 @@ public class TabelaHistorico extends SQLiteOpenHelper {
         }
     }
 
-    @SuppressWarnings("UnusedReturnValue")
-    public String deletaRegistro(Historico historico) {
+    public void deletaRegistro(Historico historico) {
         SQLiteDatabase db = getReadableDatabase();
 
         String sql = CamposHistorico.COLUNA_ID + " LIKE ?";
         String[] selecaoArgs = {historico.getID()};
-        int count = db.delete(
+        db.delete(
                 CamposHistorico.NOME_TABELA,
                 sql,
                 selecaoArgs);
-
-        if (count == -1)
-            return "Erro ao deletar registro";
-        else {
-            return "Registro deletado com sucesso";
-        }
 
     }
 
@@ -178,7 +165,7 @@ public class TabelaHistorico extends SQLiteOpenHelper {
 
         String sql = CamposHistorico.COLUNA_ID;
         String[] selecaoArgs = {};
-        int count = db.delete(
+        db.delete(
                 CamposHistorico.NOME_TABELA,
                 sql,
                 selecaoArgs);

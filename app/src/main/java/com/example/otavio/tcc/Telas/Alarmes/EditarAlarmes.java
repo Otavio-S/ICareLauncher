@@ -159,10 +159,6 @@ public class EditarAlarmes extends AppCompatActivity {
 
                 Alarmes_Adapter viewAdapter = new Alarmes_Adapter(getApplicationContext(), alarmeList);
                 viewAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
-                    @Override
-                    public void onChanged() {
-                        super.onChanged();
-                    }
                 });
                 viewAdapter.notifyDataSetChanged();
 

@@ -24,7 +24,7 @@ import java.util.List;
 
 public class FragmentHistorico extends Fragment {
 
-    Historico_Adapter viewAdapter;
+    private Historico_Adapter viewAdapter;
     private RecyclerView recyclerView;
     private List<Historico> historicoList;
 

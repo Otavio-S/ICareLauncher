@@ -96,7 +96,7 @@ public class TabelaSOS extends SQLiteOpenHelper {
         return sos;
     }
 
-    public String alteraRegistro(SOS sos) {
+    public void alteraRegistro(SOS sos) {
         SQLiteDatabase db = getWritableDatabase();
 
         ContentValues valores = new ContentValues();
@@ -106,18 +106,13 @@ public class TabelaSOS extends SQLiteOpenHelper {
         String selecao = CamposSOS.COLUNA_ID + " LIKE ?";
         String[] selecaoArgs = {sos.getId()};
 
-        int count = db.update(
+        db.update(
                 CamposSOS.NOME_TABELA,
                 valores,
                 selecao,
                 selecaoArgs
         );
 
-        if (count == -1)
-            return "Erro ao atualizar registro";
-        else {
-            return "Registro atualizado com sucesso";
-        }
     }
 
     public String deletaRegistro(SOS sos) {

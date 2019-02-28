@@ -41,11 +41,10 @@ public class TabelaNotas extends SQLiteOpenHelper {
         onUpgrade(db, oldVersion, newVersion);
     }
 
-    public String insereDado(Nota nota) {
+    public void insereDado(Nota nota) {
         SQLiteDatabase db = getWritableDatabase();
 
         ContentValues valores = new ContentValues();
-        long resultado;
 
         int id = UltimoID();
 
@@ -55,16 +54,11 @@ public class TabelaNotas extends SQLiteOpenHelper {
         valores.put(CamposNotas.COLUNA_NOME, nota.getNome());
         valores.put(CamposNotas.COLUNA_DESCRICAO, nota.getDescricao());
 
-        resultado = db.insert(
+        db.insert(
                 CamposNotas.NOME_TABELA,
                 null,
                 valores);
 
-        if (resultado == -1)
-            return "Erro ao inserir registro";
-        else {
-            return "Registro Inserido com sucesso";
-        }
     }
 
     private int UltimoID() {
@@ -115,7 +109,7 @@ public class TabelaNotas extends SQLiteOpenHelper {
         return nota;
     }
 
-    public String alteraRegistro(Nota nota) {
+    public void alteraRegistro(Nota nota) {
         SQLiteDatabase db = getWritableDatabase();
 
         ContentValues valores = new ContentValues();
@@ -125,18 +119,13 @@ public class TabelaNotas extends SQLiteOpenHelper {
         String selecao = CamposNotas.COLUNA_ID + " LIKE ?";
         String[] selecaoArgs = {nota.getID()};
 
-        int count = db.update(
+        db.update(
                 CamposNotas.NOME_TABELA,
                 valores,
                 selecao,
                 selecaoArgs
         );
 
-        if (count == -1)
-            return "Erro ao atualizar registro";
-        else {
-            return "Registro atualizado com sucesso";
-        }
     }
 
     public String deletaRegistro(Nota nota) {

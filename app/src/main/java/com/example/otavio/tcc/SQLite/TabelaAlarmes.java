@@ -174,7 +174,7 @@ public class TabelaAlarmes extends SQLiteOpenHelper {
         }
     }
 
-    public String alteraSituacao(String id, String ligado) {
+    public void alteraSituacao(String id, String ligado) {
         SQLiteDatabase db = getWritableDatabase();
 
         ContentValues valores = new ContentValues();
@@ -183,35 +183,24 @@ public class TabelaAlarmes extends SQLiteOpenHelper {
         String selecao = CamposAlarmes.COLUNA_ID + " LIKE ?";
         String[] selecaoArgs = {id};
 
-        int count = db.update(
+        db.update(
                 CamposAlarmes.NOME_TABELA,
                 valores,
                 selecao,
                 selecaoArgs
         );
 
-        if (count == -1)
-            return "Erro ao atualizar registro";
-        else {
-            return "Registro atualizado com sucesso";
-        }
     }
 
-    public String deletaRegistro(Alarme alarme) {
+    public void deletaRegistro(Alarme alarme) {
         SQLiteDatabase db = getReadableDatabase();
 
         String sql = CamposAlarmes.COLUNA_ID + " LIKE ?";
         String[] selecaoArgs = {alarme.getID()};
-        int count = db.delete(
+        db.delete(
                 CamposAlarmes.NOME_TABELA,
                 sql,
                 selecaoArgs);
-
-        if (count == -1)
-            return "Erro ao deletar registro";
-        else {
-            return "Registro deletado com sucesso";
-        }
 
     }
 

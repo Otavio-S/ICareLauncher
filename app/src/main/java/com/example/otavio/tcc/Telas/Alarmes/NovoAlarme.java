@@ -26,7 +26,7 @@ import java.util.Objects;
 
 public class NovoAlarme extends AppCompatActivity {
 
-    private View.OnClickListener btnSalvarOnClickListener = new View.OnClickListener() {
+    private final View.OnClickListener btnSalvarOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             TabelaAlarmes tabelaAlarmes = new TabelaAlarmes(getApplicationContext());
@@ -105,7 +105,7 @@ public class NovoAlarme extends AppCompatActivity {
             }
         }
     };
-    private View.OnClickListener btnCancelarOnClickListener = new View.OnClickListener() {
+    private final View.OnClickListener btnCancelarOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             Toast toast = Toast.makeText(
