@@ -23,7 +23,7 @@ public class DatePicker extends DialogFragment implements DatePickerDialog.OnDat
         int month = c.get(Calendar.MONTH);
         int dayOfMonth = c.get(Calendar.DAY_OF_MONTH);
 
-        return new DatePickerDialog(Objects.requireNonNull(getActivity()), this, year, month, dayOfMonth);
+        return new DatePickerDialog(Objects.requireNonNull(getActivity()), R.style.PickerTheme, this, year, month, dayOfMonth);
     }
 
     @Override

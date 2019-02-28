@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.database.SQLException;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,7 +64,7 @@ public class Historico_Adapter extends RecyclerView.Adapter<Historico_Adapter.My
         holder.btnDeleteHistorico.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new AlertDialog.Builder(context)
+                new AlertDialog.Builder(new ContextThemeWrapper(context, R.style.AlertDialog))
                         .setTitle(R.string.excluir)
                         .setMessage(R.string.certeza_excluir)
                         .setPositiveButton(R.string.excluir, new DialogInterface.OnClickListener() {

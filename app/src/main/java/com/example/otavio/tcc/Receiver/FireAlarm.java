@@ -49,7 +49,7 @@ public class FireAlarm extends AppCompatActivity {
 
             SimpleDateFormat format = new SimpleDateFormat("HH", Locale.getDefault());
             format.format(new Date());
-            int hour = calendar.get(Calendar.HOUR_OF_DAY);
+            int hour = calendar.get(Calendar.HOUR);
 
             SimpleDateFormat formate = new SimpleDateFormat("mm", Locale.getDefault());
             formate.format(new Date());

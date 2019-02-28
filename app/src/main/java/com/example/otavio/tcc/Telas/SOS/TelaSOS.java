@@ -9,12 +9,12 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -36,6 +36,7 @@ import com.example.otavio.tcc.SQLite.TabelaSOS;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Objects;
 
@@ -43,9 +44,9 @@ public class TelaSOS extends AppCompatActivity {
 
     private static final String[] phoneProjection = new String[]{ContactsContract.CommonDataKinds.Phone.DATA};
     private final Activity activity = this;
-    String message = "";
     private Uri picUri;
-    private String num = "";
+    private String num = "", message = "";
+
     private View.OnClickListener btnContato1OnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -206,8 +207,8 @@ public class TelaSOS extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        ImageView imgView1;
-        ImageView imgView2;
+        ImageView imgView1 = findViewById(R.id.image1);
+        ImageView imgView2 = findViewById(R.id.image2);
 
         switch (requestCode) {
             case 1:
@@ -288,13 +289,69 @@ public class TelaSOS extends AppCompatActivity {
             case 101:
                 if (data != null) {
                     picUri = data.getData();
-                    performCrop1();
+
+                    if (Objects.requireNonNull(picUri).toString().startsWith("content://com.google.android.apps.photos.content")) {
+                        try {
+                            InputStream is = getApplicationContext().getContentResolver().openInputStream(picUri);
+                            Bitmap bitmap = BitmapFactory.decodeStream(is);
+
+                            Resources res = getResources();
+                            RoundedBitmapDrawable dr =
+                                    RoundedBitmapDrawableFactory.create(res, bitmap);
+                            dr.setCornerRadius(Math.min(Objects.requireNonNull(bitmap).getWidth(), bitmap.getHeight()) / 4.0f);
+
+                            imgView1.setImageDrawable(dr);
+
+                            ContextWrapper wrapper = new ContextWrapper(getApplicationContext());
+
+                            File file1 = wrapper.getDir("Images", MODE_PRIVATE);
+
+                            file1 = new File(file1, "Photo1.jpg");
+
+                            OutputStream stream;
+                            stream = new FileOutputStream(file1);
+                            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                            stream.flush();
+                            stream.close();
+                        } catch (Exception ignored) {
+                        }
+                    } else {
+                        performCrop1();
+                    }
                 }
                 break;
             case 102:
                 if (data != null) {
                     picUri = data.getData();
-                    performCrop2();
+
+                    if (Objects.requireNonNull(picUri).toString().startsWith("content://com.google.android.apps.photos.content")) {
+                        try {
+                            InputStream is = getApplicationContext().getContentResolver().openInputStream(picUri);
+                            Bitmap bitmap = BitmapFactory.decodeStream(is);
+
+                            Resources res = getResources();
+                            RoundedBitmapDrawable dr =
+                                    RoundedBitmapDrawableFactory.create(res, bitmap);
+                            dr.setCornerRadius(Math.min(Objects.requireNonNull(bitmap).getWidth(), bitmap.getHeight()) / 4.0f);
+
+                            imgView2.setImageDrawable(dr);
+
+                            ContextWrapper wrapper = new ContextWrapper(getApplicationContext());
+
+                            File file2 = wrapper.getDir("Images", MODE_PRIVATE);
+
+                            file2 = new File(file2, "Photo2.jpg");
+
+                            OutputStream stream;
+                            stream = new FileOutputStream(file2);
+                            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                            stream.flush();
+                            stream.close();
+                        } catch (Exception ignored) {
+                        }
+                    } else {
+                        performCrop2();
+                    }
                 }
                 break;
 
@@ -309,7 +366,6 @@ public class TelaSOS extends AppCompatActivity {
                                 RoundedBitmapDrawableFactory.create(res, bitmap);
                         dr.setCornerRadius(Math.min(Objects.requireNonNull(bitmap).getWidth(), bitmap.getHeight()) / 4.0f);
 
-                        imgView1 = findViewById(R.id.image1);
                         imgView1.setImageDrawable(dr);
 
                         ContextWrapper wrapper = new ContextWrapper(getApplicationContext());
@@ -332,14 +388,13 @@ public class TelaSOS extends AppCompatActivity {
                 if (data != null) {
                     try {
                         Bundle extras = data.getExtras();
-                        Bitmap bitmap = (Bitmap) extras.get("data");
+                        Bitmap bitmap = (Bitmap) Objects.requireNonNull(extras).get("data");
 
                         Resources res = getResources();
                         RoundedBitmapDrawable dr =
                                 RoundedBitmapDrawableFactory.create(res, bitmap);
                         dr.setCornerRadius(Math.min(Objects.requireNonNull(bitmap).getWidth(), bitmap.getHeight()) / 4.0f);
 
-                        imgView2 = findViewById(R.id.image2);
                         imgView2.setImageDrawable(dr);
 
                         ContextWrapper wrapper = new ContextWrapper(getApplicationContext());

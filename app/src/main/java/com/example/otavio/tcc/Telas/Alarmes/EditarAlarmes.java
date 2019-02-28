@@ -178,6 +178,7 @@ public class EditarAlarmes extends AppCompatActivity {
                         R.string.cancelado,
                         Toast.LENGTH_SHORT);
                 toast.show();
+                finish();
             }
         });
 

@@ -118,14 +118,15 @@ public class NovoAlarme extends AppCompatActivity {
     };
 
     @Override
-    public boolean onSupportNavigateUp() {
-        onBackPressed();
-        return true;
+    public void onBackPressed() {
+        Toast.makeText(getApplicationContext(), R.string.cancelado, Toast.LENGTH_SHORT).show();
+        finish();
     }
 
     @Override
-    public void onBackPressed() {
-        finish();
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
     @Override

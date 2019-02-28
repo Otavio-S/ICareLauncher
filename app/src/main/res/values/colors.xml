@@ -3,9 +3,12 @@
     <color name="primary">#795548</color>
     <color name="primaryDark">#5D4037</color>
     <color name="primaryLight">#D7CCC8</color>
-    <color name="accent">#607D8B</color>
+    <color name="accent">#507DBC</color>
+    <color name="colorSwitch">#70BA4C</color>
     <color name="primaryText">#FFFFFF</color>
     <color name="secondaryText">#000000</color>
-    <color name="icons">#FFFFFF</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
     <color name="divider">#BDBDBD</color>
+    <color name="red">#C5283D</color>
 </resources>

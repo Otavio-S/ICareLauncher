@@ -41,10 +41,14 @@ public class VisualizarHistorico extends AppCompatActivity {
         int min = historico.getMinutoRemedio();
         System.out.println("HORAAAAAAAAAAAA:::::::::::::::::::::::" + hora);
         System.out.println("MINUTOOOOOOOOOO:::::::::::::::::::::::" + min);
+        String m = String.valueOf(min);
+        if (min <= 9) {
+            m = "0".concat(m);
+        }
 
         txtNome.setText(historico.getNome());
         txtDescricao.setText(historico.getDescricao());
-        txtHora.setText(String.valueOf(hora).concat(":").concat(String.valueOf(min)));
+        txtHora.setText(String.valueOf(hora).concat(":").concat(m));
         txtData.setText(historico.getDataRemedio());
 
     }

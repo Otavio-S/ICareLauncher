@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:tag="FragmentAlarmes"
-    android:theme="@style/Theme.AppCompat"
     tools:layout_editor_absoluteY="81dp">
 
     <LinearLayout
@@ -54,7 +53,7 @@
 
         <Button
             android:id="@+id/btnSalvarNota"
-            style="@android:style/Widget.Holo.Light.Button.Toggle"
+            style="@style/ButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/salvar" />

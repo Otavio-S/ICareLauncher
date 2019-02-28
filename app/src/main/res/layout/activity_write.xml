@@ -24,11 +24,13 @@
         android:hint="@string/escreva_aqui_sua_mensagem"
         android:importantForAutofill="no"
         android:inputType="textCapSentences"
+        android:textColor="@android:color/black"
         tools:targetApi="o" />
 
     <Button
         android:id="@+id/btnSalvarWrite"
-        style="@android:style/Widget.Holo.Light.Button.Toggle"
+        style="@style/ButtonStyle"
+        android:textSize="20sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/salvar" />

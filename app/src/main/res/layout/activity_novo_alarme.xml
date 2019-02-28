@@ -179,7 +179,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30sp"
-                android:layout_marginEnd="70sp"
+                android:layout_marginEnd="90sp"
                 android:layout_marginBottom="30sp"
                 android:checked="true"
                 android:scaleX="1.5"
@@ -188,7 +188,8 @@
                 android:textAlignment="textEnd"
                 android:textColor="@android:color/black"
                 android:textSize="12sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:theme="@style/SwitchTheme" />
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
@@ -196,7 +197,7 @@
 
                 <Button
                     android:id="@+id/btnCancelar"
-                    style="@android:style/Widget.Holo.Light.Button.Toggle"
+                    style="@style/ButtonStyle"
                     android:layout_width="130dp"
                     android:layout_height="60dp"
                     android:layout_alignParentStart="true"
@@ -204,7 +205,6 @@
                     android:layout_marginEnd="16dp"
                     android:elevation="100dp"
                     android:text="@string/cancelar"
-                    android:textColor="@android:color/black"
                     android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/btnSalvar"
@@ -214,13 +214,12 @@
 
                 <Button
                     android:id="@+id/btnSalvar"
-                    style="@android:style/Widget.Holo.Light.Button.Toggle"
+                    style="@style/ButtonStyle"
                     android:layout_width="130dp"
                     android:layout_height="60dp"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentEnd="true"
                     android:text="@string/salvar"
-                    android:textColor="@android:color/black"
                     android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
