@@ -8,6 +8,7 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
@@ -33,10 +34,46 @@ import java.util.Objects;
 
 public class FireAlarm extends AppCompatActivity {
 
+    private final View.OnClickListener btnNaoOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            stopPlayRing();
+            stopVibrate();
+
+            TabelaAlarmes tabelaAlarmes = new TabelaAlarmes(getApplicationContext());
+            Alarme alarme = tabelaAlarmes.carregaDadosPorID(id);
+            int c = alarme.getContador();
+            c += 1;
+
+            if (c <= 5) {
+                alarme.setContador(c);
+            } else {
+                alarme.setContador(0);
+                alarme.setLigado("0");
+
+                Intent contentIntent = new Intent(getApplicationContext(), AlarmReceiver.class);
+                PendingIntent pendingIntent = PendingIntent.getActivity
+                        (getApplicationContext(), id, contentIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                pendingIntent.cancel();
+            }
+
+            tabelaAlarmes.alteraRegistro(alarme);
+
+            Toast toast = Toast.makeText(
+                    getApplicationContext(),
+                    R.string.tome_agora,
+                    Toast.LENGTH_LONG);
+            toast.show();
+
+            startAlarmN();
+
+            finish();
+        }
+    };
+    private TabelaAlarmes tabelaAlarmes;
     private MediaPlayer mediaPlayer;
     private Vibrator vibration;
     private int id;
-    private TabelaAlarmes tabelaAlarmes;
     private Alarme alarme;
 
     private final View.OnClickListener btnProntoOnClickListener = new View.OnClickListener() {
@@ -94,42 +131,6 @@ public class FireAlarm extends AppCompatActivity {
             finish();
         }
     };
-    private final View.OnClickListener btnNaoOnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            stopPlayRing();
-            stopVibrate();
-
-            TabelaAlarmes tabelaAlarmes = new TabelaAlarmes(getApplicationContext());
-            Alarme alarme = tabelaAlarmes.carregaDadosPorID(id);
-            int c = alarme.getContador();
-            c += 1;
-
-            if (c <= 5) {
-                alarme.setContador(c);
-            } else {
-                alarme.setContador(0);
-                alarme.setLigado("0");
-
-                Intent contentIntent = new Intent(getApplicationContext(), AlarmReceiver.class);
-                PendingIntent pendingIntent = PendingIntent.getActivity
-                        (getApplicationContext(), id, contentIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                pendingIntent.cancel();
-            }
-
-            tabelaAlarmes.alteraRegistro(alarme);
-
-            Toast toast = Toast.makeText(
-                    getApplicationContext(),
-                    R.string.tome_agora,
-                    Toast.LENGTH_LONG);
-            toast.show();
-
-            startAlarmN();
-
-            finish();
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,6 +138,9 @@ public class FireAlarm extends AppCompatActivity {
         setContentView(R.layout.activity_fire_alarme);
 
         id = getIntent().getIntExtra("ID", 0);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
+            this.setTurnScreenOn(true);
+        }
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
 
         tabelaAlarmes = new TabelaAlarmes(getApplicationContext());

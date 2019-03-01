@@ -26,10 +26,15 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 public class EditarAlarmes extends AppCompatActivity {
 
@@ -199,23 +204,33 @@ public class EditarAlarmes extends AppCompatActivity {
         TabelaAlarmes tabelaAlarmes = new TabelaAlarmes(getApplicationContext());
         Alarme alarme = tabelaAlarmes.carregaDadosPorID(id);
 
-        String data = alarme.getDataInicial();
-        String ano = data.substring(6, 10);
-        String mes = data.substring(3, 5);
-        String dia = data.substring(0, 2);
+        long d = 0;
+        Calendar calendar = Calendar.getInstance();
+        String dataSelected = alarme.getDataInicial();
+
+        Date c = calendar.getTime();
+        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+        String dataAtual = df.format(c);
 
         String horaInicial = String.valueOf(alarme.getHoraInicial());
         String minInicial = String.valueOf(alarme.getMinInicial());
 
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.YEAR, Integer.parseInt(ano));
-        calendar.set(Calendar.MONTH, Integer.parseInt(mes) - 1);
-        calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(dia));
         calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(horaInicial));
         calendar.set(Calendar.MINUTE, Integer.parseInt(minInicial));
-
         long inicio = calendar.getTimeInMillis();
+
+        Date dateF, dateI;
+        long diff;
+        try {
+            dateF = df.parse(dataSelected);
+            dateI = df.parse(dataAtual);
+            diff = dateF.getTime() - dateI.getTime();
+            d = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        inicio = inicio + (86400000L * d);  //Add d days if time selected before now
 
         Objects.requireNonNull(alarmMgr).setExact(AlarmManager.RTC_WAKEUP, inicio, alarmIntent);
 

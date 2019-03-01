@@ -83,7 +83,6 @@ public class Alarmes_Adapter extends RecyclerView.Adapter<Alarmes_Adapter.MyView
                 id = alarme.getID();
                 intent.putExtra("ID", Integer.valueOf(id));
                 context.startActivity(intent);
-                notifyItemChanged(position);
             }
         });
 

@@ -28,15 +28,17 @@
         android:supportsRtl="true"
         tools:ignore="GoogleAppIndexingWarning">
 
-        <!-- Sample AdMob App ID: ca-app-pub-8321777709085519~4125895113 -->
+        <!-- AdMob App ID: ca-app-pub-8321777709085519~4125895113 -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3940256099942544~3347511713" />
+            android:value="@string/banner_ad_initialize" />
 
         <activity
             android:name=".Telas.Home.HomeScreen"
+            android:documentLaunchMode="never"
             android:screenOrientation="portrait"
-            android:theme="@style/TransparentTheme">
+            android:theme="@style/TransparentTheme"
+            tools:targetApi="lollipop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -48,10 +50,13 @@
 
         <activity
             android:name=".Telas.SOS.TelaSOS"
+            android:documentLaunchMode="intoExisting"
             android:label="TelaSOS"
             android:parentActivityName=".Telas.Home.HomeScreen"
             android:screenOrientation="portrait"
-            android:theme="@style/ThemeAlarms">
+
+            android:theme="@style/ThemeAlarms"
+            tools:targetApi="lollipop">
             <meta-data
                 android:name="android.support.SOS_ACTIVITY"
                 android:value=".TelaSOS" />
@@ -59,9 +64,11 @@
 
         <activity
             android:name=".Telas.Nota.TelaNotas"
+            android:documentLaunchMode="intoExisting"
             android:label="TelaNotas"
             android:parentActivityName=".Telas.Home.HomeScreen"
-            android:theme="@style/ThemeAlarms">
+            android:theme="@style/ThemeAlarms"
+            tools:targetApi="lollipop">
             <meta-data
                 android:name="android.support.NOTAS_ACTIVITY"
                 android:value=".TelaNotas" />
@@ -69,8 +76,10 @@
 
         <activity
             android:name=".Telas.Alarmes.TelaAlarmes"
+            android:documentLaunchMode="intoExisting"
             android:screenOrientation="portrait"
-            android:theme="@style/ThemeAlarms" />
+            android:theme="@style/ThemeAlarms"
+            tools:targetApi="lollipop" />
 
         <activity
             android:name=".Telas.Alarmes.EditarAlarmes"
@@ -97,8 +106,10 @@
 
         <activity
             android:name=".Receiver.FireAlarm"
+            android:documentLaunchMode="intoExisting"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Design.Light.NoActionBar" />
+            android:theme="@style/Theme.Design.Light.NoActionBar"
+            tools:targetApi="lollipop" />
 
         <activity
             android:name=".Telas.SOS.Mensagem"

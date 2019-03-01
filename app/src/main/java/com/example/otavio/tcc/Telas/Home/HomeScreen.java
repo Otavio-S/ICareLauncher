@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -33,21 +34,7 @@ import java.util.Objects;
 public class HomeScreen extends Activity {
 
     private final Activity activity = this;
-    private ImageButton btnCamera;
-    private ImageButton btn1;
-    private ImageButton btn2;
-    private ImageButton btn3;
-    private Intent intent1;
-    private Intent intent2;
-    private Intent intent3;
-    private String Classe1;
-    private String Classe2;
-    private String Classe3;
     private final TabelaIcones tabelaIcones = new TabelaIcones(this);
-    private TextView tdate;
-    private TextClock textClock;
-    private int w, h;
-
     private final View.OnClickListener btnSOSOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -55,8 +42,6 @@ public class HomeScreen extends Activity {
             startActivity(intentS);
         }
     };
-
-
     private final View.OnClickListener btnNotasOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -64,7 +49,6 @@ public class HomeScreen extends Activity {
             startActivity(intentN);
         }
     };
-
     private final View.OnClickListener btnAlarmeOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -72,25 +56,11 @@ public class HomeScreen extends Activity {
             startActivity(intentA);
         }
     };
-
     private final View.OnClickListener btnContatosOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             Intent contactsIntent = new Intent(Intent.ACTION_VIEW).setData(Uri.parse("content://contacts/people"));
             startActivity(contactsIntent);
-        }
-    };
-
-    private final View.OnClickListener btnCameraOnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                btnCamera.setEnabled(false);
-                ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
-            } else {
-                Intent cameraIntent = new Intent(MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA);
-                startActivity(cameraIntent);
-            }
         }
     };
     private final View.OnClickListener btnGaleriaOnClickListener = new View.OnClickListener() {
@@ -99,16 +69,6 @@ public class HomeScreen extends Activity {
             Intent galleryIntent = new Intent(Intent.ACTION_VIEW);
             galleryIntent.setType("image/*");
             startActivity(galleryIntent);
-        }
-    };
-    private final View.OnClickListener btn1OnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            try {
-                startActivity(intent1);
-            } catch (Exception e) {
-                Toast.makeText(getApplicationContext(), R.string.escolha_app, Toast.LENGTH_LONG).show();
-            }
         }
     };
     private final View.OnLongClickListener btn1OnLongClickListener = new View.OnLongClickListener() {
@@ -124,16 +84,6 @@ public class HomeScreen extends Activity {
             return true;
         }
     };
-    private final View.OnClickListener btn2OnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            try {
-                startActivity(intent2);
-            } catch (Exception e) {
-                Toast.makeText(getApplicationContext(), R.string.escolha_app, Toast.LENGTH_LONG).show();
-            }
-        }
-    };
     private final View.OnLongClickListener btn2OnLongClickListener = new View.OnLongClickListener() {
         @Override
         public boolean onLongClick(View view) {
@@ -147,18 +97,6 @@ public class HomeScreen extends Activity {
             return true;
         }
     };
-
-    private final View.OnClickListener btn3OnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            try {
-                startActivity(intent3);
-            } catch (Exception e) {
-                Toast.makeText(getApplicationContext(), R.string.escolha_app, Toast.LENGTH_LONG).show();
-            }
-        }
-    };
-
     private final View.OnLongClickListener btn3OnLongClickListener = new View.OnLongClickListener() {
         @Override
         public boolean onLongClick(View view) {
@@ -172,7 +110,69 @@ public class HomeScreen extends Activity {
             return true;
         }
     };
-
+    private ImageButton btnCamera;
+    private final View.OnClickListener btnCameraOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                btnCamera.setEnabled(false);
+                ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
+            } else {
+                Intent cameraIntent = new Intent(MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA);
+                startActivity(cameraIntent);
+            }
+        }
+    };
+    private ImageButton btn1;
+    private ImageButton btn2;
+    private ImageButton btn3;
+    private Intent intent1;
+    private final View.OnClickListener btn1OnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            try {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    intent1.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT);
+                }
+                startActivity(intent1);
+            } catch (Exception e) {
+                Toast.makeText(getApplicationContext(), R.string.escolha_app, Toast.LENGTH_LONG).show();
+            }
+        }
+    };
+    private Intent intent2;
+    private final View.OnClickListener btn2OnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            try {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    intent2.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT);
+                }
+                startActivity(intent2);
+            } catch (Exception e) {
+                Toast.makeText(getApplicationContext(), R.string.escolha_app, Toast.LENGTH_LONG).show();
+            }
+        }
+    };
+    private Intent intent3;
+    private final View.OnClickListener btn3OnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            try {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    intent3.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT);
+                }
+                startActivity(intent3);
+            } catch (Exception e) {
+                Toast.makeText(getApplicationContext(), R.string.escolha_app, Toast.LENGTH_LONG).show();
+            }
+        }
+    };
+    private String Classe1;
+    private String Classe2;
+    private String Classe3;
+    private TextView tdate;
+    private TextClock textClock;
     private final View.OnLongClickListener btnChangeColor = new View.OnLongClickListener() {
         @Override
         public boolean onLongClick(View v) {
@@ -247,6 +247,7 @@ public class HomeScreen extends Activity {
             return false;
         }
     };
+    private int w, h;
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
@@ -438,6 +439,13 @@ public class HomeScreen extends Activity {
             btn3.setMinimumWidth(w);
             btn3.setMaxWidth(w);
             btn3.setBackground(icone3);
+            btn3.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(intent3);
+                    startActivity(intent);
+                }
+            });
 
         } catch (Exception ignored) {
         }
