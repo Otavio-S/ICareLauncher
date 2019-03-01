@@ -35,7 +35,7 @@
 
         <activity
             android:name=".Telas.Home.HomeScreen"
-            android:documentLaunchMode="never"
+            android:excludeFromRecents="true"
             android:screenOrientation="portrait"
             android:theme="@style/TransparentTheme"
             tools:targetApi="lollipop">
@@ -106,7 +106,7 @@
 
         <activity
             android:name=".Receiver.FireAlarm"
-            android:documentLaunchMode="intoExisting"
+            android:excludeFromRecents="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Design.Light.NoActionBar"
             tools:targetApi="lollipop" />
@@ -120,6 +120,8 @@
         <receiver
             android:name=".Receiver.AlarmReceiver"
             android:permission="true"
+            android:exported="true"
+            android:process=":remote"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="com.test.intent.action.ALARM" />
