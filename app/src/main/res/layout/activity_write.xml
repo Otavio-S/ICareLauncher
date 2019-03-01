@@ -30,8 +30,16 @@
     <Button
         android:id="@+id/btnSalvarWrite"
         style="@style/ButtonStyle"
-        android:textSize="20sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/salvar" />
+        android:text="@string/salvar"
+        android:textSize="20sp" />
+
+    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adViewMensagem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/banner_ad_unit_id" />
+
 </LinearLayout>

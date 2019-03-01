@@ -10,7 +10,9 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:text="@string/sos"
         android:textColor="@android:color/holo_red_dark"
@@ -25,10 +27,14 @@
         android:id="@+id/image1"
         android:layout_width="80dp"
         android:layout_height="80dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:contentDescription="@string/todo"
         android:src="@drawable/person"
         android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="@+id/guideline7"
+        app:layout_constraintBottom_toTopOf="@+id/guideline7"
         app:layout_constraintEnd_toStartOf="@+id/guideline8"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline6" />
@@ -38,7 +44,9 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:adjustViewBounds="true"
         android:background="@drawable/contatos"
         android:contentDescription="@string/todo"
@@ -51,9 +59,13 @@
         android:id="@+id/btnMensagem1"
         android:layout_width="80dp"
         android:layout_height="80dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/mensagens"
         android:contentDescription="@string/todo"
-        app:layout_constraintBottom_toBottomOf="@+id/guideline7"
+        app:layout_constraintBottom_toTopOf="@+id/guideline7"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline9"
         app:layout_constraintTop_toTopOf="@+id/guideline6" />
@@ -62,10 +74,14 @@
         android:id="@+id/image2"
         android:layout_width="80dp"
         android:layout_height="80dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:contentDescription="@string/todo"
         android:src="@drawable/person"
         android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/adViewSOS"
         app:layout_constraintEnd_toStartOf="@+id/guideline8"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline7" />
@@ -74,10 +90,14 @@
         android:id="@+id/btnContato2"
         android:layout_width="80dp"
         android:layout_height="80dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:adjustViewBounds="true"
         android:background="@drawable/contatos"
         android:contentDescription="@string/todo"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/adViewSOS"
         app:layout_constraintEnd_toStartOf="@+id/guideline9"
         app:layout_constraintStart_toStartOf="@+id/guideline8"
         app:layout_constraintTop_toTopOf="@+id/guideline7" />
@@ -86,45 +106,53 @@
         android:id="@+id/btnMensagem2"
         android:layout_width="80dp"
         android:layout_height="80dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/mensagens"
         android:contentDescription="@string/todo"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/adViewSOS"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline9"
         app:layout_constraintTop_toTopOf="@+id/guideline7" />
 
+    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adViewSOS"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/banner_ad_unit_id"
+        ads:layout_constraintBottom_toBottomOf="parent"
+        ads:layout_constraintEnd_toEndOf="parent"
+        ads:layout_constraintStart_toStartOf="parent" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.4" />
+        app:layout_constraintGuide_percent="0.3" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.7" />
+        app:layout_constraintGuide_percent="0.6" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="1dp"
         android:orientation="vertical"
-        app:layout_constraintEnd_toStartOf="@+id/guideline9"
-        app:layout_constraintGuide_percent="0.33333334"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintGuide_percent="0.33333334" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintGuide_percent="0.6666667"
-        app:layout_constraintStart_toEndOf="@+id/guideline8" />
+        app:layout_constraintGuide_percent="0.6666667" />
 
 </android.support.constraint.ConstraintLayout>

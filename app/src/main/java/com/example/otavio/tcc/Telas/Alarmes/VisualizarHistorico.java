@@ -8,6 +8,9 @@ import android.widget.TextView;
 import com.example.otavio.tcc.Model.Historico;
 import com.example.otavio.tcc.R;
 import com.example.otavio.tcc.SQLite.TabelaHistorico;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 
 import java.util.Objects;
 
@@ -22,6 +25,12 @@ public class VisualizarHistorico extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_visualizar_historico);
+
+        MobileAds.initialize(getApplicationContext(), getString(R.string.banner_ad_initialize));
+
+        AdView adView = findViewById(R.id.adViewVisualiazarHistorico);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
 
         Objects.requireNonNull(getSupportActionBar()).setTitle("");
 

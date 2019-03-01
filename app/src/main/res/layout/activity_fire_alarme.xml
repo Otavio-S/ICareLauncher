@@ -38,12 +38,14 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="66dp"
         android:text="@string/remedio"
         android:textColor="@android:color/black"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/btnPronto"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -62,24 +64,29 @@
         android:id="@+id/txtNomeAlarme"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="69dp"
+        android:layout_marginEnd="8dp"
         android:text="@string/occupy"
         android:textColor="@android:color/black"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/textView4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <TextView
         android:id="@+id/txtDescricaoFire"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="80dp"
+        android:layout_marginEnd="8dp"
         android:text="@string/occupy"
         android:textColor="@android:color/black"
         android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="@+id/txtNomeAlarme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtNomeAlarme" />
 
     <TextView

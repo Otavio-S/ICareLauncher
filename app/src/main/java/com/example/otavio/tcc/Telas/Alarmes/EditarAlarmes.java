@@ -22,6 +22,9 @@ import com.example.otavio.tcc.Picker.TimePicker;
 import com.example.otavio.tcc.R;
 import com.example.otavio.tcc.Receiver.AlarmReceiver;
 import com.example.otavio.tcc.SQLite.TabelaAlarmes;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -46,6 +49,12 @@ public class EditarAlarmes extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editar_alarme);
+
+        MobileAds.initialize(getApplicationContext(), getString(R.string.banner_ad_initialize));
+
+        AdView adView = findViewById(R.id.adViewEdAlarm);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);

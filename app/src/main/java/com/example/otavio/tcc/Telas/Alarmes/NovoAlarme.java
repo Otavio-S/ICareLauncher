@@ -20,6 +20,9 @@ import com.example.otavio.tcc.Picker.TimePicker;
 import com.example.otavio.tcc.R;
 import com.example.otavio.tcc.Receiver.AlarmReceiver;
 import com.example.otavio.tcc.SQLite.TabelaAlarmes;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 
 import java.util.Calendar;
 import java.util.Objects;
@@ -133,6 +136,12 @@ public class NovoAlarme extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_novo_alarme);
+
+        MobileAds.initialize(getApplicationContext(), getString(R.string.banner_ad_initialize));
+
+        AdView adView = findViewById(R.id.adViewNovoAlarm);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);

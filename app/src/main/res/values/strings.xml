@@ -64,4 +64,6 @@
     <string name="historico_deletado">Histórico deletado com sucesso!</string>
     <string name="certeza_excluir_alarme">Tem certeza que quer exluir o alarme?</string>
     <string name="alarme_deletado">Alarme deletado com sucesso!</string>
+    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-8321777709085519/9428115266</string>
+    <string name="banner_ad_initialize" translatable="false">ca-app-pub-8321777709085519~4125895113</string>
 </resources>

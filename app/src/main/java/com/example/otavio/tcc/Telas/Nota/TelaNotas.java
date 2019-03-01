@@ -11,6 +11,9 @@ import android.widget.Toast;
 import com.example.otavio.tcc.Model.Nota;
 import com.example.otavio.tcc.R;
 import com.example.otavio.tcc.SQLite.TabelaNotas;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 
 public class TelaNotas extends AppCompatActivity {
 
@@ -30,6 +33,12 @@ public class TelaNotas extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notas);
+
+        MobileAds.initialize(getApplicationContext(), getString(R.string.banner_ad_initialize));
+
+        AdView adView = findViewById(R.id.adViewNotas);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
 
         TextView txtNome = findViewById(R.id.txtNomeNota);
         txtNome.requestFocus();

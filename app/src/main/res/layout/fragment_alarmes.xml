@@ -8,6 +8,41 @@
     android:theme="@style/Theme.AppCompat"
     tools:layout_editor_absoluteY="81dp">
 
+    <LinearLayout
+        android:id="@+id/Linear1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/Linear2"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerViewAlarmes"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/Linear2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+
+        <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adViewAlarmes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            ads:adSize="BANNER"
+            ads:adUnitId="@string/banner_ad_unit_id" />
+
+    </LinearLayout>
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingAlarmes"
         android:layout_width="wrap_content"
@@ -15,23 +50,11 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="30dp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="60dp"
         android:clickable="true"
         android:focusable="true"
         app:backgroundTint="@color/primary"
-        app:srcCompat="@drawable/add" />
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerViewAlarmes"
-        android:layout_width="403dp"
-        android:layout_height="match_parent"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="6dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-    </android.support.v7.widget.RecyclerView>
+        app:srcCompat="@drawable/add"
+        tools:ignore="RelativeOverlap" />
 
 </RelativeLayout>

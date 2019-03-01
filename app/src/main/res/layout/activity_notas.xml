@@ -47,7 +47,7 @@
     <LinearLayout
         android:id="@+id/Linear2"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:orientation="vertical">
 
@@ -57,5 +57,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/salvar" />
+
+        <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adViewNotas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            ads:adSize="BANNER"
+            ads:adUnitId="@string/banner_ad_unit_id" />
     </LinearLayout>
 </RelativeLayout>

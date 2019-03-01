@@ -17,6 +17,9 @@ import com.example.otavio.tcc.Adapter.Alarmes_Adapter;
 import com.example.otavio.tcc.Model.Alarme;
 import com.example.otavio.tcc.R;
 import com.example.otavio.tcc.SQLite.TabelaAlarmes;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,6 +61,12 @@ public class FragmentAlarmes extends Fragment {
                 startActivityForResult(intent, 1);
             }
         });
+
+        MobileAds.initialize(getContext(), getString(R.string.banner_ad_initialize));
+
+        AdView adView = view.findViewById(R.id.adViewAlarmes);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
 
         return view;
     }

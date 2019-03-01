@@ -10,6 +10,9 @@ import android.widget.Toast;
 import com.example.otavio.tcc.Model.SOS;
 import com.example.otavio.tcc.R;
 import com.example.otavio.tcc.SQLite.TabelaSOS;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 
 import java.util.Objects;
 
@@ -23,6 +26,12 @@ public class Mensagem extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_write);
+
+        MobileAds.initialize(getApplicationContext(), getString(R.string.banner_ad_initialize));
+
+        AdView adView = findViewById(R.id.adViewMensagem);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
 
         Objects.requireNonNull(getSupportActionBar()).setTitle("");
 

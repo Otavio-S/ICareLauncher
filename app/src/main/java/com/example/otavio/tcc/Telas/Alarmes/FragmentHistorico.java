@@ -18,6 +18,9 @@ import com.example.otavio.tcc.Adapter.Historico_Adapter;
 import com.example.otavio.tcc.Model.Historico;
 import com.example.otavio.tcc.R;
 import com.example.otavio.tcc.SQLite.TabelaHistorico;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +53,12 @@ public class FragmentHistorico extends Fragment {
                 layoutManager.getOrientation());
 
         recyclerView.addItemDecoration(dividerItemDecoration);
+
+        MobileAds.initialize(getContext(), getString(R.string.banner_ad_initialize));
+
+        AdView adView = view.findViewById(R.id.adViewHistorico);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
 
         return view;
     }

@@ -32,6 +32,9 @@ import android.widget.Toast;
 import com.example.otavio.tcc.Model.SOS;
 import com.example.otavio.tcc.R;
 import com.example.otavio.tcc.SQLite.TabelaSOS;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -44,9 +47,34 @@ public class TelaSOS extends AppCompatActivity {
 
     private static final String[] phoneProjection = new String[]{ContactsContract.CommonDataKinds.Phone.DATA};
     private final Activity activity = this;
+    private final View.OnLongClickListener imgView1OnLongClickListener = new View.OnLongClickListener() {
+        @Override
+        public boolean onLongClick(View v) {
+            if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 201);
+            } else {
+                Intent pickPhoto = new Intent(Intent.ACTION_PICK,
+                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(pickPhoto, 101);
+            }
+            return false;
+        }
+    };
+    private final View.OnLongClickListener imgView2OnLongClickListener = new View.OnLongClickListener() {
+        @Override
+        public boolean onLongClick(View v) {
+            if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 202);
+            } else {
+                Intent pickPhoto = new Intent(Intent.ACTION_PICK,
+                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(pickPhoto, 102);
+            }
+            return false;
+        }
+    };
     private Uri picUri;
     private String num = "", message = "";
-
     private final View.OnClickListener btnContato1OnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -64,7 +92,6 @@ public class TelaSOS extends AppCompatActivity {
             }
         }
     };
-
     private final View.OnClickListener btnContato2OnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -82,7 +109,6 @@ public class TelaSOS extends AppCompatActivity {
             }
         }
     };
-
     private final View.OnClickListener btnMensagem1OnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -114,7 +140,6 @@ public class TelaSOS extends AppCompatActivity {
 
         }
     };
-
     private final View.OnClickListener btnMensagem2OnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -142,34 +167,6 @@ public class TelaSOS extends AppCompatActivity {
             } else {
                 Toast.makeText(getApplicationContext(), R.string.defina_contato, Toast.LENGTH_SHORT).show();
             }
-        }
-    };
-
-    private final View.OnLongClickListener imgView1OnLongClickListener = new View.OnLongClickListener() {
-        @Override
-        public boolean onLongClick(View v) {
-            if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 201);
-            } else {
-                Intent pickPhoto = new Intent(Intent.ACTION_PICK,
-                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(pickPhoto, 101);
-            }
-            return false;
-        }
-    };
-
-    private final View.OnLongClickListener imgView2OnLongClickListener = new View.OnLongClickListener() {
-        @Override
-        public boolean onLongClick(View v) {
-            if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 202);
-            } else {
-                Intent pickPhoto = new Intent(Intent.ACTION_PICK,
-                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(pickPhoto, 102);
-            }
-            return false;
         }
     };
 
@@ -506,6 +503,12 @@ public class TelaSOS extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sos);
+
+        MobileAds.initialize(getApplicationContext(), getString(R.string.banner_ad_initialize));
+
+        AdView adView = findViewById(R.id.adViewSOS);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
