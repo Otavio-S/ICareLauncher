@@ -5,7 +5,7 @@
     android:id="@+id/layoutHome"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Telas.Home.HomeScreen">
+    tools:context="com.otavio.icarelauncher.Telas.Home.HomeScreen">
 
     <TextClock
         android:id="@+id/textClock"

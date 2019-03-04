@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.otavio.tcc">
+    package="com.otavio.icarelauncher">
 
     <uses-permission android:name="android.permission.CALL_PHONE" />
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.SEND_SMS" />
 
-    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -34,7 +32,7 @@
             android:value="@string/banner_ad_initialize" />
 
         <activity
-            android:name=".Telas.Home.HomeScreen"
+            android:name="com.otavio.icarelauncher.Telas.Home.HomeScreen"
             android:excludeFromRecents="true"
             android:screenOrientation="portrait"
             android:theme="@style/TransparentTheme"
@@ -49,10 +47,10 @@
         </activity>
 
         <activity
-            android:name=".Telas.SOS.TelaSOS"
+            android:name="com.otavio.icarelauncher.Telas.SOS.TelaSOS"
             android:documentLaunchMode="intoExisting"
             android:label="TelaSOS"
-            android:parentActivityName=".Telas.Home.HomeScreen"
+            android:parentActivityName="com.otavio.icarelauncher.Telas.Home.HomeScreen"
             android:screenOrientation="portrait"
 
             android:theme="@style/ThemeAlarms"
@@ -63,10 +61,10 @@
         </activity>
 
         <activity
-            android:name=".Telas.Nota.TelaNotas"
+            android:name="com.otavio.icarelauncher.Telas.Nota.TelaNotas"
             android:documentLaunchMode="intoExisting"
             android:label="TelaNotas"
-            android:parentActivityName=".Telas.Home.HomeScreen"
+            android:parentActivityName="com.otavio.icarelauncher.Telas.Home.HomeScreen"
             android:theme="@style/ThemeAlarms"
             tools:targetApi="lollipop">
             <meta-data
@@ -75,56 +73,67 @@
         </activity>
 
         <activity
-            android:name=".Telas.Alarmes.TelaAlarmes"
+            android:name="com.otavio.icarelauncher.Telas.Alarmes.TelaAlarmes"
             android:documentLaunchMode="intoExisting"
             android:screenOrientation="portrait"
             android:theme="@style/ThemeAlarms"
             tools:targetApi="lollipop" />
 
         <activity
-            android:name=".Telas.Alarmes.EditarAlarmes"
-            android:parentActivityName=".Telas.Alarmes.TelaAlarmes"
+            android:name="com.otavio.icarelauncher.Telas.Alarmes.EditarAlarmes"
+            android:parentActivityName="com.otavio.icarelauncher.Telas.Alarmes.TelaAlarmes"
             android:screenOrientation="portrait"
             android:theme="@style/ThemeAlarms" />
 
         <activity
-            android:name=".Telas.Alarmes.VisualizarHistorico"
-            android:parentActivityName=".Telas.Alarmes.TelaAlarmes"
+            android:name="com.otavio.icarelauncher.Telas.Alarmes.VisualizarHistorico"
+            android:parentActivityName="com.otavio.icarelauncher.Telas.Alarmes.TelaAlarmes"
             android:screenOrientation="portrait"
             android:theme="@style/ThemeAlarms" />
 
         <activity
-            android:name=".Telas.Alarmes.NovoAlarme"
-            android:parentActivityName=".Telas.Alarmes.TelaAlarmes"
+            android:name="com.otavio.icarelauncher.Telas.Alarmes.NovoAlarme"
+            android:parentActivityName="com.otavio.icarelauncher.Telas.Alarmes.TelaAlarmes"
             android:screenOrientation="portrait"
             android:theme="@style/ThemeAlarms" />
 
         <activity
-            android:name=".Telas.Alarmes.Tabs"
+            android:name="com.otavio.icarelauncher.Telas.Alarmes.Tabs"
             android:screenOrientation="portrait"
             android:theme="@style/ThemeAlarms" />
 
         <activity
-            android:name=".Receiver.FireAlarm"
+            android:name="com.otavio.icarelauncher.Receiver.FireAlarm"
             android:excludeFromRecents="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Design.Light.NoActionBar"
             tools:targetApi="lollipop" />
 
         <activity
-            android:name=".Telas.SOS.Mensagem"
-            android:parentActivityName=".Telas.SOS.TelaSOS"
+            android:name="com.otavio.icarelauncher.Telas.SOS.Mensagem"
+            android:parentActivityName="com.otavio.icarelauncher.Telas.SOS.TelaSOS"
             android:screenOrientation="portrait"
             android:theme="@style/ThemeAlarms" />
 
         <receiver
-            android:name=".Receiver.AlarmReceiver"
-            android:permission="true"
+            android:name="com.otavio.icarelauncher.Receiver.AlarmReceiver"
             android:exported="true"
+            android:permission="true"
             android:process=":remote"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="com.test.intent.action.ALARM" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name="com.otavio.icarelauncher.Receiver.BootReceiver"
+            android:exported="true"
+            android:permission="true"
+            android:process=":remote"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
 
