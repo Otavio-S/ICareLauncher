@@ -110,13 +110,11 @@ public class HomeScreen extends Activity {
             return true;
         }
     };
-    private ImageButton btnCamera;
     private final View.OnClickListener btnCameraOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                btnCamera.setEnabled(false);
-                ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
+                ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.CAMERA}, 0);
             } else {
                 Intent cameraIntent = new Intent(MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA);
                 startActivity(cameraIntent);
@@ -462,7 +460,7 @@ public class HomeScreen extends Activity {
         ImageButton btnContatos = findViewById(R.id.btnContatos);
         btnContatos.setOnClickListener(btnContatosOnClickListener);
 
-        btnCamera = findViewById(R.id.btnCamera);
+        ImageButton btnCamera = findViewById(R.id.btnCamera);
         btnCamera.setOnClickListener(btnCameraOnClickListener);
 
         btnGaleria.setOnClickListener(btnGaleriaOnClickListener);

@@ -50,8 +50,8 @@ public class TelaSOS extends AppCompatActivity {
     private final View.OnLongClickListener imgView1OnLongClickListener = new View.OnLongClickListener() {
         @Override
         public boolean onLongClick(View v) {
-            if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 201);
+            if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 201);
             } else {
                 Intent pickPhoto = new Intent(Intent.ACTION_PICK,
                         android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -63,8 +63,8 @@ public class TelaSOS extends AppCompatActivity {
     private final View.OnLongClickListener imgView2OnLongClickListener = new View.OnLongClickListener() {
         @Override
         public boolean onLongClick(View v) {
-            if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 202);
+            if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 202);
             } else {
                 Intent pickPhoto = new Intent(Intent.ACTION_PICK,
                         android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -538,7 +538,7 @@ public class TelaSOS extends AppCompatActivity {
         });
 
         try {
-            @SuppressLint("SdCardPath") String caminho1 = "/data/user/0/com.example.otavio.tcc/app_Images/Photo1.jpg";
+            @SuppressLint("SdCardPath") String caminho1 = "/data/user/0/com.otavio.icarelauncher/app_Images/Photo1.jpg";
             Drawable drawable = Drawable.createFromPath(caminho1);
 
             Bitmap bitmap = ((BitmapDrawable) Objects.requireNonNull(drawable)).getBitmap();
@@ -563,7 +563,7 @@ public class TelaSOS extends AppCompatActivity {
         });
 
         try {
-            @SuppressLint("SdCardPath") String caminho2 = "/data/user/0/com.example.otavio.tcc/app_Images/Photo2.jpg";
+            @SuppressLint("SdCardPath") String caminho2 = "/data/user/0/com.otavio.icarelauncher/app_Images/Photo2.jpg";
             Drawable drawable = Drawable.createFromPath(caminho2);
 
             Bitmap bitmap = ((BitmapDrawable) Objects.requireNonNull(drawable)).getBitmap();
