@@ -10,14 +10,13 @@ import android.util.Log;
 import com.otavio.icarelauncher.Model.Alarme;
 import com.otavio.icarelauncher.SQLite.TabelaAlarmes;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
-import java.util.concurrent.TimeUnit;
 
 public class BootReceiver extends BroadcastReceiver {
 
@@ -61,18 +60,12 @@ public class BootReceiver extends BroadcastReceiver {
         TabelaAlarmes tabelaAlarmes = new TabelaAlarmes(context);
         Alarme alarme = tabelaAlarmes.carregaDadosPorID(id);
 
-        long d = 0;
         Calendar calendar = Calendar.getInstance();
         String dataSelected = alarme.getDataInicial();
-
-        Date c = calendar.getTime();
-        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-        String dataAtual = df.format(c);
 
         String horaInicial = String.valueOf(alarme.getHoraInicial());
         String minInicial = String.valueOf(alarme.getMinInicial());
 
-        //
         int h = Integer.parseInt(horaInicial);
         int m = Integer.parseInt(minInicial);
 
@@ -85,13 +78,9 @@ public class BootReceiver extends BroadcastReceiver {
         formate.format(new Date());
         int minOfDay = calendar.get(Calendar.MINUTE);
 
-        Log.v("TEST", "Service loaded: HORA DO DIA " + hourOfDay + " MINUTO " + minOfDay);
-
         String tempo = tabelaAlarmes.carregaDadosPorID(id).getTempo();
         int hora = Integer.parseInt(tempo.substring(0, 2));
         int min = Integer.parseInt(tempo.substring(3, 5));
-
-        Log.v("TEST", "Service loaded: HORA DO ALARME " + hora + " MINUTO " + min);
 
         if (hourOfDay > h) {
             do {
@@ -108,55 +97,38 @@ public class BootReceiver extends BroadcastReceiver {
             }
         }
 
+        int ano = Integer.valueOf(dataSelected.substring(6, 10));
+        int mes = Integer.valueOf(dataSelected.substring(3, 5)) - 1;
+        int dia = Integer.valueOf(dataSelected.substring(0, 2));
+
+        Calendar mycal = new GregorianCalendar(ano, mes, dia);
+        int daysInMonth = mycal.getActualMaximum(Calendar.DAY_OF_MONTH);
+
         if (m >= 60) {
             h += 1;
             m = m - 60;
         }
 
         if (h >= 24) {
-            h = h - 24;
+            do {
+                h = h - 24;
+                dia += 1;
+            } while (h >= 24);
         }
 
-        alarme.setHoraInicial(String.valueOf(h));
-        alarme.setMinInicial(String.valueOf(m));
-        tabelaAlarmes.alteraRegistro(alarme);
-
-        //
-
-        calendar.set(Calendar.HOUR_OF_DAY, h);
-        calendar.set(Calendar.MINUTE, m);
-        long inicio = calendar.getTimeInMillis();
-
-        Date dateF, dateI;
-        long diff;
-        try {
-            dateF = df.parse(dataSelected);
-            dateI = df.parse(dataAtual);
-            diff = dateF.getTime() - dateI.getTime();
-
-            if (diff < 0) {
-                do {
-                    int newD = Integer.valueOf(dataSelected.substring(0, 2));
-                    int daysInMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-                    if (newD + 1 > daysInMonth) {
-                        int newM = Integer.valueOf(dataSelected.substring(3, 5));
-                        dataSelected = "01".concat("-").concat(String.valueOf(newM)).concat(dataSelected.substring(5));
-                    } else {
-                        newD += 1;
-                        dataSelected = String.valueOf(newD).concat(dataSelected.substring(2));
-                    }
-                    dateF = df.parse(dataSelected);
-                    dateI = df.parse(dataAtual);
-                    diff = dateF.getTime() - dateI.getTime();
-                } while (diff < 0);
-            }
-
-            d = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
-        } catch (ParseException e) {
-            e.printStackTrace();
+        if (dia > daysInMonth) {
+            dia = dia - daysInMonth;
+            mes += 1;
         }
 
-        inicio = inicio + (86400000L * d);  //Add d days
+        if (mes > 11) {
+            mes = mes - 11;
+            ano = ano + 1;
+        }
+
+        Calendar alarm = Calendar.getInstance();
+        alarm.set(ano, mes, dia, h, m);
+        long inicio = alarm.getTimeInMillis();
 
         Objects.requireNonNull(alarmMgr).setExact(AlarmManager.RTC_WAKEUP, inicio, alarmIntent);
 

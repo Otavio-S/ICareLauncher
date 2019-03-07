@@ -26,15 +26,10 @@ import com.otavio.icarelauncher.R;
 import com.otavio.icarelauncher.Receiver.AlarmReceiver;
 import com.otavio.icarelauncher.SQLite.TabelaAlarmes;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
-import java.util.concurrent.TimeUnit;
 
 public class EditarAlarmes extends AppCompatActivity {
 
@@ -204,33 +199,18 @@ public class EditarAlarmes extends AppCompatActivity {
         TabelaAlarmes tabelaAlarmes = new TabelaAlarmes(getApplicationContext());
         Alarme alarme = tabelaAlarmes.carregaDadosPorID(id);
 
-        long d = 0;
-        Calendar calendar = Calendar.getInstance();
         String dataSelected = alarme.getDataInicial();
-
-        Date c = calendar.getTime();
-        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-        String dataAtual = df.format(c);
 
         String horaInicial = String.valueOf(alarme.getHoraInicial());
         String minInicial = String.valueOf(alarme.getMinInicial());
 
-        calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(horaInicial));
-        calendar.set(Calendar.MINUTE, Integer.parseInt(minInicial));
-        long inicio = calendar.getTimeInMillis();
+        int ano = Integer.valueOf(dataSelected.substring(6, 10));
+        int mes = Integer.valueOf(dataSelected.substring(3, 5)) - 1;
+        int dia = Integer.valueOf(dataSelected.substring(0, 2));
 
-        Date dateF, dateI;
-        long diff;
-        try {
-            dateF = df.parse(dataSelected);
-            dateI = df.parse(dataAtual);
-            diff = dateF.getTime() - dateI.getTime();
-            d = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        inicio = inicio + (86400000L * d);  //Add d days if time selected before now
+        Calendar alarm = Calendar.getInstance();
+        alarm.set(ano, mes, dia, Integer.valueOf(horaInicial), Integer.valueOf(minInicial));
+        long inicio = alarm.getTimeInMillis();
 
         Objects.requireNonNull(alarmMgr).setExact(AlarmManager.RTC_WAKEUP, inicio, alarmIntent);
 

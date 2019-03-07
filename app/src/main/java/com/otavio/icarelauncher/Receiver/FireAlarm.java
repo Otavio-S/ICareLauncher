@@ -29,6 +29,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -38,6 +39,7 @@ public class FireAlarm extends AppCompatActivity {
     private MediaPlayer mediaPlayer;
     private Vibrator vibration;
     private int id;
+    private Alarme alarme;
     private final View.OnClickListener btnNaoOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -74,8 +76,6 @@ public class FireAlarm extends AppCompatActivity {
             finish();
         }
     };
-    private Alarme alarme;
-
     private final View.OnClickListener btnProntoOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -233,13 +233,34 @@ public class FireAlarm extends AppCompatActivity {
         hourOfDay += hora;
         minOfDay += min;
 
+        String dataSelected = alarme.getDataInicial();
+        int ano = Integer.valueOf(dataSelected.substring(6, 10));
+        int mes = Integer.valueOf(dataSelected.substring(3, 5)) - 1;
+        int dia = Integer.valueOf(dataSelected.substring(0, 2));
+
+        Calendar mycal = new GregorianCalendar(ano, mes, dia);
+        int daysInMonth = mycal.getActualMaximum(Calendar.DAY_OF_MONTH);
+
         if (minOfDay >= 60) {
             hourOfDay += 1;
             minOfDay = minOfDay - 60;
         }
 
         if (hourOfDay >= 24) {
-            hourOfDay = hourOfDay - 24;
+            do {
+                hourOfDay = hourOfDay - 24;
+                dia += 1;
+            } while (hourOfDay >= 24);
+        }
+
+        if (dia > daysInMonth) {
+            dia = dia - daysInMonth;
+            mes += 1;
+        }
+
+        if (mes > 11) {
+            mes = mes - 11;
+            ano = ano + 1;
         }
 
         String m = String.valueOf(minOfDay);
@@ -255,13 +276,11 @@ public class FireAlarm extends AppCompatActivity {
         alarme.setMinInicial(m);
         tabelaAlarmes.alteraRegistro(alarme);
 
-        calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
-        calendar.set(Calendar.MINUTE, minOfDay);
+        Calendar alarm = Calendar.getInstance();
+        alarm.set(ano, mes, dia, hourOfDay, minOfDay);
+        long inicio = alarm.getTimeInMillis();
 
-        long horario = calendar.getTimeInMillis();
-
-        Objects.requireNonNull(alarmMgr).setExact(AlarmManager.RTC_WAKEUP, horario, alarmIntent);
+        Objects.requireNonNull(alarmMgr).setExact(AlarmManager.RTC_WAKEUP, inicio, alarmIntent);
     }
 
     private void startAlarmN() {
@@ -282,20 +301,39 @@ public class FireAlarm extends AppCompatActivity {
 
         minOfDay += 2;
 
+        String dataSelected = alarme.getDataInicial();
+        int ano = Integer.valueOf(dataSelected.substring(6, 10));
+        int mes = Integer.valueOf(dataSelected.substring(3, 5)) - 1;
+        int dia = Integer.valueOf(dataSelected.substring(0, 2));
+
+        Calendar mycal = new GregorianCalendar(ano, mes, dia);
+        int daysInMonth = mycal.getActualMaximum(Calendar.DAY_OF_MONTH);
+
         if (minOfDay >= 60) {
             hourOfDay += 1;
             minOfDay = minOfDay - 60;
         }
 
-        if (hourOfDay == 24) {
-            hourOfDay = 0;
+        if (hourOfDay >= 24) {
+            do {
+                hourOfDay = hourOfDay - 24;
+                dia += 1;
+            } while (hourOfDay >= 24);
         }
 
-        calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
-        calendar.set(Calendar.MINUTE, minOfDay);
+        if (dia > daysInMonth) {
+            dia = dia - daysInMonth;
+            mes += 1;
+        }
 
-        long inicio = calendar.getTimeInMillis();
+        if (mes > 11) {
+            mes = mes - 11;
+            ano = ano + 1;
+        }
+
+        Calendar alarm = Calendar.getInstance();
+        alarm.set(ano, mes, dia, hourOfDay, minOfDay);
+        long inicio = alarm.getTimeInMillis();
 
         Objects.requireNonNull(alarmMgr).setExact(AlarmManager.RTC_WAKEUP, inicio, alarmIntent);
 
