@@ -295,9 +295,9 @@ public class FireAlarm extends AppCompatActivity {
         calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
         calendar.set(Calendar.MINUTE, minOfDay);
 
-        long hora = calendar.getTimeInMillis();
+        long inicio = calendar.getTimeInMillis();
 
-        Objects.requireNonNull(alarmMgr).setExact(AlarmManager.RTC_WAKEUP, hora, alarmIntent);
+        Objects.requireNonNull(alarmMgr).setExact(AlarmManager.RTC_WAKEUP, inicio, alarmIntent);
 
     }
 

@@ -394,6 +394,7 @@ public class HomeScreen extends Activity {
         textClock.setText(textClock.getText());
 
         textClock.setOnLongClickListener(btnChangeColor);
+        tdate.setOnLongClickListener(btnChangeColor);
 
         try {
             this.Classe1 = tabelaIcones.carregaDados().get(0).getClasse();

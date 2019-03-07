@@ -10,6 +10,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <uses-feature android:name="android.hardware.camera.autofocus" />
     <uses-feature android:name="android.hardware.camera" />
@@ -114,6 +115,7 @@
 
         <receiver
             android:name="com.otavio.icarelauncher.Receiver.AlarmReceiver"
+            android:enabled="true"
             android:exported="true"
             android:permission="true"
             android:process=":remote"
@@ -125,12 +127,12 @@
 
         <receiver
             android:name="com.otavio.icarelauncher.Receiver.BootReceiver"
-            android:exported="true"
-            android:permission="true"
             android:process=":remote"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+                <action android:name="com.htc.intent.action.QUICKBOOT_POWERON" />
             </intent-filter>
         </receiver>
 

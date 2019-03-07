@@ -59,57 +59,6 @@ public class AlarmReceiver extends BroadcastReceiver {
             context.startActivity(bootIntent);
         }
 
-        /*} else if (Objects.requireNonNull(intent.getAction()).equals("android.intent.action.BOOT_COMPLETED")) {
-            this.context = context;
-
-            TabelaAlarmes tabelaAlarmes = new TabelaAlarmes(context);
-            List<Alarme> alarmeList = tabelaAlarmes.carregaDados();
-
-            int i;
-            int quant = alarmeList.size() - 1;
-
-            for (i = quant; i >= 0; i--) {
-                if (alarmeList.get(i).getLigado().equals("1")) {
-                    int h = Integer.parseInt(alarmeList.get(i).getHoraInicial());
-                    int m = Integer.parseInt(alarmeList.get(i).getMinInicial());
-
-                    Calendar calendar = Calendar.getInstance();
-                    SimpleDateFormat format = new SimpleDateFormat("HH", Locale.getDefault());
-                    format.format(new Date());
-                    int hourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
-
-                    SimpleDateFormat formate = new SimpleDateFormat("mm", Locale.getDefault());
-                    formate.format(new Date());
-                    int minOfDay = calendar.get(Calendar.MINUTE);
-
-                    if (h < hourOfDay || m < minOfDay) {
-                        Alarme alarme = tabelaAlarmes.carregaDadosPorID(i);
-
-                        String tempo = alarme.getTempo();
-                        int hora = Integer.parseInt(tempo.substring(0, 2));
-                        int min = Integer.parseInt(tempo.substring(3, 5));
-
-                        do {
-                            h += hora;
-                        } while (h <= hourOfDay);
-
-                        do {
-                            m += min;
-                        } while (m <= minOfDay);
-
-                        alarme.setHoraInicial(String.valueOf(h));
-                        alarme.setMinInicial(String.valueOf(m));
-
-                        tabelaAlarmes.alteraRegistro(alarme);
-                    }
-
-                    int id = Integer.parseInt(alarmeList.get(i).getID());
-                    startAlarm(id);
-
-                }
-            }*/
-        //}
-
     }
 
     private void startAlarm(int id) {

@@ -221,6 +221,7 @@ public class NovoAlarme extends AppCompatActivity {
         }
 
         inicio = inicio + (86400000L * d);  //Add d days
+        System.out.println("INICIO:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::" + inicio);
 
         Objects.requireNonNull(alarmMgr).setExact(AlarmManager.RTC_WAKEUP, inicio, alarmIntent);
 
